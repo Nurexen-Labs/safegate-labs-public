@@ -53,3 +53,12 @@ This is controlled pilot / Testnet-oriented evidence. It does not claim Mainnet 
 This repository is a public documentation and architecture repository.
 
 It does not include backend payment verification code, private admin logic, API keys, Supabase service role keys, receipt secrets, Pi access tokens, wallet passphrases, private debug screenshots, or production API credentials.
+---
+
+## Hackathon / Brainstorm Submission Pack
+
+SafeGate V9 hackathon / Brainstorm submission summary is available here:
+
+- [HACKATHON_SUBMISSION_PACK.md](./HACKATHON_SUBMISSION_PACK.md)
+
+This pack summarizes the one-line pitch, problem, solution, V8 evidence, V9 controlled Testnet payment spine evidence, public links, boundaries, and next roadmap.
