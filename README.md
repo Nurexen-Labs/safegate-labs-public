@@ -30,7 +30,24 @@ Security Check: https://safegatelabs.xyz/security-hardening-implementation-check
 Invoice Lite: https://safegatelabs.xyz/invoice-lite.html
 Invoice Security Checklist: https://safegatelabs.xyz/invoice-security-binding-checklist.html
 Invoice Lite Freeze Index: https://safegatelabs.xyz/invoice-lite-freeze-index.html
+---
 
+## V9 Controlled Testnet Payment Spine
+
+SafeGate V9 adds controlled Pi Sandbox / Testnet-oriented payment spine evidence.
+
+Observed flow:
+
+Pi authenticate → payments scope → durable V9 invoice → Pi.createPayment → 0.01 Test-Pi payment succeeded → PAYMENT_VERIFIED_TESTNET → guarded receipt/evidence → public verify URL.
+
+Public evidence:
+
+- V9 Final Freeze Note: https://safegate-v185-pi-debug-ready.vercel.app/v9-final-freeze-note.html
+- V9 Pi Payment Spine Evidence: https://safegate-v185-pi-debug-ready.vercel.app/v9-pi-payment-spine-evidence.html
+
+Boundary:
+
+This is controlled pilot / Testnet-oriented evidence. It does not claim Mainnet payment live, production readiness, official Pi partnership, custody, or a fully audited security product.
 ## Boundary
 
 This repository is a public documentation and architecture repository.
