@@ -1,4 +1,31 @@
-﻿# SafeGate Labs
+# SafeGate Labs
+
+SafeGate does not process payments.  
+SafeGate verifies what happened after payment.
+
+SafeGate is building the missing trust infrastructure for digital payments and Web3.
+
+## Start Here
+
+For a simple reviewer-friendly explanation, start with:
+
+[SafeGate Simple Reviewer Brief](./SAFEGATE_SIMPLE_REVIEWER_BRIEF.md)
+
+## Key Live Links
+
+Main site:  
+https://safegatelabs.xyz
+
+V9 Pi Payment Spine Evidence:  
+https://safegate-v185-pi-debug-ready.vercel.app/v9-pi-payment-spine-evidence.html
+
+V9 Final Freeze Note:  
+https://safegate-v185-pi-debug-ready.vercel.app/v9-final-freeze-note.html
+
+V9 Pi Payment Test:  
+https://safegate-v185-pi-debug-ready.vercel.app/v9-pi-payment.html
+ 
+ # SafeGate Labs
 
 Payment is the trigger. Trust is the product.
 
