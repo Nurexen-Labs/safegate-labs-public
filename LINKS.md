@@ -1,4 +1,32 @@
-﻿# SafeGate Public Links
+# SafeGate Public Links
+
+## Start Here for Reviewers
+
+Simple Reviewer Brief:  
+https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/SAFEGATE_SIMPLE_REVIEWER_BRIEF.md
+
+Main site:  
+https://safegatelabs.xyz
+
+V9 Pi Payment Spine Evidence:  
+https://safegate-v185-pi-debug-ready.vercel.app/v9-pi-payment-spine-evidence.html
+
+V9 Final Freeze Note:  
+https://safegate-v185-pi-debug-ready.vercel.app/v9-final-freeze-note.html
+
+V9 Pi Payment Test:  
+https://safegate-v185-pi-debug-ready.vercel.app/v9-pi-payment.html
+
+V9 API Test:  
+https://safegate-v185-pi-debug-ready.vercel.app/v9-api-test.html
+
+Public documentation repo:  
+https://github.com/Nurexen-Labs/safegate-labs-public
+
+---
+
+## Older / Archived Links
+ # SafeGate Public Links
 
 Main app: https://safegatelabs.xyz
 Start Here: https://safegatelabs.xyz/start-here-external-review-hub.html
