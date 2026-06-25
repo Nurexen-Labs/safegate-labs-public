@@ -1,6 +1,20 @@
 # SafeGate Public Links
 
 ## Start Here for Reviewers
+
+## V10–V12 Public Roadmap / Readiness
+
+V12 Trust State, Privacy and Web3 Plan:  
+[SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md](./SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md)
+
+V11 Security Hardening Plan:  
+[SAFEGATE_V11_SECURITY_HARDENING_PLAN.md](./SAFEGATE_V11_SECURITY_HARDENING_PLAN.md)
+
+V10 Submission Ready:  
+[SAFEGATE_V10_SUBMISSION_READY.md](./SAFEGATE_V10_SUBMISSION_READY.md)
+
+V10–V12 Roadmap:  
+[SAFEGATE_V10_V12_ROADMAP.md](./SAFEGATE_V10_V12_ROADMAP.md)
 Final Hackathon Submission Pack:  
 https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/HACKATHON_FINAL_SUBMISSION_PACK.md
 
