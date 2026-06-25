@@ -6,6 +6,8 @@ SafeGate verifies what happened after payment.
 SafeGate is building the missing trust infrastructure for digital payments and Web3.
 
 ## Start Here
+V10 Submission Ready:  
+[SAFEGATE_V10_SUBMISSION_READY.md](./SAFEGATE_V10_SUBMISSION_READY.md)
 Roadmap V10–V12:  
 [SAFEGATE_V10_V12_ROADMAP.md](./SAFEGATE_V10_V12_ROADMAP.md)
 Final Hackathon Submission Pack:  
