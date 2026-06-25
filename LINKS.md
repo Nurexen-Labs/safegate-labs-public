@@ -21,6 +21,7 @@ V10 Submission Ready:
 
 V10–V12 Roadmap:  
 [SAFEGATE_V10_V12_ROADMAP.md](./SAFEGATE_V10_V12_ROADMAP.md)
+
 Final Hackathon Submission Pack:  
 https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/HACKATHON_FINAL_SUBMISSION_PACK.md
 
