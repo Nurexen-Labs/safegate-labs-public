@@ -6,6 +6,12 @@ SafeGate verifies what happened after payment.
 SafeGate is building the missing trust infrastructure for digital payments and Web3.
 
 ## Start Here
+V11 Security Freeze Note:  
+[SAFEGATE V11 SECURITY FREEZE NOTE](https://safegate-v185-pi-debug-ready.vercel.app/v11-security-freeze-note.html)
+
+V11 Security Index:  
+[SAFEGATE V11 SECURITY INDEX](https://safegate-v185-pi-debug-ready.vercel.app/v11-security-index.html)
+
 V12 Trust State, Privacy and Web3 Plan:  
 [SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md](./SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md)
 
