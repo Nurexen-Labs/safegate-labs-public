@@ -6,6 +6,9 @@ SafeGate verifies what happened after payment.
 SafeGate is building the missing trust infrastructure for digital payments and Web3.
 
 ## Start Here
+V12 Trust State, Privacy and Web3 Plan:  
+[SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md](./SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md)
+
 V11 Security Hardening Plan:  
 [SAFEGATE_V11_SECURITY_HARDENING_PLAN.md](./SAFEGATE_V11_SECURITY_HARDENING_PLAN.md)
 
