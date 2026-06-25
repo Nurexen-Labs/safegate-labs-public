@@ -14,8 +14,8 @@ Roadmap V10–V12:
 
 Final Hackathon Submission Pack:  
 [HACKATHON_FINAL_SUBMISSION_PACK.md](./HACKATHON_FINAL_SUBMISSION_PACK.md)
-For a simple reviewer-friendly explanation, start with:
 
+For a simple reviewer-friendly explanation, start with:
 [SafeGate Simple Reviewer Brief](./SAFEGATE_SIMPLE_REVIEWER_BRIEF.md)
 
 ## Key Live Links
