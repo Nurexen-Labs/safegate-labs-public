@@ -1,6 +1,8 @@
 # SafeGate Public Links
 
 ## Start Here for Reviewers
+Final Hackathon Submission Pack:  
+https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/HACKATHON_FINAL_SUBMISSION_PACK.md
 
 Simple Reviewer Brief:  
 https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/SAFEGATE_SIMPLE_REVIEWER_BRIEF.md
