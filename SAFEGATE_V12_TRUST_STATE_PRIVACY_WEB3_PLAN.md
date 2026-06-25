@@ -34,13 +34,7 @@ The future is verifiable post-payment trust.
 
 ## Machine-Readable Trust States
 
-### Problem
-
-Most systems show payment status in a human interface, but other apps or services cannot easily understand the full post-payment outcome.
-
-### V12 Direction
-
-Define simple, standardized trust states that can be read by machines.
+SafeGate can define simple trust states that humans and systems can both understand.
 
 Example trust state:
 
@@ -49,27 +43,21 @@ Example trust state:
 - access: UNLOCKED
 - publicVerify: AVAILABLE
 
-### Expected Rule
-
 Trust state should be clear, predictable, and safe to expose publicly.
 
-### Short Line
+Short line:
 
 Trust should be readable by both humans and systems.
 
 ---
 
-## Public-Safe Verification Output
-
-### Problem
+## Public-Safe Verification
 
 Public verification should not expose private data, secrets, internal database details, or sensitive transaction information.
 
-### V12 Direction
+SafeGate should show enough to verify the outcome, but not enough to expose private user or merchant data.
 
-Create public-safe outputs for verification.
-
-Example public-safe verification fields:
+Example public-safe fields:
 
 - receiptId
 - paymentState
@@ -78,11 +66,7 @@ Example public-safe verification fields:
 - verifiedAt
 - safeToDisplay
 
-### Expected Rule
-
-Show enough to verify the outcome, but not enough to expose private user or merchant data.
-
-### Short Line
+Short line:
 
 Verify the result, not the private details.
 
@@ -90,11 +74,7 @@ Verify the result, not the private details.
 
 ## Privacy-Aware Evidence
 
-### Problem
-
 Evidence is useful, but too much evidence can expose too much information.
-
-### V12 Direction
 
 SafeGate should follow a minimum-data disclosure model.
 
@@ -110,11 +90,7 @@ Possible direction:
 - use public-safe IDs
 - support hash-based proof previews
 
-### Expected Rule
-
-Public verification should prove the outcome, not expose the whole private record.
-
-### Short Line
+Short line:
 
 Proof without overexposure.
 
@@ -122,22 +98,14 @@ Proof without overexposure.
 
 ## Minimum-Data Public Verify
 
-### Problem
-
-A public verify page can become dangerous if it reveals too much.
-
-### V12 Direction
-
-Public verify should be minimal.
-
-It should answer:
+Public verify should answer:
 
 - Was payment verified?
 - Was evidence created?
 - Was access state recorded?
 - Can this result be trusted?
 
-It should not expose:
+Public verify should not expose:
 
 - private user identity
 - private wallet details
@@ -146,11 +114,7 @@ It should not expose:
 - merchant-sensitive data
 - full payment secrets
 
-### Expected Rule
-
-Public verify should be useful, but controlled.
-
-### Short Line
+Short line:
 
 Public verify must be safe by design.
 
@@ -158,27 +122,19 @@ Public verify must be safe by design.
 
 ## Agent-Readable Trust Status
 
-### Problem
-
 In the future, apps, bots, AI agents, or automated services may need to know whether a payment-triggered action is trusted.
 
-### V12 Direction
-
-SafeGate can expose agent-readable trust states.
+SafeGate can prepare machine-readable trust states that future automated systems may consume.
 
 Correct conservative claim:
 
-SafeGate can prepare machine-readable trust states that future automated systems may consume.
+SafeGate prepares machine-readable trust states.
 
 Risky claim to avoid:
 
 SafeGate is a fully autonomous AI-agent payment network.
 
-### Expected Rule
-
-Use “machine-readable trust state” first. Avoid exaggerated AI-agent claims.
-
-### Short Line
+Short line:
 
 Do not sell hype. Define trust states.
 
@@ -186,13 +142,11 @@ Do not sell hype. Define trust states.
 
 ## Merchant Trust Dashboard Direction
 
-### Problem
+Merchants should not only see payment totals.
 
-Merchants need a clear overview of post-payment outcomes.
+Merchants should see post-payment trust state.
 
-### V12 Direction
-
-Create a dashboard direction for:
+Possible dashboard items:
 
 - verified payments
 - created receipts
@@ -204,11 +158,7 @@ Create a dashboard direction for:
 - refunds
 - public verify records
 
-### Expected Rule
-
-Merchant should not only see sales. Merchant should see trust state.
-
-### Short Line
+Short line:
 
 Merchants need proof, not only payment totals.
 
@@ -216,13 +166,7 @@ Merchants need proof, not only payment totals.
 
 ## Aggregate Reporting
 
-### Problem
-
-Ecosystems need insight, but raw private data should not be exposed.
-
-### V12 Direction
-
-SafeGate can later support aggregate reporting.
+SafeGate can later support aggregate reporting without exposing sensitive individual records.
 
 Examples:
 
@@ -232,11 +176,7 @@ Examples:
 - number of failed or disputed flows
 - merchant-level trust summaries
 
-### Expected Rule
-
-Aggregate reporting should not expose sensitive individual records.
-
-### Short Line
+Short line:
 
 Show patterns without exposing people.
 
@@ -244,11 +184,7 @@ Show patterns without exposing people.
 
 ## Payment Adapter Architecture
 
-### Problem
-
 SafeGate is Pi-first, but digital commerce exists across many payment systems.
-
-### V12 Direction
 
 SafeGate can prepare adapter-based architecture.
 
@@ -264,11 +200,7 @@ Example direction:
 - Future Web3 Adapter to SafeGate Trust State Engine
 - Future Digital Payment Adapter to SafeGate Trust State Engine
 
-### Expected Rule
-
-Payment rails can change. Trust logic should remain consistent.
-
-### Short Line
+Short line:
 
 Pi-first, not Pi-only.
 
@@ -276,11 +208,7 @@ Pi-first, not Pi-only.
 
 ## Web3 Expansion Direction
 
-### Problem
-
 Web3 commerce often has payment, but weak post-payment trust, proof, access, and merchant records.
-
-### V12 Direction
 
 SafeGate can become a chain-agnostic post-payment trust layer over time.
 
@@ -296,11 +224,7 @@ Possible future use cases:
 - RWA service proof
 - marketplace trust records
 
-### Expected Rule
-
-Start narrow, expand carefully.
-
-### Short Line
+Short line:
 
 SafeGate can grow from Pi evidence layer into Web3 trust infrastructure.
 
@@ -308,11 +232,7 @@ SafeGate can grow from Pi evidence layer into Web3 trust infrastructure.
 
 ## Privacy + Compliance Direction
 
-### Problem
-
 Future payment and merchant systems need both privacy and accountability.
-
-### V12 Direction
 
 SafeGate should support auditable privacy.
 
@@ -325,23 +245,13 @@ Meaning:
 - user protection
 - controlled evidence records
 
-### Expected Rule
-
-Privacy should not mean no proof. Proof should not mean full exposure.
-
-### Short Line
+Short line:
 
 Auditable privacy, not blind exposure.
 
 ---
 
 ## Standard Trust State Language
-
-### Problem
-
-Different apps use different words for payment and delivery status.
-
-### V12 Direction
 
 SafeGate can define standard state language.
 
@@ -358,11 +268,7 @@ Example states:
 - DISPUTED
 - REFUNDED
 
-### Expected Rule
-
-Clear states reduce confusion.
-
-### Short Line
+Short line:
 
 Trust needs a shared language.
 
