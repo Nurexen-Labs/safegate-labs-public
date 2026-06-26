@@ -16,7 +16,10 @@ Architecture is destiny.
 Live Review Hub:  
 [https://safegatelabs.xyz](https://safegatelabs.xyz)
 
-Status: SafeGate custom domain now opens the current review hub with V12, V11, and V9 evidence links.
+Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
+
+V12 Final Close Note:  
+[SAFEGATE_V12_FINAL_CLOSE_NOTE.md](./SAFEGATE_V12_FINAL_CLOSE_NOTE.md)
 
 V12 Final Freeze Note:  
 [SAFEGATE V12 FINAL FREEZE NOTE](https://safegatelabs.xyz/v12-final-freeze-note.html)
@@ -73,7 +76,7 @@ Internal working map:
 | V9 | Pi Sandbox / Testnet-oriented payment spine evidence | Closed |
 | V10 | Submission readiness | Closed |
 | V11 | Security hardening evidence pack | Closed |
-| V12 | Trust state / privacy / Web3 expansion architecture | Frozen |
+| V12 | Trust state / privacy / Web3 expansion architecture | Closed / Frozen |
 
 ---
 
@@ -109,6 +112,7 @@ SafeGate does not claim:
 - formal third-party security audit
 - complete enterprise audit infrastructure
 - complete privacy protocol
+- complete multi-chain production infrastructure
 
 SafeGate is currently a controlled MVP evidence-layer project.
 
@@ -124,7 +128,7 @@ SafeGate V10 prepared public submission readiness.
 
 SafeGate V11 added security hardening evidence around state transitions, idempotency, replay protection, fail-secure behavior, refund/dispute states, hash/timestamp proof preview, anti-enumeration IDs, and audit log preview.
 
-SafeGate V12 defines the trust-state, privacy-aware evidence, and Web3 expansion architecture.
+SafeGate V12 defined the trust-state, privacy-aware evidence, and Web3 expansion architecture.
 
 Together, these form the SafeGate Controlled MVP Evidence Pack.
 
@@ -160,6 +164,12 @@ V9 Pi Payment Test:
 
 ## Public Documentation
 
+V12 Final Close Note:  
+[SAFEGATE_V12_FINAL_CLOSE_NOTE.md](./SAFEGATE_V12_FINAL_CLOSE_NOTE.md)
+
+V11 Final Close Note:  
+[SAFEGATE_V11_FINAL_CLOSE_NOTE.md](./SAFEGATE_V11_FINAL_CLOSE_NOTE.md)
+
 Architecture:  
 [ARCHITECTURE.md](./ARCHITECTURE.md)
 
@@ -187,4 +197,6 @@ SafeGate verifies what happened after payment.
 
 Payment is the trigger. Trust is the product.
 
-SafeGate is now ready for external review, ecosystem feedback, and the next phase: Pilot Readiness.
+SafeGate Controlled MVP Evidence Pack is closed.
+
+Next public phase: Pilot Readiness.
