@@ -7,9 +7,12 @@ https://safegatelabs.xyz
 
 Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
 
+Pilot Readiness:  
+SAFEGATE_PILOT_READINESS.md
+
 ---
 
-## Controlled MVP Evidence Pack
+## Current Public Phase
 
 SafeGate Controlled MVP Evidence Pack — Closed  
 Next Phase: Pilot Readiness
@@ -23,6 +26,28 @@ Internal working map:
 | V10 | Submission readiness | Closed |
 | V11 | Security hardening evidence pack | Closed |
 | V12 | Trust state / privacy / Web3 expansion architecture | Closed |
+| Pilot Readiness | Controlled pilot preparation | Open |
+
+---
+
+## Pilot Readiness
+
+Pilot Readiness Document:  
+SAFEGATE_PILOT_READINESS.md
+
+Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pilot path.
+
+Pilot Readiness does not mean production launch.
+
+The pilot phase should help reviewers, early merchants, testers, and ecosystem partners understand:
+
+- what SafeGate does
+- what SafeGate does not claim
+- how the post-payment trust flow works
+- how evidence is created
+- how access state is represented
+- how merchant-side proof is shown
+- how public-safe trust states can be reviewed
 
 ---
 
@@ -95,6 +120,9 @@ https://safegate-v185-pi-debug-ready.vercel.app/v9-api-test.html
 README:  
 README.md
 
+Pilot Readiness:  
+SAFEGATE_PILOT_READINESS.md
+
 Architecture:  
 ARCHITECTURE.md
 
@@ -126,7 +154,7 @@ SafeGate does not claim:
 - complete privacy protocol
 - complete multi-chain production infrastructure
 
-SafeGate is currently a controlled MVP evidence-layer project.
+SafeGate is currently moving from controlled MVP evidence into controlled Pilot Readiness.
 
 ---
 
