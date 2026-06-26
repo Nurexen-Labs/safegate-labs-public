@@ -16,7 +16,10 @@ Architecture is destiny.
 Live Review Hub:  
 [https://safegatelabs.xyz](https://safegatelabs.xyz)
 
-Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
+Status: SafeGate Controlled MVP Evidence Pack is closed. SafeGate Pilot Readiness is open.
+
+Pilot Readiness Open Note:  
+[SAFEGATE_PILOT_READINESS_OPEN_NOTE.md](./SAFEGATE_PILOT_READINESS_OPEN_NOTE.md)
 
 Pilot Review Index Live Page:  
 [SAFEGATE PILOT REVIEW INDEX](https://safegatelabs.xyz/pilot-review-index.html)
@@ -81,7 +84,7 @@ SafeGate has completed its controlled MVP evidence chain from V8 to V12.
 External wording:
 
 SafeGate Controlled MVP Evidence Pack — Closed  
-Next Phase: Pilot Readiness
+SafeGate Pilot Readiness — Open
 
 Internal working map:
 
@@ -113,6 +116,9 @@ Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pil
 - how access state is represented
 - how merchant-side proof is shown
 - how public-safe trust states can be reviewed
+
+Pilot Readiness Open Note:  
+[SAFEGATE_PILOT_READINESS_OPEN_NOTE.md](./SAFEGATE_PILOT_READINESS_OPEN_NOTE.md)
 
 Pilot Review Index Live Page:  
 [https://safegatelabs.xyz/pilot-review-index.html](https://safegatelabs.xyz/pilot-review-index.html)
@@ -266,6 +272,9 @@ V9 Pi Payment Test:
 
 ## Public Documentation
 
+Pilot Readiness Open Note:  
+[SAFEGATE_PILOT_READINESS_OPEN_NOTE.md](./SAFEGATE_PILOT_READINESS_OPEN_NOTE.md)
+
 Pilot Readiness:  
 [SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
 
@@ -301,4 +310,6 @@ Payment is the trigger. Trust is the product.
 
 SafeGate Controlled MVP Evidence Pack is closed.
 
-Next public phase: Pilot Readiness.
+SafeGate Pilot Readiness is open.
+
+Next direction: Controlled Pilot Execution.
