@@ -15,6 +15,7 @@ Payment is the trigger. Trust is the product.
 | Controlled MVP Evidence Pack | Complete / frozen for review |
 | Pilot Readiness | Open |
 | Controlled Pi Testnet Payment Spine | PASSED |
+| External Technical Review Note | Available |
 | Controlled Pilot Execution | Not yet claimed as commercial pilot |
 | Production Readiness | Not claimed |
 | Pi Mainnet Settlement | Not claimed |
@@ -59,6 +60,7 @@ SafeGate verifies post-payment outcomes.
 | https://www.safegatelabs.xyz | Main live SafeGate Review Hub |
 | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html | V9 controlled Pi Testnet payment-spine evidence |
 | ./SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md | Public-safe controlled Pi Testnet payment-spine pass note |
+| ./SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md | External technical review note |
 | ./SAFEGATE_PILOT_READINESS_CLARITY_UPDATE.md | Pilot Readiness Clarity Update |
 | ./SAFEGATE_PILOT_READINESS_OPEN_NOTE.md | Pilot Readiness open note |
 | ./LINKS.md | Public links and reviewer order |
@@ -96,6 +98,37 @@ The controlled result reached:
 This closes the most important controlled V9 payment-spine gap.
 
 SafeGate can now show a controlled Pi Testnet evidence path from Pi Browser payment flow to backend-verified state, guarded receipt/evidence generation, public verification, and access unlock after backend verification.
+
+---
+
+## External Technical Review Note
+
+SafeGate now has a dedicated external technical review note.
+
+This note is designed for software developers, security-minded reviewers, and architecture reviewers.
+
+The purpose is not to ask for praise.
+
+The purpose is to ask:
+
+Where would this architecture break first if it moved from controlled Testnet evidence to a real pilot environment?
+
+Reviewers are asked to examine:
+
+- state machine strictness
+- illegal state transition blocking
+- approve / complete idempotency
+- replay resistance
+- receipt/evidence creation guard
+- minimum-disclosure public verify
+- fail-secure error handling
+- Supabase state handling
+- duplicate callback behavior
+- separation between controlled evidence and future production hardening
+
+Document:
+
+./SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md
 
 ---
 
@@ -139,6 +172,7 @@ SafeGate currently claims:
 - guarded receipt/evidence direction
 - minimum-disclosure public verification direction
 - Pilot Readiness preparation
+- external technical review note availability
 
 SafeGate does not currently claim:
 
@@ -190,11 +224,12 @@ Public evidence should only show minimum-disclosure confirmation such as:
 | 1 | Main Review Hub | Gives the safest current overview and boundaries |
 | 2 | V9 Payment Spine Evidence | Shows the controlled Pi Testnet payment-spine result |
 | 3 | Controlled Pi Testnet Payment Spine Pass Note | Public-safe written record of the passed flow |
-| 4 | Pilot Review Index | Organizes the review surface |
-| 5 | V11 Security Logic Index | Explains browser-side security logic previews |
-| 6 | V12 Trust-State / Privacy / Web3 Architecture | Explains longer-term architecture direction |
-| 7 | Pilot Evidence Intake | Local public-safe evidence object generator |
-| 8 | Pilot Readiness Page | Explains preparation stage and remaining boundaries |
+| 4 | External Technical Review Note | Serious technical-review entry point |
+| 5 | Pilot Review Index | Organizes the review surface |
+| 6 | Pilot Readiness Page | Explains preparation stage and remaining boundaries |
+| 7 | V11 Security Logic Index | Explains browser-side security logic previews |
+| 8 | V12 Trust-State / Privacy / Web3 Architecture | Explains longer-term architecture direction |
+| 9 | Pilot Evidence Intake | Local public-safe evidence object generator |
 
 ---
 
@@ -219,6 +254,7 @@ Public evidence should only show minimum-disclosure confirmation such as:
 | Document | Purpose |
 |---|---|
 | ./SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md | Public-safe record of the controlled Pi Testnet payment-spine pass |
+| ./SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md | External technical review note |
 | ./SAFEGATE_PILOT_READINESS_CLARITY_UPDATE.md | Explains the latest clarity update and public boundaries |
 | ./SAFEGATE_PILOT_READINESS_OPEN_NOTE.md | Explains the open Pilot Readiness stage |
 | ./SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md | Public-safe evidence template |
@@ -329,6 +365,7 @@ Current Pilot Readiness status:
 - security logic previews available
 - evidence intake available
 - public-safe boundaries clarified
+- external technical review note available
 
 Still not claimed:
 
@@ -364,10 +401,10 @@ Next practical closure targets:
 
 - package public-safe payment-spine evidence
 - redact raw screenshots before external sharing
-- update Main Review Hub status
-- prepare one-page external technical review note
+- prepare one-page external reviewer message
 - repeat controlled payment-spine test with at least one additional external tester when feasible
 - prepare commercial pilot execution checklist without claiming production readiness
+- keep the review surface simple and boundary-safe
 
 ---
 
