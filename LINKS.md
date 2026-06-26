@@ -7,6 +7,9 @@ https://safegatelabs.xyz
 
 Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
 
+Pilot Review Index Live Page:  
+https://safegatelabs.xyz/pilot-review-index.html
+
 Pilot Readiness Live Page:  
 https://safegatelabs.xyz/pilot-readiness.html
 
@@ -36,11 +39,15 @@ Internal working map:
 | V11 | Security hardening evidence pack | Closed |
 | V12 | Trust state / privacy / Web3 expansion architecture | Closed |
 | Pilot Readiness | Controlled pilot preparation | Open |
+| Pilot Review Index | Public pilot overview | Live |
 | Pilot Evidence Intake | Public-safe evidence object generator | Live |
 
 ---
 
 ## Pilot Readiness
+
+Pilot Review Index Live Page:  
+https://safegatelabs.xyz/pilot-review-index.html
 
 Pilot Readiness Live Page:  
 https://safegatelabs.xyz/pilot-readiness.html
@@ -57,6 +64,8 @@ SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
 Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pilot path.
 
 Pilot Readiness does not mean production launch.
+
+Pilot Review Index gives reviewers and pilot participants a clean overview of the current public phase.
 
 Pilot Evidence Intake generates a public-safe evidence object locally.
 
