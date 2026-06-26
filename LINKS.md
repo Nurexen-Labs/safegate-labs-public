@@ -5,7 +5,10 @@
 Live Review Hub:  
 https://safegatelabs.xyz
 
-Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
+Status: SafeGate Controlled MVP Evidence Pack is closed. SafeGate Pilot Readiness is open.
+
+Pilot Readiness Open Note:  
+SAFEGATE_PILOT_READINESS_OPEN_NOTE.md
 
 Pilot Review Index Live Page:  
 https://safegatelabs.xyz/pilot-review-index.html
@@ -27,7 +30,7 @@ SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
 ## Current Public Phase
 
 SafeGate Controlled MVP Evidence Pack — Closed  
-Next Phase: Pilot Readiness
+SafeGate Pilot Readiness — Open
 
 Internal working map:
 
@@ -45,6 +48,9 @@ Internal working map:
 ---
 
 ## Pilot Readiness
+
+Pilot Readiness Open Note:  
+SAFEGATE_PILOT_READINESS_OPEN_NOTE.md
 
 Pilot Review Index Live Page:  
 https://safegatelabs.xyz/pilot-review-index.html
@@ -117,6 +123,19 @@ Pilot evidence must not include:
 
 ---
 
+## Suggested Pilot Target
+
+Initial controlled pilot target:
+
+- 5 to 10 pilot merchant or test scenarios
+- 10 to 30 external tester/reviewer-style sessions
+- public-safe screenshots or short recordings
+- short written feedback
+- clear pass/fail and issue notes
+- strict boundary confirmation
+
+---
+
 ## V12 — Trust State / Privacy / Web3
 
 V12 Final Close Note:  
@@ -186,6 +205,9 @@ https://safegate-v185-pi-debug-ready.vercel.app/v9-api-test.html
 README:  
 README.md
 
+Pilot Readiness Open Note:  
+SAFEGATE_PILOT_READINESS_OPEN_NOTE.md
+
 Pilot Readiness:  
 SAFEGATE_PILOT_READINESS.md
 
@@ -238,6 +260,6 @@ Architecture is destiny.
 
 ---
 
-## Next Public Phase
+## Next Direction
 
-Pilot Readiness.
+Controlled Pilot Execution.
