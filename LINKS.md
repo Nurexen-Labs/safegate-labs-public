@@ -7,7 +7,13 @@ https://safegatelabs.xyz
 
 Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
 
-Pilot Readiness:  
+Pilot Readiness Live Page:  
+https://safegatelabs.xyz/pilot-readiness.html
+
+Pilot Evidence Intake Live Page:  
+https://safegatelabs.xyz/pilot-evidence-intake.html
+
+Pilot Readiness Document:  
 SAFEGATE_PILOT_READINESS.md
 
 Pilot Evidence Template:  
@@ -30,10 +36,17 @@ Internal working map:
 | V11 | Security hardening evidence pack | Closed |
 | V12 | Trust state / privacy / Web3 expansion architecture | Closed |
 | Pilot Readiness | Controlled pilot preparation | Open |
+| Pilot Evidence Intake | Public-safe evidence object generator | Live |
 
 ---
 
 ## Pilot Readiness
+
+Pilot Readiness Live Page:  
+https://safegatelabs.xyz/pilot-readiness.html
+
+Pilot Evidence Intake Live Page:  
+https://safegatelabs.xyz/pilot-evidence-intake.html
 
 Pilot Readiness Document:  
 SAFEGATE_PILOT_READINESS.md
@@ -45,6 +58,14 @@ Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pil
 
 Pilot Readiness does not mean production launch.
 
+Pilot Evidence Intake generates a public-safe evidence object locally.
+
+Pilot Evidence Intake does not store server-side data.
+
+Pilot Evidence Intake does not process payments.
+
+Pilot Evidence Intake does not claim Pi Mainnet settlement.
+
 The pilot phase should help reviewers, early merchants, testers, and ecosystem partners understand:
 
 - what SafeGate does
@@ -54,6 +75,36 @@ The pilot phase should help reviewers, early merchants, testers, and ecosystem p
 - how access state is represented
 - how merchant-side proof is shown
 - how public-safe trust states can be reviewed
+
+---
+
+## Pilot Evidence Boundary
+
+Pilot evidence must be public-safe.
+
+Pilot evidence may include:
+
+- tester type
+- device/browser type
+- general location
+- SafeGate page tested
+- test scenario
+- expected result
+- observed result
+- pass/fail status
+- public-safe screenshot or recording
+- short feedback
+- boundary confirmation
+
+Pilot evidence must not include:
+
+- private keys
+- seed phrases
+- service-role secrets
+- raw personally identifiable data
+- private wallet data
+- sensitive merchant/customer financial information
+- private merchant customer records
 
 ---
 
@@ -146,36 +197,6 @@ NOTICE.md
 
 Roadmap:  
 ROADMAP.md
-
----
-
-## Pilot Evidence Boundary
-
-Pilot evidence must be public-safe.
-
-Pilot evidence may include:
-
-- tester type
-- device/browser type
-- general location
-- SafeGate page tested
-- test scenario
-- expected result
-- observed result
-- pass/fail status
-- public-safe screenshot or recording
-- short feedback
-- boundary confirmation
-
-Pilot evidence must not include:
-
-- private keys
-- seed phrases
-- service-role secrets
-- raw personally identifiable data
-- private wallet data
-- sensitive merchant/customer financial information
-- private merchant customer records
 
 ---
 
