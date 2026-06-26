@@ -18,6 +18,9 @@ Live Review Hub:
 
 Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
 
+Pilot Readiness:  
+[SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
+
 V12 Final Close Note:  
 [SAFEGATE_V12_FINAL_CLOSE_NOTE.md](./SAFEGATE_V12_FINAL_CLOSE_NOTE.md)
 
@@ -76,7 +79,29 @@ Internal working map:
 | V9 | Pi Sandbox / Testnet-oriented payment spine evidence | Closed |
 | V10 | Submission readiness | Closed |
 | V11 | Security hardening evidence pack | Closed |
-| V12 | Trust state / privacy / Web3 expansion architecture | Closed / Frozen |
+| V12 | Trust state / privacy / Web3 expansion architecture | Closed |
+| Pilot Readiness | Controlled pilot preparation | Open |
+
+---
+
+## Pilot Readiness
+
+SafeGate is now preparing for a controlled pilot phase.
+
+Pilot Readiness does not mean production launch.
+
+Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pilot path where reviewers, early merchants, testers, and ecosystem partners can understand:
+
+- what SafeGate does
+- what SafeGate does not claim
+- how the post-payment trust flow works
+- how evidence is created
+- how access state is represented
+- how merchant-side proof is shown
+- how public-safe trust states can be reviewed
+
+Pilot Readiness document:  
+[SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
 
 ---
 
@@ -114,7 +139,7 @@ SafeGate does not claim:
 - complete privacy protocol
 - complete multi-chain production infrastructure
 
-SafeGate is currently a controlled MVP evidence-layer project.
+SafeGate is currently moving from controlled MVP evidence into controlled Pilot Readiness.
 
 ---
 
@@ -128,9 +153,13 @@ SafeGate V10 prepared public submission readiness.
 
 SafeGate V11 added security hardening evidence around state transitions, idempotency, replay protection, fail-secure behavior, refund/dispute states, hash/timestamp proof preview, anti-enumeration IDs, and audit log preview.
 
-SafeGate V12 defined the trust-state, privacy-aware evidence, and Web3 expansion architecture.
+SafeGate V12 defines the trust-state, privacy-aware evidence, and Web3 expansion architecture.
 
 Together, these form the SafeGate Controlled MVP Evidence Pack.
+
+That evidence pack is now closed.
+
+The next public phase is Pilot Readiness.
 
 ---
 
@@ -164,11 +193,8 @@ V9 Pi Payment Test:
 
 ## Public Documentation
 
-V12 Final Close Note:  
-[SAFEGATE_V12_FINAL_CLOSE_NOTE.md](./SAFEGATE_V12_FINAL_CLOSE_NOTE.md)
-
-V11 Final Close Note:  
-[SAFEGATE_V11_FINAL_CLOSE_NOTE.md](./SAFEGATE_V11_FINAL_CLOSE_NOTE.md)
+Pilot Readiness:  
+[SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
 
 Architecture:  
 [ARCHITECTURE.md](./ARCHITECTURE.md)
