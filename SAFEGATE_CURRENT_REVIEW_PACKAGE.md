@@ -14,6 +14,14 @@ Payment is the trigger. Trust is the product.
 |---|---|
 | Controlled Pi Testnet Payment Spine | PASSED |
 | Pilot Readiness | Open |
+| AI Review Risk Consensus | Available |
+| V9.1 Backend + Integrity Hardening Plan | Available |
+| Backend Behavior Evidence Matrix | Available |
+| Receipt Integrity Plan | Available |
+| Pi Verification Depth Note | Available |
+| Public Verify Freshness Policy | Available |
+| Formal State Machine Table | Available |
+| Merchant Explanation | Available |
 | Public-Safe Evidence Pack | Available |
 | External Technical Review Note | Available |
 | Controlled Pilot Execution Checklist | Available |
@@ -21,6 +29,23 @@ Payment is the trigger. Trust is the product.
 | Pi Mainnet Settlement | Not claimed |
 | Official Pi Partnership | Not claimed |
 | Formal Third-Party Audit | Not claimed |
+| Security Certification | Not claimed |
+| Tamper-Proof Infrastructure | Not claimed |
+| Independent Cryptographic Verification | Not yet claimed |
+
+---
+
+## Important Boundary
+
+This review package is not a production-readiness claim.
+
+It is not a formal audit.
+
+It is not a security certification.
+
+It is not an official Pi partnership claim.
+
+It is a public-safe review package for SafeGate’s current Pilot Readiness stage after a controlled Pi Testnet payment-spine pass.
 
 ---
 
@@ -81,13 +106,28 @@ The controlled test reached:
 
 | Document | Purpose |
 |---|---|
+| README.md | Public repository overview |
+| LINKS.md | Full public link index and reviewer order |
 | SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md | Public-safe record of the controlled Pi Testnet payment-spine pass |
 | SAFEGATE_PUBLIC_SAFE_PAYMENT_SPINE_EVIDENCE_PACK.md | Public-safe evidence packaging rules and summary |
 | SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md | Technical review entry point for software/security reviewers |
 | SAFEGATE_CONTROLLED_PILOT_EXECUTION_CHECKLIST.md | Checklist for moving from evidence to controlled pilot planning |
 | HACKATHON_SUBMISSION_PACK.md | Hackathon-oriented summary |
-| README.md | Public repository overview |
-| LINKS.md | Full public link index |
+
+---
+
+## V9.1 Hardening Documents
+
+| Document | Purpose |
+|---|---|
+| SAFEGATE_AI_REVIEW_RISK_CONSENSUS_V9.md | Summarizes AI-assisted risk findings from Gemini, Claude, DeepSeek, Grok, and internal review |
+| SAFEGATE_V9_1_BACKEND_HARDENING_PLAN.md | Defines the next backend + integrity hardening layer before controlled pilot execution |
+| SAFEGATE_BACKEND_BEHAVIOR_EVIDENCE_MATRIX.md | Makes endpoint behavior reviewable under duplicate, replay, mismatch, timeout, and failure scenarios |
+| SAFEGATE_RECEIPT_INTEGRITY_PLAN.md | Defines future receipt/evidence hash, signature/HMAC, lifecycle, and tamper-detection direction |
+| SAFEGATE_PI_VERIFICATION_DEPTH_NOTE.md | Clarifies what backend-verified payment state should technically verify |
+| SAFEGATE_PUBLIC_VERIFY_FRESHNESS_POLICY.md | Defines freshness, expiry, revocation, dispute, stale-data, and fail-secure public verify direction |
+| SAFEGATE_FORMAL_STATE_MACHINE_TABLE.md | Defines legal/illegal state transitions, timeout states, replay states, and access unlock conditions |
+| SAFEGATE_MERCHANT_EXPLANATION.md | Explains SafeGate in simple merchant-facing language |
 
 ---
 
@@ -126,6 +166,10 @@ SafeGate is not currently claiming:
 - enterprise-grade security certification
 - high-volume production operation
 - completed commercial pilot execution
+- complete privacy protocol
+- secure system
+- tamper-proof infrastructure
+- independently verifiable cryptographic proof
 
 ---
 
@@ -143,9 +187,211 @@ This is the core technical distinction.
 
 ---
 
+## V9.1 Backend + Integrity Hardening Direction
+
+After the controlled V9 payment-spine pass, technical reviews identified the next engineering frontier:
+
+SafeGate must make backend behavior clearer, safer, and more externally reviewable under duplicate callbacks, replay attempts, timeout states, database failures, stale public verification, and receipt integrity risks.
+
+This next layer is tracked as:
+
+**V9.1 Backend + Integrity Hardening**
+
+V9.1 is not a production claim.
+
+V9.1 is not a formal audit claim.
+
+V9.1 is not a security certification.
+
+V9.1 is a hardening direction before stronger controlled pilot execution.
+
+---
+
+## AI Review Risk Consensus
+
+SafeGate collected AI-assisted technical review feedback from Gemini, Claude, DeepSeek, Grok, and internal review.
+
+Common strengths identified:
+
+- backend-verified access unlock
+- separation between payment layer and trust layer
+- receipt/evidence guard concept
+- minimum-disclosure public verify
+- disciplined claim boundaries
+
+Common risks identified:
+
+- duplicate callback behavior
+- idempotency
+- replay protection
+- timeout / pending-state handling
+- Supabase / durable-state failure behavior
+- backend behavior external verifiability
+- cryptographic receipt integrity
+- Pi verification depth
+- public verify freshness / stale-data risk
+- rate limiting / abuse resistance
+- merchant-facing simplicity
+
+This review consensus is advisory risk tracking.
+
+It is not a third-party audit.
+
+It is not a security certification.
+
+---
+
+## Backend Behavior Evidence Matrix
+
+The backend behavior matrix defines expected SafeGate behavior for scenarios such as:
+
+- valid invoice create
+- valid approve
+- duplicate approve
+- valid complete
+- duplicate complete
+- missing paymentId
+- missing txid
+- paymentId mismatch
+- receipt before payment verified
+- duplicate receipt/evidence request
+- mismatched receipt/evidence public verify
+- unknown receipt/evidence public verify
+- backend internal error
+
+The goal is to show which behaviors are:
+
+- demonstrated
+- partially shown
+- needing live repeat evidence
+- planned for V9.1 hardening
+- not claimed
+
+---
+
+## Receipt Integrity Direction
+
+Minimum-disclosure public verify protects privacy.
+
+However, minimum-disclosure alone is not the same as cryptographic integrity.
+
+SafeGate’s receipt integrity direction includes:
+
+- canonical receipt payload
+- canonical evidence summary payload
+- receipt hash
+- evidence hash
+- server-side HMAC or signature direction
+- issuedAt timestamp
+- optional expiresAt
+- immutable receipt/evidence binding
+- tamper-detection behavior
+- public-safe integrity metadata
+
+SafeGate does not currently claim tamper-proof infrastructure.
+
+SafeGate does not currently claim independent cryptographic verification.
+
+---
+
+## Pi Verification Depth
+
+SafeGate should avoid vague “backend verified” language.
+
+Backend verification should map to concrete checks such as:
+
+- invoice exists
+- invoice is still eligible
+- paymentId exists
+- paymentId is bound to invoice
+- amount matches invoice
+- payment environment is correct
+- payment state is completed/verified
+- txid exists when required
+- txid is not reused
+- receipt/evidence is not duplicated
+- access state remains locked before verification
+
+Controlled Pi Testnet payment-spine pass does not equal Pi Mainnet settlement.
+
+---
+
+## Public Verify Freshness
+
+Public verify should not become a stale or misleading trust signal.
+
+Future public verify direction should distinguish:
+
+- verifiedAt
+- issuedAt
+- updatedAt
+- lastCheckedAt
+- expiresAt if implemented
+- receiptStatus
+- accessStatus
+- freshnessStatus
+- integrityStatus if implemented
+
+A payment may have been verified at one time.
+
+That does not always mean related access remains active forever.
+
+Public verify should eventually show, in a minimum-disclosure way, whether a trust record is active, expired, revoked, disputed, stale, unavailable, or review-required.
+
+---
+
+## Formal State Machine Direction
+
+SafeGate’s formal state machine direction defines:
+
+- invoice states
+- payment states
+- receipt states
+- evidence states
+- access states
+- public verify states
+- legal transitions
+- illegal transitions
+- duplicate callback behavior
+- replay behavior
+- timeout behavior
+- durable-state failure behavior
+- access unlock conditions
+- public verify active conditions
+
+Core rule:
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+Frontend callback alone must never unlock access.
+
+---
+
+## Merchant Explanation
+
+SafeGate includes a merchant-facing explanation.
+
+Merchant value:
+
+- clearer post-payment records
+- safer access unlock logic
+- receipt/evidence trail
+- public-safe proof
+- support/dispute context
+- less reliance on screenshots or manual claims
+- structured trust state after payment
+
+Merchant summary:
+
+SafeGate helps answer the merchant’s post-payment question:
+
+Did this payment lead to a verified outcome, a receipt, evidence, and the correct access state?
+
+---
+
 ## Reviewer Question
 
-The most useful technical review question is:
+The most useful technical review question remains:
 
 Where would this architecture break first if it moved from controlled Testnet evidence to a real pilot environment?
 
@@ -196,6 +442,28 @@ Public evidence should only show minimum-disclosure confirmation:
 
 ---
 
+## Recommended Reviewer Order
+
+| Order | Page / Document | Why it matters |
+|---|---|---|
+| 1 | Main Review Hub | Gives the safest current overview and boundaries |
+| 2 | Current Review Package | One-file summary of current SafeGate status and review links |
+| 3 | V9 Payment Spine Evidence | Shows the controlled Pi Testnet payment-spine result |
+| 4 | AI Review Risk Consensus | Shows that technical criticism was collected and turned into risk tracking |
+| 5 | V9.1 Backend + Integrity Hardening Plan | Shows the next engineering closure path |
+| 6 | Backend Behavior Evidence Matrix | Shows expected backend behavior under edge cases |
+| 7 | Receipt Integrity Plan | Addresses receipt/evidence tamper-detection direction |
+| 8 | Pi Verification Depth Note | Explains what “backend verified” should mean technically |
+| 9 | Public Verify Freshness Policy | Addresses stale public verify risk |
+| 10 | Formal State Machine Table | Defines legal/illegal transitions and fail-secure states |
+| 11 | Merchant Explanation | Explains business value in simple language |
+| 12 | Controlled Pi Testnet Payment Spine Pass Note | Public-safe written record of the passed flow |
+| 13 | Public-Safe Payment Spine Evidence Pack | Explains what can be shared publicly and what must be redacted |
+| 14 | External Technical Review Note | Serious technical-review entry point |
+| 15 | Controlled Pilot Execution Checklist | Explains what must be ready before controlled pilot execution |
+
+---
+
 ## Next Practical Step
 
 The next practical step is not to claim production readiness.
@@ -204,7 +472,14 @@ The next practical step is:
 
 - preserve the stable review surface
 - collect feedback from technical reviewers
-- redact and package public-safe evidence
+- prepare backend behavior repeat tests
+- test duplicate approve behavior
+- test duplicate complete behavior
+- test duplicate receipt/evidence behavior
+- test paymentId mismatch behavior
+- test public verify mismatched receipt/evidence pair
+- document durable-state failure behavior
+- define receipt/evidence integrity implementation direction
 - repeat the controlled payment-spine flow with one trusted external reviewer when feasible
 - prepare a limited controlled pilot scenario
 - keep all claims boundary-safe
@@ -221,7 +496,36 @@ A later SafeGate layer may focus on AI Agent Readiness:
 - agent integration guide
 - privacy-first receipt verification
 
-This should come after preserving the current controlled payment-spine evidence.
+However, AI Agent Readiness should not outrun backend hardening.
+
+AI agents increase:
+
+- request volume
+- replay risk
+- automation abuse
+- callback pressure
+- API misuse risk
+- rate-limit requirements
+
+Therefore, backend behavior and integrity hardening should come first.
+
+---
+
+## Final Current Interpretation
+
+SafeGate is no longer only an idea.
+
+SafeGate is no longer only a static demo.
+
+SafeGate has passed a controlled Pi Testnet payment-spine flow.
+
+SafeGate has strong positioning and disciplined public boundaries.
+
+SafeGate is suitable for continued hackathon / reviewer / technical feedback.
+
+SafeGate still needs backend behavior evidence and hardening before stronger controlled pilot execution.
+
+SafeGate is not production-ready.
 
 ---
 
