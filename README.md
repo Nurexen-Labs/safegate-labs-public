@@ -21,6 +21,9 @@ Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase i
 Pilot Readiness:  
 [SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
 
+Pilot Evidence Template:  
+[SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md](./SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md)
+
 V12 Final Close Note:  
 [SAFEGATE_V12_FINAL_CLOSE_NOTE.md](./SAFEGATE_V12_FINAL_CLOSE_NOTE.md)
 
@@ -102,6 +105,39 @@ Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pil
 
 Pilot Readiness document:  
 [SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
+
+Pilot Evidence Template:  
+[SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md](./SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md)
+
+---
+
+## Pilot Evidence Direction
+
+The pilot phase should collect public-safe evidence only.
+
+Pilot evidence may include:
+
+- tester type
+- device/browser type
+- general location
+- SafeGate page tested
+- test scenario
+- expected result
+- observed result
+- pass/fail status
+- public-safe screenshot or recording
+- short feedback
+- boundary confirmation
+
+Pilot evidence must not include:
+
+- private keys
+- seed phrases
+- service-role secrets
+- raw personally identifiable data
+- private wallet data
+- sensitive merchant/customer financial information
+- private merchant customer records
 
 ---
 
@@ -195,6 +231,9 @@ V9 Pi Payment Test:
 
 Pilot Readiness:  
 [SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
+
+Pilot Evidence Template:  
+[SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md](./SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md)
 
 Architecture:  
 [ARCHITECTURE.md](./ARCHITECTURE.md)
