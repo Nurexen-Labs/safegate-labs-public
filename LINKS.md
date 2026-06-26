@@ -4,6 +4,9 @@
 
 ## V10–V12 Public Roadmap / Readiness
 
+V11 Final Close Note:  
+[SAFEGATE_V11_FINAL_CLOSE_NOTE.md](./SAFEGATE_V11_FINAL_CLOSE_NOTE.md)
+
 V11 Security Freeze Note:  
 https://safegate-v185-pi-debug-ready.vercel.app/v11-security-freeze-note.html
 
