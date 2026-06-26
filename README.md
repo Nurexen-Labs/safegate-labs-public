@@ -10,6 +10,11 @@ Live Review Hub:
 [https://safegatelabs.xyz](https://safegatelabs.xyz)
 
 Status: SafeGate custom domain now opens the V11 security review hub.
+V12 Final Freeze Note:  
+[SAFEGATE V12 FINAL FREEZE NOTE](https://safegatelabs.xyz/v12-final-freeze-note.html)
+
+V12 Trust State / Privacy / Web3 Page:  
+[SAFEGATE V12 TRUST STATE PRIVACY WEB3](https://safegatelabs.xyz/v12-trust-state-privacy-web3.html)
 
 V11 Final Close Note:  
 [SAFEGATE_V11_FINAL_CLOSE_NOTE.md](./SAFEGATE_V11_FINAL_CLOSE_NOTE.md)
