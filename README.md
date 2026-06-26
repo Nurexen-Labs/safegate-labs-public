@@ -6,6 +6,11 @@ SafeGate verifies what happened after payment.
 SafeGate is building the missing trust infrastructure for digital payments and Web3.
 
 ## Start Here
+Live Review Hub:  
+[https://safegatelabs.xyz](https://safegatelabs.xyz)
+
+Status: SafeGate custom domain now opens the V11 security review hub.
+
 V11 Security Freeze Note:  
 [SAFEGATE V11 SECURITY FREEZE NOTE](https://safegate-v185-pi-debug-ready.vercel.app/v11-security-freeze-note.html)
 
