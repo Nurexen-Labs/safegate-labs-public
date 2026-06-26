@@ -8,84 +8,91 @@ Payment is the trigger. Trust is the product.
 
 ---
 
-## Current Status
+## Current Submission Status
 
 | Area | Status |
 |---|---|
-| Controlled MVP Evidence Pack | Complete / frozen for review |
-| Pilot Readiness | Open |
 | Controlled Pi Testnet Payment Spine | PASSED |
-| Controlled Pilot Execution | Not yet claimed as commercial pilot |
+| Pilot Readiness | Open |
+| Current Review Package | Available |
+| AI Review Risk Consensus | Available |
+| V9.1 Backend + Integrity Hardening Direction | Available |
+| Public-Safe Evidence Pack | Available |
+| External Technical Review Note | Available |
+| Controlled Pilot Execution Checklist | Available |
 | Production Readiness | Not claimed |
 | Pi Mainnet Settlement | Not claimed |
 | Official Pi Partnership | Not claimed |
-| Custodial Payment Processing | Not claimed |
 | Formal Third-Party Audit | Not claimed |
-| Regulatory Approval | Not claimed |
 
 ---
 
 ## One-Line Description
 
-SafeGate is a Pi-first post-payment trust layer that verifies what happened after a payment event.
-
-It connects payment intent, backend verification, receipt/evidence generation, access state, public verification, and merchant-side proof.
+SafeGate is a Pi-first post-payment trust layer that verifies what happened after a payment event: invoice, backend-verified payment state, receipt/evidence, public verify, and access state.
 
 ---
 
 ## Why SafeGate Matters
 
-Payments alone do not prove what happened after payment.
+A payment button alone does not answer the full trust question.
 
-A merchant, buyer, reviewer, or platform may still need to know:
+After a payment event, merchants, buyers, reviewers, and automated systems may need to know:
 
-- Was the payment intent created?
-- Was the payment actually completed?
-- Was the payment verified by the backend?
-- Was access unlocked too early?
-- Was a receipt generated?
-- Was evidence generated?
-- Can the result be publicly verified without exposing private payment data?
-- Can the merchant show proof without leaking sensitive information?
+- Was an invoice created?
+- Did the buyer start payment?
+- Was payment verified by backend?
+- Was receipt/evidence created?
+- Was access unlocked correctly?
+- Can the outcome be checked later?
+- Can this be shown without exposing private payment data?
 
-SafeGate focuses on this post-payment trust gap.
+SafeGate is designed to answer those post-payment questions.
 
 ---
 
 ## Why Pi First
 
-Pi has a large real-user ecosystem, identity-aware user access, Pi Browser, Pi Wallet, and app distribution through Pi Network.
+Pi is not only a token environment.
 
-SafeGate is Pi-first because Pi is not only a coin flow.
+Pi brings:
 
-Pi can support real utility flows where payment, identity, app access, and merchant trust need to work together.
+- identity context
+- Pi Browser
+- Pi Wallet
+- app distribution
+- real user network
+- merchant utility direction
+- payment-triggered app experiences
 
-SafeGate is built around that idea:
+SafeGate fits this environment because post-payment trust is a practical need for Pi apps, merchants, and future utility flows.
 
-payment is the trigger, trust is the product.
+SafeGate is Pi-first, not Pi-only.
 
 ---
 
-## Controlled Pi Testnet Payment Spine — PASSED
+## Current Main Evidence
 
 SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
 
-The tested flow demonstrated:
+The controlled flow demonstrated:
 
-- V9 invoice creation
-- Pi Browser authentication with username + payments scope
-- Pi wallet payment in Sandbox / Testnet context
-- backend approval / completion flow
-- backend-verified payment state
-- receipt and evidence generation
-- minimum-disclosure public verification
-- access unlock only after backend-verified receipt
+1. V9 invoice creation
+2. initial access state locked
+3. Pi Browser authentication
+4. username + payments scope
+5. Pi wallet payment in Sandbox / Testnet context
+6. backend approval / completion flow
+7. backend-verified payment state
+8. receipt and evidence generation after verified state
+9. public verify confirmation
+10. access unlock only after backend-verified receipt
 
-The controlled result reached:
+Public-safe confirmed result:
 
 - paymentState: PAYMENT_VERIFIED_TESTNET
 - accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
-- public verify: confirmed
+- verified: true
 - minimumDisclosure: true
 - publicSafe: true
 - paymentIdIncluded: false
@@ -94,82 +101,47 @@ The controlled result reached:
 - customerDataIncluded: false
 - accessUnlocked: true
 
-This closes the most important controlled V9 payment-spine gap.
-
 ---
 
-## Tested Flow
+## Main Review Links
 
-The controlled Pi Testnet flow followed this sequence:
-
-1. V9 invoice created
-2. Access remained locked after invoice creation
-3. Pi Browser authentication succeeded
-4. Username + payments scope succeeded
-5. Pi wallet payment succeeded in Sandbox / Testnet context
-6. Backend approval / completion flow executed
-7. Backend-verified payment state reached
-8. Receipt and evidence were generated after verified state
-9. Public verify confirmed a minimum-disclosure record
-10. Access unlocked only after backend-verified receipt
-
----
-
-## Core SafeGate Principle
-
-SafeGate does not unlock access from the frontend callback alone.
-
-Access is unlocked only after backend-verified payment state and guarded receipt/evidence creation.
-
-This matters because frontend callbacks alone are not enough for durable merchant trust, auditability, or public-safe proof.
-
----
-
-## Current Live Review Links
-
-| Page | URL |
+| Review Item | Link |
 |---|---|
 | Main Review Hub | https://www.safegatelabs.xyz |
 | V9 Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html |
-| Controlled Checkout | https://www.safegatelabs.xyz/safegate-checkout.html |
-| Pi Auth Diagnostic | https://www.safegatelabs.xyz/v9-pi-auth-diagnostic.html |
-| Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html |
-| Pilot Readiness | https://www.safegatelabs.xyz/pilot-readiness.html |
-| Pilot Evidence Intake | https://www.safegatelabs.xyz/pilot-evidence-intake.html |
-| V11 Security Logic Index | https://www.safegatelabs.xyz/v11-security-index.html |
-| V12 Trust-State / Privacy / Web3 Architecture | https://www.safegatelabs.xyz/v12-trust-state-privacy-web3-index.html |
-| Public Repository | https://github.com/Nurexen-Labs/safegate-labs-public |
+| Current Review Package | ./SAFEGATE_CURRENT_REVIEW_PACKAGE.md |
+| Public Links / Reviewer Order | ./LINKS.md |
+| Public Repository README | ./README.md |
 
 ---
 
-## Recommended Reviewer Order
-
-1. Main Review Hub
-2. V9 Payment Spine Evidence
-3. Controlled Pi Testnet Payment Spine Pass Note
-4. Pilot Review Index
-5. Pilot Readiness
-6. V11 Security Logic Index
-7. V12 Trust-State / Privacy / Web3 Architecture
-8. Pilot Evidence Intake
-9. Public README
-10. Public LINKS.md
-
----
-
-## Public Repository Documents
+## Key Public Documents
 
 | Document | Purpose |
 |---|---|
-| SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md | Public-safe record of the controlled Pi Testnet payment-spine pass |
-| SAFEGATE_PILOT_READINESS_CLARITY_UPDATE.md | Explains the Pilot Readiness clarity update and public boundaries |
-| SAFEGATE_PILOT_READINESS_OPEN_NOTE.md | Explains the open Pilot Readiness stage |
-| SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md | Public-safe evidence template |
-| PILOT_EVIDENCE.md | Pilot evidence notes |
-| LINKS.md | Public links and reviewer order |
-| README.md | Repository overview |
-| ROADMAP.md | Roadmap notes |
-| NOTICE.md | Public notice and boundaries |
+| ./SAFEGATE_CURRENT_REVIEW_PACKAGE.md | One-file current SafeGate review package |
+| ./SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md | Public-safe record of the controlled Pi Testnet payment-spine pass |
+| ./SAFEGATE_PUBLIC_SAFE_PAYMENT_SPINE_EVIDENCE_PACK.md | Public-safe evidence packaging rules and summary |
+| ./SAFEGATE_AI_REVIEW_RISK_CONSENSUS_V9.md | AI-assisted risk consensus from Gemini, Claude, DeepSeek, Grok, and internal review |
+| ./SAFEGATE_V9_1_BACKEND_HARDENING_PLAN.md | Backend + integrity hardening direction before stronger pilot claims |
+| ./SAFEGATE_BACKEND_BEHAVIOR_EVIDENCE_MATRIX.md | Expected backend behavior under duplicate, replay, mismatch, timeout, and failure scenarios |
+| ./SAFEGATE_MERCHANT_EXPLANATION.md | Simple merchant-facing explanation |
+| ./SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md | Technical review entry point |
+| ./SAFEGATE_CONTROLLED_PILOT_EXECUTION_CHECKLIST.md | Controlled pilot planning checklist |
+
+---
+
+## Core Technical Principle
+
+SafeGate does not unlock access from a frontend callback alone.
+
+Access unlock happens only after:
+
+1. backend-verified payment state
+2. guarded receipt/evidence generation
+3. public verification path becoming available
+
+This is the core SafeGate trust distinction.
 
 ---
 
@@ -178,45 +150,115 @@ This matters because frontend callbacks alone are not enough for durable merchan
 SafeGate is:
 
 - a post-payment trust layer
+- a payment-outcome verification layer
 - a receipt/evidence layer
-- an access-state verification layer
-- a merchant-side proof layer
-- a minimum-disclosure public verification layer
-- Pi-first, not Pi-only
-- designed to verify what happened after payment
+- an access-state layer
+- a minimum-disclosure public verify direction
+- a merchant proof direction
+- a Pi-first, not Pi-only architecture
 
 ---
 
 ## What SafeGate Is Not
 
-SafeGate is not currently claiming:
+SafeGate is not:
 
-- production readiness
-- Pi Mainnet settlement
-- official Pi Core Team partnership
-- custodial payment processing
-- regulatory approval
-- formal third-party audit
-- enterprise-grade security certification
-- high-volume production operation
-- completed commercial pilot execution
+- a payment processor
+- a custodial wallet
+- a bank
+- a regulator
+- a chargeback system
+- a completed commercial pilot
+- a production-ready platform
+- an official Pi Core Team partnership
+- a Pi Mainnet settlement proof at this stage
+- a formal third-party audited system
+- a tamper-proof or enterprise-grade security claim
+
+---
+
+## V9.1 Backend + Integrity Hardening Direction
+
+After the controlled V9 payment-spine pass, multiple technical reviews identified the next engineering frontier:
+
+SafeGate must make backend behavior clearer, safer, and more externally reviewable under duplicate callbacks, replay attempts, timeout states, database failures, stale public verification, and receipt integrity risks.
+
+This is tracked as:
+
+**V9.1 Backend + Integrity Hardening**
+
+V9.1 focuses on:
+
+- duplicate callback behavior
+- idempotency
+- replay protection
+- timeout / pending-state handling
+- durable-state failure behavior
+- safe error model
+- receipt/evidence integrity
+- Pi verification depth
+- public verify freshness
+- formal state transition clarity
+- merchant-facing explanation
+
+V9.1 is not a production claim.
+
+V9.1 is not a formal audit claim.
+
+V9.1 is not a security certification.
+
+---
+
+## AI Review Risk Consensus
+
+SafeGate collected AI-assisted technical review feedback from Gemini, Claude, DeepSeek, Grok, and internal review.
+
+Common strengths identified:
+
+- backend-verified access unlock
+- separation between payment layer and trust layer
+- receipt/evidence guard concept
+- minimum-disclosure public verify
+- disciplined claim boundaries
+
+Common risks identified:
+
+- duplicate callback behavior
+- idempotency
+- replay protection
+- timeout / pending-state handling
+- Supabase / durable-state failure behavior
+- backend behavior external verifiability
+- cryptographic receipt integrity
+- Pi verification depth
+- public verify freshness / stale-data risk
+- rate limiting / abuse resistance
+- merchant-facing simplicity
+
+This is advisory risk tracking.
+
+It is not a formal third-party audit.
 
 ---
 
 ## Public-Safe Evidence Boundary
 
-Raw test screenshots may contain sensitive technical details such as:
+Raw screenshots may contain sensitive technical details.
+
+Do not publish unredacted screenshots containing:
 
 - payment identifiers
 - transaction identifiers
-- wallet information
-- user identifiers
-- access tokens
+- wallet addresses
 - recipient addresses
+- access tokens
+- user identifiers
 - app identifiers
 - internal logs
-
-Those raw screenshots should not be published unredacted.
+- raw Pi API response
+- service role information
+- private wallet data
+- customer data
 
 Public evidence should only show minimum-disclosure confirmation such as:
 
@@ -232,61 +274,79 @@ Public evidence should only show minimum-disclosure confirmation such as:
 
 ---
 
-## Technical Direction
+## Recommended Reviewer Order
 
-SafeGate’s architecture direction includes:
-
-- invoice creation
-- payment intent
-- backend payment verification
-- state transition control
-- receipt and evidence generation
-- access-state management
-- minimum-disclosure public verification
-- merchant-side proof
-- audit / trust-state direction
-- privacy-aware evidence packaging
-- future chain-agnostic expansion
+| Order | Review Item | Why it matters |
+|---|---|---|
+| 1 | Main Review Hub | Fastest current overview |
+| 2 | Current Review Package | One-file review summary |
+| 3 | V9 Payment Spine Evidence | Shows controlled Pi Testnet payment-spine result |
+| 4 | AI Review Risk Consensus | Shows risk tracking and technical criticism response |
+| 5 | V9.1 Backend Hardening Plan | Shows next engineering closure direction |
+| 6 | Backend Behavior Evidence Matrix | Shows expected endpoint behavior under edge cases |
+| 7 | Merchant Explanation | Shows merchant-facing value |
+| 8 | Public-Safe Evidence Pack | Explains safe evidence sharing |
+| 9 | Controlled Pilot Execution Checklist | Shows pilot planning boundary |
 
 ---
 
-## Pilot Readiness
+## Hackathon Reviewer Summary
 
-SafeGate is currently in Pilot Readiness.
+SafeGate has moved beyond a static prototype posture.
 
-Pilot Readiness means preparation, not production.
+It has demonstrated a controlled Pi Testnet payment-spine flow in Pi Browser and documented the next backend hardening frontier.
 
-Current Pilot Readiness includes:
+The strongest current evidence is:
 
-- public review hub live
-- controlled evidence pack available
-- controlled Pi Testnet payment-spine pass recorded
-- V9 payment-spine evidence page live
-- security logic previews available
-- evidence intake available
-- public-safe boundaries clarified
+- Pi Browser authentication
+- username + payments scope
+- controlled Testnet/Sandbox payment
+- backend-verified payment state
+- guarded receipt/evidence generation
+- minimum-disclosure public verify
+- access unlock after backend verification
 
-Still not claimed:
+The strongest current discipline is:
 
-- commercial pilot completion
-- production launch
-- Pi Mainnet settlement
-- official Pi partnership
-- third-party audit
-- regulator approval
+- no production claim
+- no Mainnet settlement claim
+- no official partnership claim
+- no audit claim
+- no custodial/payment-processing claim
 
 ---
 
-## Next Practical Targets
+## Current Remaining Work
 
-The next targets are:
+Before stronger controlled pilot claims, SafeGate still needs:
 
-- package public-safe payment-spine evidence
-- redact raw screenshots before external sharing
-- prepare one-page external technical review note
-- repeat the controlled payment-spine flow with at least one additional external tester when feasible
-- prepare controlled pilot execution checklist without claiming production readiness
-- keep the review surface simple and boundary-safe
+- duplicate approve test
+- duplicate complete test
+- duplicate receipt/evidence test
+- paymentId mismatch test
+- public verify mismatched receipt/evidence test
+- safe error response evidence
+- durable-state failure behavior documentation
+- receipt/evidence integrity implementation direction
+- Pi verification depth evidence
+- public verify freshness behavior
+- one trusted external repeat test when feasible
+
+---
+
+## Future Direction
+
+A later SafeGate layer may focus on AI Agent Readiness:
+
+- machine-readable trust states
+- OpenAPI specification
+- llms.txt
+- agent integration guide
+- privacy-first receipt verification
+
+However, AI Agent Readiness should not outrun backend hardening.
+
+Backend behavior and integrity hardening come first.
 
 ---
 
