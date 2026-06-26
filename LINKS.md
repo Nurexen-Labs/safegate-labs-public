@@ -10,6 +10,9 @@ Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase i
 Pilot Readiness:  
 SAFEGATE_PILOT_READINESS.md
 
+Pilot Evidence Template:  
+SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
+
 ---
 
 ## Current Public Phase
@@ -34,6 +37,9 @@ Internal working map:
 
 Pilot Readiness Document:  
 SAFEGATE_PILOT_READINESS.md
+
+Pilot Evidence Template:  
+SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
 
 Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pilot path.
 
@@ -123,6 +129,9 @@ README.md
 Pilot Readiness:  
 SAFEGATE_PILOT_READINESS.md
 
+Pilot Evidence Template:  
+SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
+
 Architecture:  
 ARCHITECTURE.md
 
@@ -137,6 +146,36 @@ NOTICE.md
 
 Roadmap:  
 ROADMAP.md
+
+---
+
+## Pilot Evidence Boundary
+
+Pilot evidence must be public-safe.
+
+Pilot evidence may include:
+
+- tester type
+- device/browser type
+- general location
+- SafeGate page tested
+- test scenario
+- expected result
+- observed result
+- pass/fail status
+- public-safe screenshot or recording
+- short feedback
+- boundary confirmation
+
+Pilot evidence must not include:
+
+- private keys
+- seed phrases
+- service-role secrets
+- raw personally identifiable data
+- private wallet data
+- sensitive merchant/customer financial information
+- private merchant customer records
 
 ---
 
