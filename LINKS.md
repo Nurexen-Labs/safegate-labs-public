@@ -5,7 +5,7 @@
 Live Review Hub:  
 https://safegatelabs.xyz
 
-Status: SafeGate custom domain opens the current review hub with V12, V11, and V9 evidence links.
+Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
 
 ---
 
@@ -22,11 +22,14 @@ Internal working map:
 | V9 | Pi Sandbox / Testnet-oriented payment spine evidence | Closed |
 | V10 | Submission readiness | Closed |
 | V11 | Security hardening evidence pack | Closed |
-| V12 | Trust state / privacy / Web3 expansion architecture | Frozen |
+| V12 | Trust state / privacy / Web3 expansion architecture | Closed |
 
 ---
 
 ## V12 — Trust State / Privacy / Web3
+
+V12 Final Close Note:  
+SAFEGATE_V12_FINAL_CLOSE_NOTE.md
 
 V12 Final Freeze Note:  
 https://safegatelabs.xyz/v12-final-freeze-note.html
@@ -89,6 +92,9 @@ https://safegate-v185-pi-debug-ready.vercel.app/v9-api-test.html
 
 ## Public Repository Documents
 
+README:  
+README.md
+
 Architecture:  
 ARCHITECTURE.md
 
@@ -104,9 +110,6 @@ NOTICE.md
 Roadmap:  
 ROADMAP.md
 
-README:  
-README.md
-
 ---
 
 ## Public Boundary
@@ -121,6 +124,7 @@ SafeGate does not claim:
 - formal third-party security audit
 - complete enterprise audit infrastructure
 - complete privacy protocol
+- complete multi-chain production infrastructure
 
 SafeGate is currently a controlled MVP evidence-layer project.
 
