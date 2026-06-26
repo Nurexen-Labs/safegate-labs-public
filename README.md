@@ -18,6 +18,12 @@ Live Review Hub:
 
 Status: SafeGate Controlled MVP Evidence Pack is closed. The next public phase is Pilot Readiness.
 
+Pilot Readiness Live Page:  
+[SAFEGATE PILOT READINESS LIVE PAGE](https://safegatelabs.xyz/pilot-readiness.html)
+
+Pilot Evidence Intake Live Page:  
+[SAFEGATE PILOT EVIDENCE INTAKE](https://safegatelabs.xyz/pilot-evidence-intake.html)
+
 Pilot Readiness:  
 [SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
 
@@ -84,6 +90,7 @@ Internal working map:
 | V11 | Security hardening evidence pack | Closed |
 | V12 | Trust state / privacy / Web3 expansion architecture | Closed |
 | Pilot Readiness | Controlled pilot preparation | Open |
+| Pilot Evidence Intake | Public-safe evidence object generator | Live |
 
 ---
 
@@ -103,6 +110,12 @@ Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pil
 - how merchant-side proof is shown
 - how public-safe trust states can be reviewed
 
+Pilot Readiness Live Page:  
+[https://safegatelabs.xyz/pilot-readiness.html](https://safegatelabs.xyz/pilot-readiness.html)
+
+Pilot Evidence Intake Live Page:  
+[https://safegatelabs.xyz/pilot-evidence-intake.html](https://safegatelabs.xyz/pilot-evidence-intake.html)
+
 Pilot Readiness document:  
 [SAFEGATE_PILOT_READINESS.md](./SAFEGATE_PILOT_READINESS.md)
 
@@ -114,6 +127,14 @@ Pilot Evidence Template:
 ## Pilot Evidence Direction
 
 The pilot phase should collect public-safe evidence only.
+
+Pilot Evidence Intake generates a public-safe evidence object locally.
+
+Pilot Evidence Intake does not store server-side data.
+
+Pilot Evidence Intake does not process payments.
+
+Pilot Evidence Intake does not claim Pi Mainnet settlement.
 
 Pilot evidence may include:
 
@@ -203,6 +224,12 @@ The next public phase is Pilot Readiness.
 
 Main Review Hub:  
 [https://safegatelabs.xyz](https://safegatelabs.xyz)
+
+Pilot Readiness Live Page:  
+[https://safegatelabs.xyz/pilot-readiness.html](https://safegatelabs.xyz/pilot-readiness.html)
+
+Pilot Evidence Intake Live Page:  
+[https://safegatelabs.xyz/pilot-evidence-intake.html](https://safegatelabs.xyz/pilot-evidence-intake.html)
 
 V12 Final Freeze Note:  
 [https://safegatelabs.xyz/v12-final-freeze-note.html](https://safegatelabs.xyz/v12-final-freeze-note.html)
