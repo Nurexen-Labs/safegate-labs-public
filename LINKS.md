@@ -1,101 +1,247 @@
 # SafeGate Public Links
 
-## Start Here for Reviewers
+SafeGate does not process payments.  
+SafeGate verifies what happened after payment.
 
-Live Review Hub:  
-https://safegatelabs.xyz
-
-Status: SafeGate Controlled MVP Evidence Pack is closed. SafeGate Pilot Readiness is open.
-
-Pilot Readiness Open Note:  
-SAFEGATE_PILOT_READINESS_OPEN_NOTE.md
-
-Pilot Review Index Live Page:  
-https://safegatelabs.xyz/pilot-review-index.html
-
-Pilot Readiness Live Page:  
-https://safegatelabs.xyz/pilot-readiness.html
-
-Pilot Evidence Intake Live Page:  
-https://safegatelabs.xyz/pilot-evidence-intake.html
-
-Pilot Readiness Document:  
-SAFEGATE_PILOT_READINESS.md
-
-Pilot Evidence Template:  
-SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
+Payment is the trigger.  
+Trust is the product.
 
 ---
 
-## Current Public Phase
+## Current Public Status
 
-SafeGate Controlled MVP Evidence Pack — Closed  
-SafeGate Pilot Readiness — Open
+Controlled MVP Evidence Pack: Complete / frozen for review  
+Pilot Readiness: Open  
+Controlled Pilot Execution: Not yet claimed  
+Next Practical Goal: Reproducible controlled pilot flow  
 
-Internal working map:
+SafeGate is currently in a controlled preparation and review stage.
 
-| Internal Version | Public Meaning | Status |
+Pilot Readiness does not mean production launch.  
+Pilot Readiness does not mean pilot execution has already happened.  
+Pilot Readiness does not mean Pi Mainnet settlement.  
+Pilot Readiness does not mean official Pi partnership.  
+Pilot Readiness does not mean custodial payment processing.  
+Pilot Readiness does not mean formal audit approval.
+
+---
+
+## Start Here
+
+| Area | Link |
+|---|---|
+| Live Review Hub | https://www.safegatelabs.xyz |
+| Pilot Readiness Clarity Update | ./SAFEGATE_PILOT_READINESS_CLARITY_UPDATE.md |
+| Pilot Readiness Open Note | ./SAFEGATE_PILOT_READINESS_OPEN_NOTE.md |
+| README | ./README.md |
+
+---
+
+## Recommended Reviewer Order
+
+A first-time reviewer should inspect SafeGate in this order:
+
+| Order | Area | Link | Purpose |
+|---|---|---|---|
+| 1 | Main Review Hub | https://www.safegatelabs.xyz | First 30-second project overview, current phase, boundaries, phase map, and review priority |
+| 2 | V9 Pi Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html | Strongest concrete payment-spine evidence area |
+| 3 | Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html | Public pilot-readiness overview and live review links |
+| 4 | V11 Security Logic Index | https://www.safegatelabs.xyz/v11-security-index.html | Browser-side security logic previews, not formal audit |
+| 5 | V12 Trust-State / Privacy / Web3 Architecture | https://www.safegatelabs.xyz/v12-trust-state-privacy-web3.html | Machine-readable trust-state and privacy-aware architecture direction |
+| 6 | Pilot Evidence Intake | https://www.safegatelabs.xyz/pilot-evidence-intake.html | Public-safe local evidence object generator |
+| 7 | Pilot Readiness Live Page | https://www.safegatelabs.xyz/pilot-readiness.html | Controlled preparation and review-stage status |
+
+---
+
+## Live Review Pages
+
+| Page | Link | Current Meaning |
 |---|---|---|
-| V8 | Public evidence / reviewer layer | Closed |
-| V9 | Pi Sandbox / Testnet-oriented payment spine evidence | Closed |
-| V10 | Submission readiness | Closed |
-| V11 | Security hardening evidence pack | Closed |
-| V12 | Trust state / privacy / Web3 expansion architecture | Closed |
-| Pilot Readiness | Controlled pilot preparation | Open |
-| Pilot Review Index | Public pilot overview | Live |
-| Pilot Evidence Intake | Public-safe evidence object generator | Live |
+| Main Review Hub | https://www.safegatelabs.xyz | Pilot Readiness review hub and public starting point |
+| Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html | Public index for current pilot-readiness review |
+| Pilot Readiness Live Page | https://www.safegatelabs.xyz/pilot-readiness.html | Preparation stage, not production or pilot execution |
+| Pilot Evidence Intake | https://www.safegatelabs.xyz/pilot-evidence-intake.html | Local public-safe evidence object generator, no server-side storage |
+| V9 Pi Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html | Pi Sandbox / Testnet-oriented payment-spine evidence |
+| V11 Security Logic Index | https://www.safegatelabs.xyz/v11-security-index.html | Browser-side security logic previews, not formal audit |
+| V12 Trust-State / Privacy / Web3 | https://www.safegatelabs.xyz/v12-trust-state-privacy-web3.html | Trust-state, privacy-aware evidence, and Web3 architecture direction |
+| V12 Final Freeze Note | https://www.safegatelabs.xyz/v12-final-freeze-note.html | V12 final boundary / freeze note |
+| V11 Security Freeze Note | https://www.safegatelabs.xyz/v11-security-freeze-note.html | V11 security hardening boundary / freeze note |
+| Public Repository | https://github.com/Nurexen-Labs/safegate-labs-public | Public documentation repository |
+
+---
+
+## Public Repository Documents
+
+| Document | Link | Purpose |
+|---|---|---|
+| README | ./README.md | Main public repository overview |
+| Pilot Readiness Clarity Update | ./SAFEGATE_PILOT_READINESS_CLARITY_UPDATE.md | Latest clarity update explaining the public review-surface changes |
+| Pilot Readiness Open Note | ./SAFEGATE_PILOT_READINESS_OPEN_NOTE.md | Note opening the Pilot Readiness public phase |
+| Pilot Readiness Document | ./SAFEGATE_PILOT_READINESS.md | Pilot scope, participants, flow, success criteria, and boundaries |
+| Pilot Evidence Template | ./SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md | Public-safe pilot evidence entry template |
+| V12 Final Close Note | ./SAFEGATE_V12_FINAL_CLOSE_NOTE.md | V12 closure and transition note |
+| V11 Final Close Note | ./SAFEGATE_V11_FINAL_CLOSE_NOTE.md | V11 security hardening closure note |
+| Architecture | ./ARCHITECTURE.md | SafeGate architecture direction |
+| Security Boundaries | ./SECURITY_BOUNDARIES.md | Security and claim boundaries |
+| Pilot Evidence | ./PILOT_EVIDENCE.md | Pilot evidence notes |
+| Roadmap | ./ROADMAP.md | Roadmap direction |
+| Notice | ./NOTICE.md | Public notice and limitations |
+
+---
+
+## Current Public Phase Map
+
+The V8-V12 labels are internal historical evidence phases.
+
+They should not be read as production software releases.
+
+| Internal Phase | Public Meaning | Current Status |
+|---|---|---|
+| V8 | Public evidence / reviewer layer | Complete / frozen |
+| V9 | Pi Sandbox / Testnet-oriented payment-spine evidence | Complete / frozen; reviewer-priority page |
+| V10 | Submission readiness | Complete / frozen |
+| V11 | Security logic previews / hardening evidence direction | Complete / frozen; not formal audit |
+| V12 | Trust-state / privacy / Web3 expansion architecture | Complete / frozen; architecture note |
+| Pilot Readiness | Controlled preparation and review stage | Open |
+| Controlled Pilot Execution | Reproducible controlled pilot flow | Not yet claimed |
+
+---
+
+## V9 — Payment Spine Evidence
+
+Live page:  
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
+
+V9 is the most concrete payment-spine evidence area in the current public package.
+
+V9 focuses on:
+
+- Pi SDK / Pi Browser direction
+- Pi authentication direction
+- Pi payment-trigger direction
+- backend-verified payment-state principle
+- receipt/evidence ID direction
+- public verify direction
+- access-state gating principle
+
+V9 does not claim:
+
+- production readiness
+- Pi Mainnet settlement
+- custodial payment processing
+- official Pi partnership
+- formal third-party audit
+- complete enterprise infrastructure
+
+Current V9 closure target:
+
+- more reproducible Pi payment approve/complete backend loop
+- backend-verified payment state
+- state-gated receipt/evidence generation
+- access unlock only after backend verification
+
+---
+
+## V11 — Security Logic Preview
+
+Live page:  
+https://www.safegatelabs.xyz/v11-security-index.html
+
+V11 is explicitly framed as a Security Logic Preview Index.
+
+V11 is not:
+
+- a formal third-party audit
+- a penetration test
+- production security certification
+- proof of complete backend/API/database hardening
+- proof of complete enterprise security infrastructure
+
+V11 makes the following categories reviewer-readable:
+
+- state transition guard
+- idempotency guard
+- replay protection guard
+- fail-secure state logic
+- refund / dispute state logic
+- hash / timestamp proof direction
+- anti-enumeration ID logic
+- audit log preview
+
+---
+
+## Pilot Evidence Intake
+
+Live page:  
+https://www.safegatelabs.xyz/pilot-evidence-intake.html
+
+Pilot Evidence Intake is a public-safe local evidence object generator.
+
+It does not:
+
+- process payments
+- store evidence on a server
+- collect private keys
+- collect seed phrases
+- collect private wallet data
+- collect raw personal data
+- function as a full evidence collection backend
+
+It can generate a local public-safe JSON evidence object in the browser.
+
+A stronger controlled pilot would still require:
+
+- server-side evidence persistence
+- access controls
+- audit logging
+- evidence lookup
+- reviewer export workflow
 
 ---
 
 ## Pilot Readiness
 
-Pilot Readiness Open Note:  
-SAFEGATE_PILOT_READINESS_OPEN_NOTE.md
+Live page:  
+https://www.safegatelabs.xyz/pilot-readiness.html
 
-Pilot Review Index Live Page:  
-https://safegatelabs.xyz/pilot-review-index.html
+Pilot Readiness means:
 
-Pilot Readiness Live Page:  
-https://safegatelabs.xyz/pilot-readiness.html
+- controlled preparation and review stage
+- public-safe review surface
+- clearer evidence boundaries
+- clearer security-preview boundaries
+- clearer next pilot execution target
 
-Pilot Evidence Intake Live Page:  
-https://safegatelabs.xyz/pilot-evidence-intake.html
+Pilot Readiness does not mean:
 
-Pilot Readiness Document:  
-SAFEGATE_PILOT_READINESS.md
+- production launch
+- pilot execution proof
+- Pi Mainnet settlement
+- official Pi partnership
+- custodial payment processing
+- formal audit approval
+- complete enterprise infrastructure
 
-Pilot Evidence Template:  
-SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
+---
 
-Pilot Readiness means SafeGate is preparing a small, reviewable, public-safe pilot path.
+## Claim Boundaries
 
-Pilot Readiness does not mean production launch.
+SafeGate does not claim:
 
-Pilot Review Index gives reviewers and pilot participants a clean overview of the current public phase.
-
-Pilot Evidence Intake generates a public-safe evidence object locally.
-
-Pilot Evidence Intake does not store server-side data.
-
-Pilot Evidence Intake does not process payments.
-
-Pilot Evidence Intake does not claim Pi Mainnet settlement.
-
-The pilot phase should help reviewers, early merchants, testers, and ecosystem partners understand:
-
-- what SafeGate does
-- what SafeGate does not claim
-- how the post-payment trust flow works
-- how evidence is created
-- how access state is represented
-- how merchant-side proof is shown
-- how public-safe trust states can be reviewed
+- production readiness
+- Pi Mainnet settlement
+- custodial payment processing
+- official Pi partnership
+- regulatory approval
+- formal third-party security audit
+- penetration-test certification
+- complete enterprise audit infrastructure
+- complete privacy protocol
+- complete multi-chain production infrastructure
 
 ---
 
 ## Pilot Evidence Boundary
-
-Pilot evidence must be public-safe.
 
 Pilot evidence may include:
 
@@ -120,146 +266,40 @@ Pilot evidence must not include:
 - private wallet data
 - sensitive merchant/customer financial information
 - private merchant customer records
+- API keys
+- database credentials
+- internal stack traces
 
 ---
 
-## Suggested Pilot Target
+## Remaining Technical Closure Targets
 
-Initial controlled pilot target:
+The most important remaining targets are:
 
-- 5 to 10 pilot merchant or test scenarios
-- 10 to 30 external tester/reviewer-style sessions
-- public-safe screenshots or short recordings
-- short written feedback
-- clear pass/fail and issue notes
-- strict boundary confirmation
-
----
-
-## V12 — Trust State / Privacy / Web3
-
-V12 Final Close Note:  
-SAFEGATE_V12_FINAL_CLOSE_NOTE.md
-
-V12 Final Freeze Note:  
-https://safegatelabs.xyz/v12-final-freeze-note.html
-
-V12 Trust State / Privacy / Web3 Page:  
-https://safegatelabs.xyz/v12-trust-state-privacy-web3.html
-
-V12 Public Plan:  
-SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md
+- one reproducible controlled pilot flow
+- Pi payment approve/complete backend closure
+- backend-verified payment state
+- state-gated receipt/evidence generation
+- public verify output after verified state
+- access unlock only after backend-verified state
+- server-side evidence persistence
+- backend/API/database enforcement visibility
+- safe error handling
+- idempotency / replay protection enforcement
+- anti-enumeration public ID enforcement
+- short end-to-end demo video
 
 ---
 
-## V11 — Security Hardening Evidence Pack
-
-V11 Final Close Note:  
-SAFEGATE_V11_FINAL_CLOSE_NOTE.md
-
-V11 Security Freeze Note:  
-https://safegate-v185-pi-debug-ready.vercel.app/v11-security-freeze-note.html
-
-V11 Security Index:  
-https://safegate-v185-pi-debug-ready.vercel.app/v11-security-index.html
-
-V11 Security Hardening Plan:  
-SAFEGATE_V11_SECURITY_HARDENING_PLAN.md
-
----
-
-## V10 — Submission Readiness
-
-V10 Submission Ready:  
-SAFEGATE_V10_SUBMISSION_READY.md
-
-V10–V12 Roadmap:  
-SAFEGATE_V10_V12_ROADMAP.md
-
-Final Hackathon Submission Pack:  
-HACKATHON_FINAL_SUBMISSION_PACK.md
-
-Simple Reviewer Brief:  
-SAFEGATE_SIMPLE_REVIEWER_BRIEF.md
-
----
-
-## V9 — Pi Sandbox / Testnet-Oriented Payment Spine Evidence
-
-V9 Pi Payment Spine Evidence:  
-https://safegate-v185-pi-debug-ready.vercel.app/v9-pi-payment-spine-evidence.html
-
-V9 Final Freeze Note:  
-https://safegate-v185-pi-debug-ready.vercel.app/v9-final-freeze-note.html
-
-V9 Pi Payment Test:  
-https://safegate-v185-pi-debug-ready.vercel.app/v9-pi-payment.html
-
-V9 API Test:  
-https://safegate-v185-pi-debug-ready.vercel.app/v9-api-test.html
-
----
-
-## Public Repository Documents
-
-README:  
-README.md
-
-Pilot Readiness Open Note:  
-SAFEGATE_PILOT_READINESS_OPEN_NOTE.md
-
-Pilot Readiness:  
-SAFEGATE_PILOT_READINESS.md
-
-Pilot Evidence Template:  
-SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md
-
-Architecture:  
-ARCHITECTURE.md
-
-Security Boundaries:  
-SECURITY_BOUNDARIES.md
-
-Pilot Evidence:  
-PILOT_EVIDENCE.md
-
-Notice:  
-NOTICE.md
-
-Roadmap:  
-ROADMAP.md
-
----
-
-## Public Boundary
-
-SafeGate does not claim:
-
-- production readiness
-- Pi Mainnet settlement
-- custodial payment processing
-- official Pi partnership
-- regulatory approval
-- formal third-party security audit
-- complete enterprise audit infrastructure
-- complete privacy protocol
-- complete multi-chain production infrastructure
-
-SafeGate is currently moving from controlled MVP evidence into controlled Pilot Readiness.
-
----
-
-## Core Positioning
+## Final Positioning
 
 SafeGate does not process payments.  
 SafeGate verifies what happened after payment.
 
-Payment is the trigger. Trust is the product.
+Payment is the trigger.  
+Trust is the product.
 
-Architecture is destiny.
-
----
-
-## Next Direction
-
-Controlled Pilot Execution.
+Controlled MVP Evidence Pack: Complete / frozen for review  
+Pilot Readiness: Open  
+Controlled Pilot Execution: Not yet claimed  
+Next Practical Goal: Reproducible controlled pilot flow
