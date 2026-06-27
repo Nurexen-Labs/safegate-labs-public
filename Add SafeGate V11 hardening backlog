@@ -1,0 +1,595 @@
+# SafeGate V11 Hardening Test Plan
+
+## Purpose
+
+This document defines the V11 hardening test plan after V10 Submission Ready and V10.1 Review Feedback Open.
+
+This is not V13.
+
+This is not production readiness.
+
+This is not a formal audit.
+
+This plan exists to convert the V11 Hardening Backlog into public-safe validation cases.
+
+---
+
+## Current Position
+
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| V9.1 Public Review Sync | COMPLETE |
+| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
+| V10.1 Review Feedback | OPEN |
+| V11 Hardening Backlog | OPEN |
+| V11 Hardening Test Plan | OPEN |
+| V13 | NOT OPENED |
+| Production Readiness | NOT CLAIMED |
+| Formal Third-Party Audit | NOT CLAIMED |
+
+---
+
+## Core Rule Under Test
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+Frontend callback alone must never unlock access.
+
+Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
+
+---
+
+## Test Result Labels
+
+| Label | Meaning |
+|---|---|
+| PASS | Expected safe behavior observed |
+| FAIL | Unsafe behavior observed |
+| BLOCKED | Test could not run due to missing environment or dependency |
+| NEEDS REVIEW | Output requires human review |
+| NOT IMPLEMENTED | Required behavior is not implemented yet |
+
+---
+
+## P0 Test Cases
+
+### V11-P0-001 Duplicate Approve
+
+Goal:
+
+Verify duplicate approve attempts do not create conflicting payment states.
+
+Expected safe behavior:
+
+- duplicate approve does not create duplicate verified records
+- access does not unlock from duplicate approve alone
+- receipt/evidence are not duplicated incorrectly
+- response is deterministic and safe
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-002 Duplicate Complete
+
+Goal:
+
+Verify duplicate complete attempts do not create conflicting final states.
+
+Expected safe behavior:
+
+- duplicate complete does not create duplicate final records
+- duplicate complete does not create duplicate receipt/evidence incorrectly
+- access remains consistent
+- response is deterministic and safe
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-003 Duplicate Receipt Creation
+
+Goal:
+
+Verify repeated receipt creation attempts do not create unsafe duplicates.
+
+Expected safe behavior:
+
+- same verified invoice/payment pair produces one durable receipt or deterministic existing receipt response
+- receipt does not change identity unexpectedly
+- access state remains consistent
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-004 Duplicate Evidence Creation
+
+Goal:
+
+Verify repeated evidence creation attempts do not create unsafe duplicate evidence records.
+
+Expected safe behavior:
+
+- same verified invoice/payment pair does not create conflicting evidence records
+- evidence response is deterministic
+- public verify remains consistent
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-005 PaymentId Replay
+
+Goal:
+
+Verify one paymentId cannot be reused to verify another invoice.
+
+Expected safe behavior:
+
+- replay attempt fails secure
+- no receipt is created
+- no evidence is created
+- no access is unlocked
+- public verify does not show active verified trust
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-006 Txid Replay
+
+Goal:
+
+Verify one txid cannot be reused to verify another invoice if txid is used by the verification flow.
+
+Expected safe behavior:
+
+- replay attempt fails secure
+- no receipt is created
+- no evidence is created
+- no access is unlocked
+- public verify does not show active verified trust
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-007 PaymentId / Invoice Mismatch
+
+Goal:
+
+Verify a paymentId from another invoice cannot verify the wrong invoice.
+
+Expected safe behavior:
+
+- mismatch fails secure
+- no receipt is created for wrong invoice
+- no evidence is created for wrong invoice
+- access remains locked
+- safe error returned
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-008 Amount / Merchant Context Mismatch
+
+Goal:
+
+Verify a payment that does not match expected amount or merchant context cannot unlock access.
+
+Expected safe behavior:
+
+- mismatch fails secure
+- no receipt/evidence generated
+- public verify does not show active verified trust
+- safe error returned
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-009 Pi API Timeout
+
+Goal:
+
+Verify Pi API timeout is not treated as verified payment.
+
+Expected safe behavior:
+
+- timeout fails secure
+- access remains locked
+- no receipt/evidence created
+- safe error returned
+- no raw internal error exposed publicly
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-010 Pi API Ambiguous Response
+
+Goal:
+
+Verify ambiguous or malformed Pi API response is not treated as verified payment.
+
+Expected safe behavior:
+
+- ambiguous response fails secure
+- access remains locked
+- no receipt/evidence created
+- safe error returned
+- no raw Pi API response exposed publicly
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-011 Database Write Failure
+
+Goal:
+
+Verify database write failure does not create false verified trust state.
+
+Expected safe behavior:
+
+- write failure fails secure
+- partial state does not unlock access
+- public verify does not show active verified trust
+- safe error returned
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-012 Receipt Exists / Evidence Missing
+
+Goal:
+
+Verify incomplete receipt/evidence pair does not produce unsafe active trust.
+
+Expected safe behavior:
+
+- public verify marks incomplete or unavailable state
+- access does not unlock if required evidence is missing
+- safe error or safe incomplete status returned
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P0-013 Evidence Exists / Receipt Missing
+
+Goal:
+
+Verify incomplete evidence/receipt pair does not produce unsafe active trust.
+
+Expected safe behavior:
+
+- public verify marks incomplete or unavailable state
+- access does not unlock if required receipt is missing
+- safe error or safe incomplete status returned
+
+Status:
+
+PLANNED
+
+---
+
+## P1 Test Cases
+
+### V11-P1-001 Receipt Integrity Field
+
+Goal:
+
+Verify receipt records can include integrity fields.
+
+Expected safe behavior:
+
+- receipt integrity field is present when implemented
+- integrity field is deterministic or verifiable
+- private signing secret is never exposed
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P1-002 Evidence Integrity Field
+
+Goal:
+
+Verify evidence records can include integrity fields.
+
+Expected safe behavior:
+
+- evidence integrity field is present when implemented
+- integrity field is deterministic or verifiable
+- private signing secret is never exposed
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P1-003 Public Verify Integrity Status
+
+Goal:
+
+Verify public verify can expose integrity status without exposing secrets.
+
+Expected safe behavior:
+
+- integrity status is public-safe
+- no raw secret is exposed
+- no internal signing material is exposed
+- tampered or missing integrity does not show active verified trust as normal
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P1-004 Public Verify Freshness Active
+
+Goal:
+
+Verify active record freshness can be represented safely.
+
+Expected safe behavior:
+
+- active state is clearly labeled
+- result does not imply permanent trust
+- freshness status is minimum-disclosure
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P1-005 Public Verify Expired / Revoked / Disputed
+
+Goal:
+
+Verify expired, revoked, and disputed states are distinguishable when implemented.
+
+Expected safe behavior:
+
+- expired state is not shown as active trust
+- revoked state is not shown as active trust
+- disputed state is not shown as normal active trust
+- public output remains minimum-disclosure
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P1-006 Safe Error Scan
+
+Goal:
+
+Verify public responses do not leak sensitive internal terms.
+
+Expected safe behavior:
+
+Public output should not expose:
+
+- service role
+- secret key
+- private key
+- passphrase
+- environment variable
+- stack trace
+- raw database error
+- raw Pi API response
+- sensitive customer data
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P1-007 Rate Limit Invoice Creation
+
+Goal:
+
+Verify invoice creation cannot be abused through uncontrolled request bursts.
+
+Expected safe behavior:
+
+- burst attempts are limited or safely rejected
+- no unsafe state is created
+- errors are public-safe
+- limits do not expose internal implementation details
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P1-008 Rate Limit Public Verify
+
+Goal:
+
+Verify public verify endpoint can resist repeated probing.
+
+Expected safe behavior:
+
+- repeated invalid or unknown verify attempts are controlled
+- no sensitive data exposed
+- safe deterministic responses returned
+- abuse does not degrade trust state correctness
+
+Status:
+
+PLANNED
+
+---
+
+## P2 Test Cases
+
+### V11-P2-001 Illegal State Transition Block
+
+Goal:
+
+Verify illegal state transitions are blocked.
+
+Examples:
+
+- INVOICE_CREATED to ACCESS_UNLOCKED
+- PAYMENT_FAILED to ACCESS_UNLOCKED
+- UNKNOWN to RECEIPT_CREATED
+- MISMATCHED to EVIDENCE_CREATED
+- TIMEOUT to PAYMENT_VERIFIED
+
+Expected safe behavior:
+
+- illegal transition is blocked
+- access remains locked
+- receipt/evidence not created incorrectly
+- blocked event is logged internally if logging exists
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P2-002 Audit Log Direction
+
+Goal:
+
+Verify future audit logs can track important security events without exposing secrets.
+
+Expected safe behavior:
+
+- replay attempt can be recorded internally
+- mismatch attempt can be recorded internally
+- timeout/failure can be recorded internally
+- public output remains minimum-disclosure
+
+Status:
+
+PLANNED
+
+---
+
+### V11-P2-003 Pilot Evidence Intake Safety
+
+Goal:
+
+Verify pilot evidence intake remains public-safe.
+
+Expected safe behavior:
+
+Evidence intake should not request:
+
+- passphrases
+- private keys
+- wallet secrets
+- sensitive customer data
+- service role keys
+- internal environment values
+
+Status:
+
+PLANNED
+
+---
+
+## Public-Safe Test Output Requirements
+
+Test outputs should avoid exposing:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- private key
+- passphrase
+- raw Pi API response
+- raw database error
+- stack trace
+- environment variables
+- sensitive customer data
+
+---
+
+## V11 Minimum Acceptance Criteria
+
+Before V11 can be considered meaningfully advanced, the following must have clear status:
+
+- duplicate approve behavior
+- duplicate complete behavior
+- duplicate receipt/evidence behavior
+- paymentId replay behavior
+- txid replay behavior
+- paymentId / invoice mismatch behavior
+- Pi API timeout behavior
+- Pi API ambiguous response behavior
+- durable state failure behavior
+- safe error scan
+- public verify unknown pair behavior
+- access unlock guard behavior
+
+---
+
+## V13 Gate
+
+V13 should not be opened until at least one of the following is true:
+
+1. Technical reviewer feedback is received and summarized.
+2. Controlled pilot requirements are selected.
+3. A concrete backend hardening sprint is defined.
+4. A specific implementation target is chosen.
+
+---
+
+## Current Safe Statement
+
+SafeGate is V10 Submission Ready.
+
+V10.1 Review Feedback is open.
+
+V11 Hardening Backlog is open.
+
+V11 Hardening Test Plan is open.
+
+V13 is not opened yet.
