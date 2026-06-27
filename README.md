@@ -104,7 +104,19 @@ It focuses on:
 V13 should reduce real backend trust risk before broader pilot execution.
 
 V13 does not mean production readiness.
+## Fee Architecture Decision
 
+SafeGate may use a transparent 100 + 1 verification fee model.
+
+Where native non-custodial split is supported, the fee can be routed automatically.
+
+Where native split is not supported, including Pi if multi-recipient split is unavailable, SafeGate uses a separate verified fee payment.
+
+SafeGate does not finalize verified receipt, evidence, access unlock, or public verify until the required service payment and SafeGate verification fee are confirmed.
+
+SafeGate does not use postpaid merchant debt as the primary fee model.
+
+See: ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md
 ---
 
 ## Start Here
@@ -200,7 +212,7 @@ Recommended review focus:
 | ./SECURITY_BOUNDARIES.md | Security and claim boundaries |
 | ./SAFEGATE_CONTROLLED_PILOT_EXECUTION_CHECKLIST.md | Controlled pilot execution checklist |
 | ./SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md | V12 trust-state / privacy / Web3 plan |
-
+| ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: 100 + 1 verification fee, split/non-split handling, and no postpaid merchant debt as primary model |
 ---
 
 ## Live Review Pages
