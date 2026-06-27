@@ -19,7 +19,9 @@ Payment is the trigger. Trust is the product.
 | V10.1 Review Feedback | OPEN |
 | V11 Security Hardening | DOCUMENTED DIRECTION |
 | V12 Trust-State / Privacy / Web3 | DOCUMENTED ARCHITECTURE DIRECTION |
-| V13 | NOT OPENED |
+| V13 Controlled Hardening Scope | OPEN |
+| V13 Implementation | NOT COMPLETE |
+| V13 Evidence Validation | NOT PASSED YET |
 | Production Readiness | NOT CLAIMED |
 | Pi Mainnet Settlement | NOT CLAIMED |
 | Official Pi Partnership | NOT CLAIMED |
@@ -37,11 +39,16 @@ Payment is the trigger. Trust is the product.
 | 3 | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html | Live V9.1 safe negative backend validation |
 | 4 | https://www.safegatelabs.xyz/v10-submission-ready.html | V10 submission-ready review position |
 | 5 | https://www.safegatelabs.xyz/v10-v12-roadmap.html | V10 to V12 roadmap |
-| 6 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
-| 7 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
-| 8 | https://www.safegatelabs.xyz/pilot-review-index.html | Pilot review navigation |
-| 9 | https://www.safegatelabs.xyz/pilot-readiness.html | Controlled pilot planning readiness |
-| 10 | ./README.md | Public repository overview |
+| 6 | ./SAFEGATE_V13_CONTROLLED_HARDENING_SCOPE.md | V13 controlled hardening scope |
+| 7 | ./SAFEGATE_V13_CONTROLLED_HARDENING_TEST_MATRIX.md | V13 controlled hardening test matrix |
+| 8 | ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 controlled hardening evidence log |
+| 9 | ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint map template |
+| 10 | ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
+| 11 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
+| 12 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
+| 13 | https://www.safegatelabs.xyz/pilot-review-index.html | Pilot review navigation |
+| 14 | https://www.safegatelabs.xyz/pilot-readiness.html | Controlled pilot planning readiness |
+| 15 | ./README.md | Public repository overview |
 
 ---
 
@@ -53,13 +60,18 @@ The recommended review order is:
 2. V9.1 Backend Behavior Validation
 3. V10 Submission Ready
 4. V10-V12 Roadmap
-5. V10.1 Review Feedback Open
-6. Review Feedback Intake
-7. Pilot Review Index
-8. Pilot Readiness
-9. V11 Security Index
-10. V12 Trust-State / Privacy / Web3 Architecture
-11. Public repository documents
+5. V13 Controlled Hardening Scope
+6. V13 Controlled Hardening Test Matrix
+7. V13 Evidence Log
+8. V13 Endpoint Map Template
+9. V13 Validation Runner Spec
+10. V10.1 Review Feedback Open
+11. Review Feedback Intake
+12. Pilot Review Index
+13. Pilot Readiness
+14. V11 Security Index
+15. V12 Trust-State / Privacy / Web3 Architecture
+16. Public repository documents
 
 ---
 
@@ -86,8 +98,17 @@ The recommended review order is:
 
 | Document | Purpose |
 |---|---|
+| ./SAFEGATE_V13_CONTROLLED_HARDENING_SCOPE.md | Opens V13 as controlled backend hardening scope |
+| ./SAFEGATE_V13_CONTROLLED_HARDENING_TEST_MATRIX.md | V13 test matrix for controlled hardening |
+| ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 public-safe evidence log |
+| ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint mapping template |
+| ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | Opens the V10.1 review feedback phase |
 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Collects public-safe technical review feedback |
+| ./SAFEGATE_V11_DEVELOPER_HANDOFF.md | V11 developer handoff for hardening sprint |
+| ./SAFEGATE_V11_IMPLEMENTATION_SPRINT_SCOPE.md | V11 implementation sprint scope |
+| ./SAFEGATE_V11_HARDENING_TEST_PLAN.md | V11 hardening test plan |
+| ./SAFEGATE_V11_HARDENING_BACKLOG.md | V11 hardening backlog |
 | ./SAFEGATE_V10_SUBMISSION_READY.md | V10 submission-ready status |
 | ./SAFEGATE_V10_V12_ROADMAP.md | V10 to V12 roadmap |
 | ./SAFEGATE_V9_1_PUBLIC_REVIEW_SYNC_COMPLETE.md | V9.1 public review sync completion |
@@ -122,26 +143,29 @@ The recommended review order is:
 
 ---
 
-## V10.1 Review Feedback Phase
+## V13 Controlled Hardening Phase
 
-SafeGate is now in V10.1 Review Feedback Open phase.
+SafeGate V13 Controlled Hardening Scope is open.
 
-This is not V13.
+V13 is not complete.
 
-V10.1 exists to collect technical review feedback before starting the next implementation sprint.
+V13 has not passed evidence validation yet.
 
-V13 should not be opened as a cosmetic documentation version.
+V13 exists to harden the highest-risk backend trust areas:
 
-The next real implementation sprint should be based on:
-
-- technical reviewer feedback
-- controlled pilot requirements
-- concrete backend hardening tasks
-- duplicate / replay / mismatch findings
-- timeout / failure behavior findings
-- receipt / evidence integrity requirements
-- public verify freshness requirements
-- rate limiting / abuse resistance requirements
+- duplicate callbacks
+- idempotency
+- replay resistance
+- paymentId replay
+- txid replay
+- paymentId / invoice mismatch
+- Pi API timeout behavior
+- Pi API ambiguous response behavior
+- durable state failure
+- incomplete receipt / evidence state
+- public verify unknown or mismatched pair
+- safe error handling
+- access unlock regression
 
 ---
 
@@ -185,7 +209,8 @@ SafeGate is not currently claiming:
 - complete privacy protocol
 - all duplicate / replay risks solved
 - all failure modes solved
-- V13 implementation started
+- V13 complete
+- V13 passed
 
 ---
 
@@ -195,7 +220,9 @@ SafeGate is V10 Submission Ready.
 
 V10.1 Review Feedback is open.
 
-V13 is not opened yet.
+V13 Controlled Hardening Scope is open.
+
+V13 is not complete and has not passed evidence validation yet.
 
 SafeGate does not process payments.
 
