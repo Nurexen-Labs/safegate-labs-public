@@ -13,6 +13,7 @@ Payment is the trigger. Trust is the product.
 | Area | Status |
 |---|---|
 | Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
 | Pilot Readiness | Open |
 | AI Review Risk Consensus | Available |
 | V9.1 Backend + Integrity Hardening Plan | Available |
@@ -45,7 +46,7 @@ It is not a security certification.
 
 It is not an official Pi partnership claim.
 
-It is a public-safe review package for SafeGate’s current Pilot Readiness stage after a controlled Pi Testnet payment-spine pass.
+It is a public-safe review package for SafeGate’s current Pilot Readiness stage after a controlled Pi Testnet payment-spine pass and a V9.1 safe negative backend validation pass.
 
 ---
 
@@ -70,7 +71,7 @@ The demonstrated flow:
 
 ## Verified Public-Safe Outcome
 
-The controlled test reached:
+The controlled payment-spine test reached:
 
 - paymentState: PAYMENT_VERIFIED_TESTNET
 - accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
@@ -89,12 +90,50 @@ The controlled test reached:
 
 ---
 
+## V9.1 Safe Negative Backend Validation — PASSED
+
+SafeGate completed a live V9.1 safe negative backend behavior validation.
+
+Live validation page:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Public-safe pass note:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed public-safe behavior:
+
+- backend health returned ok
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Boundary:
+
+This validation does not prove real duplicate approve/complete behavior, real paymentId/txid replay handling, Pi API timeout behavior, Supabase failure recovery, production readiness, or formal audit completion.
+
+---
+
 ## Main Review Links
 
 | Review Item | Link |
 |---|---|
 | Main Review Hub | https://www.safegatelabs.xyz |
 | V9 Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html |
+| V9.1 Backend Behavior Validation | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html |
 | Controlled Checkout | https://www.safegatelabs.xyz/safegate-checkout.html |
 | Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html |
 | Pilot Readiness | https://www.safegatelabs.xyz/pilot-readiness.html |
@@ -108,7 +147,9 @@ The controlled test reached:
 |---|---|
 | README.md | Public repository overview |
 | LINKS.md | Full public link index and reviewer order |
+| SAFEGATE_CURRENT_REVIEW_PACKAGE.md | One-file current SafeGate review package |
 | SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md | Public-safe record of the controlled Pi Testnet payment-spine pass |
+| SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md | Public-safe record of the V9.1 safe negative backend validation pass |
 | SAFEGATE_PUBLIC_SAFE_PAYMENT_SPINE_EVIDENCE_PACK.md | Public-safe evidence packaging rules and summary |
 | SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md | Technical review entry point for software/security reviewers |
 | SAFEGATE_CONTROLLED_PILOT_EXECUTION_CHECKLIST.md | Checklist for moving from evidence to controlled pilot planning |
@@ -205,6 +246,10 @@ V9.1 is not a security certification.
 
 V9.1 is a hardening direction before stronger controlled pilot execution.
 
+The first V9.1 safe negative backend validation has passed.
+
+Deeper duplicate/replay/failure validation remains a V9.1 target.
+
 ---
 
 ## AI Review Risk Consensus
@@ -259,13 +304,17 @@ The backend behavior matrix defines expected SafeGate behavior for scenarios suc
 - unknown receipt/evidence public verify
 - backend internal error
 
-The goal is to show which behaviors are:
+The first live V9.1 safe negative validation has passed for selected non-sensitive backend cases.
 
-- demonstrated
-- partially shown
-- needing live repeat evidence
-- planned for V9.1 hardening
-- not claimed
+Still remaining for deeper validation:
+
+- duplicate approve with real paymentId
+- duplicate complete with real paymentId and txid
+- real paymentId mismatch
+- real replay attempts
+- Pi API timeout behavior
+- Supabase write failure behavior
+- durable-state recovery behavior
 
 ---
 
@@ -449,18 +498,20 @@ Public evidence should only show minimum-disclosure confirmation:
 | 1 | Main Review Hub | Gives the safest current overview and boundaries |
 | 2 | Current Review Package | One-file summary of current SafeGate status and review links |
 | 3 | V9 Payment Spine Evidence | Shows the controlled Pi Testnet payment-spine result |
-| 4 | AI Review Risk Consensus | Shows that technical criticism was collected and turned into risk tracking |
-| 5 | V9.1 Backend + Integrity Hardening Plan | Shows the next engineering closure path |
-| 6 | Backend Behavior Evidence Matrix | Shows expected backend behavior under edge cases |
-| 7 | Receipt Integrity Plan | Addresses receipt/evidence tamper-detection direction |
-| 8 | Pi Verification Depth Note | Explains what “backend verified” should mean technically |
-| 9 | Public Verify Freshness Policy | Addresses stale public verify risk |
-| 10 | Formal State Machine Table | Defines legal/illegal transitions and fail-secure states |
-| 11 | Merchant Explanation | Explains business value in simple language |
-| 12 | Controlled Pi Testnet Payment Spine Pass Note | Public-safe written record of the passed flow |
-| 13 | Public-Safe Payment Spine Evidence Pack | Explains what can be shared publicly and what must be redacted |
-| 14 | External Technical Review Note | Serious technical-review entry point |
-| 15 | Controlled Pilot Execution Checklist | Explains what must be ready before controlled pilot execution |
+| 4 | V9.1 Backend Behavior Validation | Shows live public-safe negative backend validation |
+| 5 | V9.1 Backend Validation Pass Note | Records the 18/18 pass result and boundaries |
+| 6 | AI Review Risk Consensus | Shows that technical criticism was collected and turned into risk tracking |
+| 7 | V9.1 Backend + Integrity Hardening Plan | Shows the next engineering closure path |
+| 8 | Backend Behavior Evidence Matrix | Shows expected backend behavior under edge cases |
+| 9 | Receipt Integrity Plan | Addresses receipt/evidence tamper-detection direction |
+| 10 | Pi Verification Depth Note | Explains what “backend verified” should mean technically |
+| 11 | Public Verify Freshness Policy | Addresses stale public verify risk |
+| 12 | Formal State Machine Table | Defines legal/illegal transitions and fail-secure states |
+| 13 | Merchant Explanation | Explains business value in simple language |
+| 14 | Controlled Pi Testnet Payment Spine Pass Note | Public-safe written record of the passed flow |
+| 15 | Public-Safe Payment Spine Evidence Pack | Explains what can be shared publicly and what must be redacted |
+| 16 | External Technical Review Note | Serious technical-review entry point |
+| 17 | Controlled Pilot Execution Checklist | Explains what must be ready before controlled pilot execution |
 
 ---
 
@@ -519,11 +570,13 @@ SafeGate is no longer only a static demo.
 
 SafeGate has passed a controlled Pi Testnet payment-spine flow.
 
+SafeGate has passed a live V9.1 safe negative backend validation for selected public-safe cases.
+
 SafeGate has strong positioning and disciplined public boundaries.
 
 SafeGate is suitable for continued hackathon / reviewer / technical feedback.
 
-SafeGate still needs backend behavior evidence and hardening before stronger controlled pilot execution.
+SafeGate still needs deeper duplicate/replay/failure behavior evidence before stronger controlled pilot execution.
 
 SafeGate is not production-ready.
 
