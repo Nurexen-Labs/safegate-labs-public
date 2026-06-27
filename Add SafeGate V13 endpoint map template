@@ -1,0 +1,381 @@
+# SafeGate V13 Validation Runner Spec
+
+## Purpose
+
+This document defines the expected behavior of a future SafeGate V13 controlled hardening validation runner.
+
+V13 is open.
+
+V13 is not complete.
+
+V13 has not passed evidence validation yet.
+
+This specification is not an implementation.
+
+This specification is not a production audit.
+
+---
+
+## Current Position
+
+| Area | Status |
+|---|---|
+| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
+| V10.1 Review Feedback | OPEN |
+| V11 Hardening Backlog | OPEN |
+| V11 Hardening Test Plan | OPEN |
+| V13 Controlled Hardening Scope | OPEN |
+| V13 Test Matrix | OPEN |
+| V13 Evidence Log | OPEN |
+| V13 Endpoint Map Template | OPEN |
+| V13 Validation Runner Spec | OPEN |
+| V13 Complete | NOT CLAIMED |
+| V13 Passed | NOT CLAIMED |
+| Production Readiness | NOT CLAIMED |
+| Formal Third-Party Audit | NOT CLAIMED |
+
+---
+
+## Core Rule
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+Frontend callback alone must never unlock access.
+
+Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
+
+---
+
+## Validation Runner Goal
+
+The V13 validation runner should verify selected controlled hardening behaviors in a public-safe way.
+
+It should show:
+
+- test name
+- expected safe behavior
+- observed safe behavior
+- result label
+- public-safe limitation note
+
+It must not expose secrets, raw identifiers, internal errors, or sensitive data.
+
+---
+
+## Required Result Labels
+
+| Label | Meaning |
+|---|---|
+| PASS | Expected safe behavior observed |
+| FAIL | Unsafe behavior observed |
+| BLOCKED | Test could not run due to missing environment or dependency |
+| NEEDS REVIEW | Output requires human review |
+| NOT IMPLEMENTED | Required behavior is not implemented yet |
+| PLANNED | Test exists but has not been run |
+
+---
+
+## Required Top-Level Output
+
+A V13 validation runner should show:
+
+| Field | Required |
+|---|---|
+| version | YES |
+| phase | YES |
+| totalChecks | YES |
+| passedChecks | YES |
+| failedChecks | YES |
+| blockedChecks | YES |
+| needsReviewChecks | YES |
+| notImplementedChecks | YES |
+| productionReadyClaim | YES |
+| formalAuditClaim | YES |
+| publicSafe | YES |
+| secretsExposed | YES |
+| limitations | YES |
+
+---
+
+## Required Claim Flags
+
+The runner output must clearly state:
+
+| Claim | Value |
+|---|---|
+| productionReadyClaim | false |
+| formalAuditClaim | false |
+| securityCertificationClaim | false |
+| piMainnetSettlementClaim | false |
+| officialPiPartnershipClaim | false |
+| v13CompleteClaim | false unless completed later with evidence |
+| v13PassedClaim | false unless completed later with evidence |
+
+---
+
+## Required Test Groups
+
+### 1. Idempotency Tests
+
+The runner should eventually test:
+
+- duplicate approve
+- duplicate complete
+- duplicate receipt creation
+- duplicate evidence creation
+
+Expected safe behavior:
+
+- no conflicting payment state
+- no duplicate unsafe receipt/evidence
+- deterministic safe response
+- access state remains consistent
+
+---
+
+### 2. Replay Tests
+
+The runner should eventually test:
+
+- same paymentId reused on same invoice
+- same paymentId reused on different invoice
+- same txid reused if applicable
+- completed payment replayed into another invoice
+
+Expected safe behavior:
+
+- replay rejected or safely handled
+- no false verified trust
+- no receipt/evidence for wrong invoice
+- access remains locked
+
+---
+
+### 3. Mismatch Tests
+
+The runner should eventually test:
+
+- paymentId does not match invoiceId
+- wrong amount if amount check exists
+- wrong merchant context if merchant check exists
+- mismatched receipt/evidence pair
+
+Expected safe behavior:
+
+- mismatch rejected
+- no active verified trust
+- no receipt/evidence for mismatch
+- access remains locked
+
+---
+
+### 4. Timeout / Ambiguity Tests
+
+The runner should eventually test:
+
+- Pi API timeout
+- backend timeout during verification
+- malformed Pi API response
+- missing verification response field
+- ambiguous verification response
+
+Expected safe behavior:
+
+- fail secure
+- access remains locked
+- no receipt/evidence created
+- no raw Pi API response exposed publicly
+
+---
+
+### 5. Durable State Failure Tests
+
+The runner should eventually test:
+
+- payment state write failure
+- receipt write failure
+- evidence write failure
+- receipt exists but evidence missing
+- evidence exists but receipt missing
+- public verify readback failure
+
+Expected safe behavior:
+
+- incomplete state does not unlock access
+- false verified trust is not created
+- public verify does not show normal active verified trust
+- safe error is returned
+
+---
+
+### 6. Public Verify Tests
+
+The runner should eventually test:
+
+- unknown receipt/evidence pair
+- mismatched receipt/evidence pair
+- missing receiptId
+- missing evidenceId
+- incomplete receipt/evidence state
+
+Expected safe behavior:
+
+- no active verified trust for unknown pair
+- no active verified trust for mismatched pair
+- missing inputs rejected safely
+- no secrets exposed
+
+---
+
+### 7. Access Guard Tests
+
+The runner should eventually test:
+
+- invoice created state
+- payment pending state
+- timeout state
+- ambiguous state
+- mismatch state
+- replay rejected state
+- verified receipt/evidence state
+
+Expected safe behavior:
+
+- all unsafe or incomplete states remain locked
+- only legal backend-verified path may unlock access
+
+---
+
+### 8. Safe Error Scan
+
+The runner should scan public outputs for unsafe terms or patterns.
+
+Unsafe output examples:
+
+- service role
+- secret key
+- private key
+- passphrase
+- environment variable
+- stack trace
+- raw database error
+- raw Pi API response
+- sensitive customer data
+- access token
+- wallet secret
+
+Expected safe behavior:
+
+- none of these appear in public output
+- errors are minimal and deterministic
+- debugging details remain private
+
+---
+
+## Public-Safe Output Rules
+
+The runner must not expose:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- private key
+- passphrase
+- raw Pi API response
+- raw database error
+- stack trace
+- environment variables
+- sensitive customer data
+- private wallet data
+- non-public customer information
+
+---
+
+## Minimum Public Result Shape
+
+Each test result should include:
+
+| Field | Required |
+|---|---|
+| id | YES |
+| group | YES |
+| name | YES |
+| expectedSafeBehavior | YES |
+| observedBehaviorSummary | YES |
+| result | YES |
+| publicSafe | YES |
+| secretsExcluded | YES |
+| limitation | YES if applicable |
+
+---
+
+## Example Public-Safe Result Shape
+
+This is only an example shape.
+
+| Field | Example |
+|---|---|
+| id | V13-001 |
+| group | Idempotency |
+| name | Duplicate approve |
+| expectedSafeBehavior | No conflicting payment state |
+| observedBehaviorSummary | Not run yet |
+| result | PLANNED |
+| publicSafe | true |
+| secretsExcluded | true |
+| limitation | Implementation pending |
+
+---
+
+## Runner Must Avoid Misleading Language
+
+The runner must not say:
+
+- production ready
+- audit passed
+- certified
+- risk free
+- tamper proof
+- official Pi partner
+- Mainnet settlement complete
+- all replay risks solved
+- all failure modes solved
+
+Unless such claims become true through separate verified evidence, they must remain false.
+
+---
+
+## V13 Pass Gate
+
+V13 cannot be called passed unless the runner or evidence pack shows public-safe evidence for:
+
+- duplicate approve behavior
+- duplicate complete behavior
+- duplicate receipt/evidence behavior
+- paymentId replay behavior
+- txid replay behavior if applicable
+- paymentId / invoice mismatch behavior
+- Pi API timeout behavior
+- Pi API ambiguous response behavior
+- durable state failure behavior
+- public verify unknown pair behavior
+- public verify mismatched pair behavior
+- access unlock regression behavior
+- safe error scan behavior
+
+---
+
+## Current Safe Statement
+
+SafeGate V13 Controlled Hardening Scope is open.
+
+V13 Validation Runner Spec is open.
+
+V13 is not complete.
+
+V13 has not passed evidence validation yet.
+
+SafeGate remains not production-ready and not formally audited.
