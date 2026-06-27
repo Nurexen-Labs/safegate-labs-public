@@ -8,351 +8,475 @@ Payment is the trigger. Trust is the product.
 
 ---
 
-## Document Status
+## Simple Merchant Summary
 
-**Status:** Merchant-facing explanation  
-**Scope:** Simple explanation of SafeGate for merchants and pilot reviewers  
-**Current Public Phase:** Pilot Readiness  
-**Controlled Pi Testnet Payment Spine:** PASSED  
-**Production Claim:** No  
-**Commercial Pilot Claim:** No  
-**Pi Mainnet Settlement Claim:** No  
-**Official Pi Partnership Claim:** No  
+SafeGate helps merchants answer one important question:
 
----
+What happened after payment?
 
-## Important Boundary
+A payment alone does not always prove:
 
-This document explains SafeGate in simple business language.
+- access was unlocked correctly
+- a receipt was created
+- evidence was created
+- the backend verified the payment
+- the customer received the expected outcome
+- the result can be checked later without exposing private payment data
 
-It does not claim production readiness.
-
-It does not claim Pi Mainnet settlement.
-
-It does not claim official Pi partnership.
-
-It does not claim that SafeGate is ready for broad commercial deployment.
-
-It explains the intended merchant value of SafeGate’s post-payment trust layer.
+SafeGate is designed to connect payment events to verified outcomes, receipts, evidence, access state, and public-safe proof.
 
 ---
 
-## What Problem Does SafeGate Solve?
+## What SafeGate Does For A Merchant
 
-A merchant does not only need to know that a payment button was clicked.
+SafeGate helps a merchant create a clearer post-payment record.
 
-A merchant needs to know what happened after the payment event.
+It can help show:
 
-Questions a merchant may ask:
+- an invoice was created
+- access started locked
+- payment reached backend-verified state
+- receipt/evidence was created after verified payment state
+- public verify can confirm the outcome
+- access unlocked only after backend-verified receipt
+- sensitive payment identifiers are not exposed publicly
 
-- Was an invoice created?
-- Did the buyer start payment?
-- Was the payment verified by backend?
+SafeGate does not replace the payment system.
+
+SafeGate adds a trust layer after payment.
+
+---
+
+## What SafeGate Does Not Do
+
+SafeGate does not:
+
+- process payments
+- custody funds
+- act as a wallet
+- act as a bank
+- act as a regulated financial institution
+- claim Pi Mainnet settlement at this stage
+- claim official Pi Core Team partnership
+- claim production readiness
+- claim formal security audit completion
+
+SafeGate focuses on post-payment trust.
+
+---
+
+## Current SafeGate Evidence
+
+SafeGate has passed two important controlled evidence milestones:
+
+1. Controlled Pi Testnet Payment Spine
+2. V9.1 Safe Negative Backend Validation
+
+These results strengthen SafeGate’s Pilot Readiness.
+
+They do not create a production-readiness claim.
+
+---
+
+## Controlled Pi Testnet Payment Spine — PASSED
+
+SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
+
+The controlled flow demonstrated:
+
+- V9 invoice creation
+- access initially locked
+- Pi Browser authentication
+- username + payments scope
+- Pi wallet payment in Sandbox / Testnet context
+- backend approval / completion flow
+- backend-verified payment state
+- receipt/evidence generation after verified state
+- minimum-disclosure public verification
+- access unlock only after backend-verified receipt
+
+Public-safe observed result:
+
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- verified: true
+- minimumDisclosure: true
+- publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
+- rawPiApiResponseIncluded: false
+- serviceRoleKeyIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+- accessUnlocked: true
+
+Related document:
+
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
+
+Live evidence page:
+
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
+
+---
+
+## V9.1 Safe Negative Backend Validation — PASSED
+
+SafeGate completed a live V9.1 safe negative backend behavior validation.
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed selected public-safe behavior:
+
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Related document:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Live validation page:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Boundary:
+
+This validation does not prove real duplicate approve/complete behavior, real paymentId/txid replay handling, Pi API timeout behavior, Supabase failure recovery, production readiness, or formal audit completion.
+
+---
+
+## Merchant Problem
+
+A merchant may receive a payment signal but still need to know:
+
+- Was the payment actually verified by the backend?
+- Did the user receive access?
 - Was a receipt created?
 - Was evidence created?
-- Was access unlocked?
-- Can this result be checked later?
-- Can the result be shown without exposing private payment data?
+- Can the merchant prove what happened later?
+- Can support understand the outcome?
+- Can a reviewer check the result without seeing private payment data?
+- What happens if payment is missing, incomplete, unknown, or not verified?
 
-SafeGate is designed to answer these questions.
-
----
-
-## Simple Definition
-
-SafeGate is a post-payment trust layer.
-
-It helps a merchant verify and record what happened after a payment event.
-
-SafeGate does not replace the payment network.
-
-SafeGate does not custody funds.
-
-SafeGate does not process payments.
-
-SafeGate verifies the post-payment outcome.
+SafeGate addresses this post-payment trust gap.
 
 ---
 
-## Simple Flow
+## Merchant Benefit
 
-A simple SafeGate merchant flow looks like this:
+SafeGate can help merchants with:
 
-1. Merchant creates or offers a service/product.
-2. Buyer starts a payment.
-3. SafeGate creates an invoice/payment intent.
-4. Access stays locked.
-5. Buyer completes payment in the intended environment.
-6. SafeGate backend verifies the payment state.
-7. SafeGate creates receipt/evidence after backend verification.
-8. Public verify can confirm a minimum-disclosure result.
-9. Access unlocks only after backend-verified receipt/evidence.
+- clearer payment outcome records
+- safer access unlock logic
+- receipt/evidence trail
+- public-safe verification
+- reduced screenshot dependence
+- better support context
+- better dispute context
+- clearer reviewer evidence
+- structured post-payment state
 
----
+The main merchant benefit is not payment processing.
 
-## What The Merchant Gets
-
-A merchant may receive:
-
-- invoice reference
-- payment state
-- receipt reference
-- evidence reference
-- access state
-- public verify result
-- minimum-disclosure proof
-- merchant-side support record
-
-The goal is to give the merchant a clear post-payment record.
+The main merchant benefit is post-payment clarity.
 
 ---
 
-## What The Buyer Gets
+## Example Merchant Flow
 
-A buyer may receive:
+A simple merchant-style SafeGate flow:
 
-- clearer payment outcome
-- proof that payment led to a verified state
-- access only after backend verification
-- public-safe confirmation
-- no unnecessary exposure of private payment identifiers in public verify
+1. Merchant creates an invoice or service access request.
+2. Customer starts payment.
+3. Access remains locked.
+4. Backend verifies payment state.
+5. Receipt/evidence is created only after verified state.
+6. Public verify becomes available.
+7. Access unlocks only after backend-verified receipt.
+8. Merchant can later review the structured outcome.
 
----
+This helps answer:
 
-## What Public Verify Means
-
-Public verify is a minimum-disclosure confirmation page or endpoint.
-
-It can show that a receipt/evidence pair exists and was verified without exposing private payment data.
-
-Public verify should show safe fields such as:
-
-- verified
-- receiptId
-- evidenceId
-- paymentState
-- accessState
-- minimumDisclosure
-- publicSafe
-- accessUnlocked
-
-Public verify should not expose:
-
-- paymentId
-- txid
-- raw Pi API response
-- service role key
-- access token
-- private wallet data
-- customer data
-- private merchant data
-- internal logs
+Did payment lead to the correct verified outcome?
 
 ---
 
-## Example Merchant Scenario
+## Why Access Should Stay Locked First
 
-A merchant sells access to a digital service.
+A merchant should not unlock access just because the frontend says payment happened.
 
-The buyer starts payment.
-
-Before payment verification:
-
-- invoice exists
-- access is locked
-- no receipt is issued
-- no evidence is issued
-- public verify does not show active verified access
-
-After backend payment verification:
-
-- payment state becomes verified
-- receipt is created
-- evidence is created
-- access unlocks
-- public verify can confirm the result with minimum disclosure
-
-This gives the merchant a safer record than relying only on a frontend payment callback.
-
----
-
-## What Happens If Payment Is Delayed?
-
-If payment is delayed or unclear, SafeGate should fail secure.
-
-That means:
-
-- access stays locked
-- no fake success is shown
-- no receipt is created before verification
-- no evidence is created before verification
-- public verify should not show active verified trust
-- the record may move to pending, timeout, or review state
-
-This protects both merchant and buyer from false payment outcomes.
-
----
-
-## What Happens If The Buyer Says “I Paid”?
-
-SafeGate should help the merchant check:
-
-- invoice status
-- payment state
-- receipt/evidence status
-- public verify result
-- access state
-
-If backend verification is not complete, SafeGate should not unlock access automatically.
-
-The merchant can use the record for support or review.
-
----
-
-## What Happens If Something Fails?
-
-SafeGate should fail safely.
-
-Possible failures:
-
-- payment not completed
-- Pi API timeout
-- backend verification ambiguity
-- database read/write failure
-- duplicate callback
-- replay attempt
-- receipt/evidence mismatch
-- public verify unavailable
-
-SafeGate should not treat these as automatic success.
-
----
-
-## Why Not Trust The Frontend Callback?
-
-Frontend callbacks can be unreliable or manipulated.
-
-A buyer browser may refresh.
-
-A network delay may happen.
-
-A callback may be duplicated.
-
-A malicious client may try to fake success.
+Frontend callback alone can be incomplete, repeated, spoofed, delayed, or ambiguous.
 
 SafeGate’s rule is:
 
-Frontend callback alone does not unlock access.
+No receipt, no evidence, and no access unlock before backend-verified payment state.
 
-Backend verification comes first.
-
----
-
-## Merchant Value
-
-SafeGate helps merchants by creating:
-
-- clearer post-payment records
-- safer access unlock logic
-- receipt/evidence trail
-- public-safe proof
-- support/dispute context
-- less reliance on screenshots or manual claims
-- structured trust state after payment
+This rule protects both merchant and customer.
 
 ---
 
-## What SafeGate Is Not
+## Public Verify In Merchant Terms
 
-SafeGate is not:
+Public verify is a safe confirmation page or response.
 
-- a wallet
-- a payment processor
-- a custodial fund holder
+It should confirm the outcome without exposing private payment information.
+
+Public verify may show:
+
+- verified
+- publicSafe
+- minimumDisclosure
+- accessState
+- receiptStatus
+- evidenceStatus
+- privateDataIncluded: false
+- secretsIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+
+Public verify should not show:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- raw Pi API response
+- private customer data
+- private wallet data
+
+---
+
+## Safe Merchant Language
+
+A merchant may describe SafeGate as:
+
+SafeGate helps verify what happened after payment.
+
+SafeGate does not process the payment.
+
+SafeGate helps create a receipt/evidence trail after backend verification.
+
+SafeGate helps keep access locked until the payment outcome is verified.
+
+SafeGate helps provide public-safe proof without exposing sensitive payment identifiers.
+
+---
+
+## Unsafe Merchant Language
+
+A merchant should not describe SafeGate as:
+
+- a production payment gateway
 - a bank
-- a regulator
-- a chargeback system
-- a full dispute resolution platform
-- a production-ready merchant platform at this stage
-- an official Pi Core Team partner
-- a Pi Mainnet settlement proof at this stage
+- a wallet
+- an official Pi Core Team product
+- a guaranteed payment settlement system
+- a fully audited security product
+- a tamper-proof receipt system
+- a regulatory-approved payment processor
+
+These claims are not currently made.
 
 ---
 
-## What SafeGate Currently Claims
+## Merchant Pilot Boundary
 
-SafeGate currently claims:
+A controlled merchant-style pilot should be:
 
-- controlled Pi Testnet payment-spine pass
-- backend-verified receipt/evidence direction
-- access unlock only after backend-verified receipt
-- minimum-disclosure public verify direction
-- Pilot Readiness preparation
-- public-safe evidence discipline
-- V9.1 backend hardening planning
+- limited
+- supervised
+- public-safe
+- clearly labeled as controlled
+- not production-scale
+- not open onboarding
+- not Mainnet settlement claim
+- not official Pi partnership claim
+- not formal audit claim
 
----
-
-## What SafeGate Does Not Currently Claim
-
-SafeGate does not currently claim:
-
-- production readiness
-- commercial pilot completion
-- Pi Mainnet settlement
-- official Pi partnership
-- formal third-party audit
-- regulatory approval
-- enterprise-grade security
-- tamper-proof infrastructure
-- complete dispute automation
+A merchant-style pilot should use clear stop conditions.
 
 ---
 
-## Merchant Review Questions
+## Merchant Stop Conditions
 
-A merchant should ask:
+A merchant-style controlled pilot should pause if:
 
-1. What do I see after a buyer pays?
-2. How do I know access was unlocked correctly?
-3. What happens if the payment is delayed?
-4. What happens if the buyer says they paid but access is locked?
-5. What proof can I show without exposing private payment data?
-6. Can I check a receipt later?
-7. What happens if a receipt is expired, revoked, or disputed?
-8. What support record do I have?
-
----
-
-## Controlled Pilot Merchant Shape
-
-A future controlled pilot should start small.
-
-Recommended first pilot shape:
-
-- one merchant-style scenario
-- one product or service
-- one buyer/tester
-- one invoice
-- one controlled payment
-- one receipt/evidence pair
-- one public verify result
-- one redacted evidence note
-- one review summary
-
-Do not start with broad merchant onboarding.
-
-Do not claim production readiness.
+- access unlocks before backend-verified payment state
+- receipt/evidence is created before verified payment state
+- public verify exposes sensitive payment data
+- unknown public verify pair returns active verified trust
+- duplicate payment callback creates uncontrolled duplicate records
+- customer data appears in public evidence
+- raw paymentId or txid appears in public evidence
+- merchant misunderstands SafeGate as production-ready
+- reviewer cannot understand the claim boundaries
 
 ---
 
-## Simple Merchant Summary
+## Merchant Evidence Rules
 
-SafeGate helps answer the merchant’s post-payment question:
+Merchant evidence should be public-safe.
 
-Did this payment lead to a verified outcome, a receipt, evidence, and the correct access state?
+Allowed public-safe evidence:
 
-That is the merchant value.
+- test type
+- general device/browser context
+- paymentState label
+- accessState label
+- verified status
+- minimumDisclosure status
+- publicSafe status
+- pass/fail result
+- short feedback
+
+Do not publish unredacted:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- customer identifier
+- access token
+- internal logs
+- raw Pi API response
+- service role information
+- private customer data
+
+---
+
+## Merchant FAQ
+
+### Does SafeGate process my payments?
+
+No.
+
+SafeGate does not process payments.
+
+SafeGate verifies what happened after payment.
+
+---
+
+### Does SafeGate custody funds?
+
+No.
+
+SafeGate does not custody user funds.
+
+---
+
+### Is SafeGate production-ready?
+
+No.
+
+Production readiness is not currently claimed.
+
+---
+
+### Is SafeGate officially partnered with Pi Core Team?
+
+No.
+
+Official Pi partnership is not currently claimed.
+
+---
+
+### Does SafeGate prove Pi Mainnet settlement?
+
+No.
+
+Current evidence is controlled Pi Testnet / Sandbox-oriented evidence.
+
+Pi Mainnet settlement is not currently claimed.
+
+---
+
+### What does SafeGate prove now?
+
+SafeGate has passed:
+
+- controlled Pi Testnet payment-spine evidence
+- V9.1 safe negative backend validation for selected public-safe cases
+
+This supports Pilot Readiness and technical review.
+
+---
+
+### What still needs more work?
+
+Remaining work includes:
+
+- duplicate approve behavior
+- duplicate complete behavior
+- replay protection
+- timeout handling
+- durable-state failure behavior
+- receipt/evidence integrity
+- public verify freshness
+- rate limiting
+- deeper safe error testing
+
+---
+
+## Merchant Review Question
+
+The best merchant review question is:
+
+Would this help me prove what happened after a customer paid?
+
+The best technical review question is:
+
+Where would this architecture break first if it moved from controlled Testnet evidence to a real pilot environment?
+
+---
+
+## Merchant Summary In One Paragraph
+
+SafeGate is a post-payment trust layer for merchants and apps. It does not process payments. It helps verify what happened after payment by connecting backend-verified payment state to receipt, evidence, public-safe verification, and access state. Its current evidence includes a controlled Pi Testnet payment-spine pass and a V9.1 safe negative backend validation pass. SafeGate is in Pilot Readiness, not production readiness.
+
+---
+
+## Safe Public Merchant Pitch
+
+SafeGate helps merchants prove what happened after payment.
+
+Payment is the trigger.
+
+SafeGate verifies the outcome.
+
+Receipt and evidence are generated only after backend-verified payment state.
+
+Access unlocks only after backend-verified receipt.
+
+Public verify can confirm the result without exposing sensitive payment identifiers.
+
+---
+
+## Final Merchant Boundary
+
+SafeGate is useful for post-payment trust review and controlled pilot planning.
+
+SafeGate is not yet production-ready.
+
+SafeGate is not formally audited.
+
+SafeGate does not claim Pi Mainnet settlement.
+
+SafeGate does not claim official Pi partnership.
 
 ---
 
