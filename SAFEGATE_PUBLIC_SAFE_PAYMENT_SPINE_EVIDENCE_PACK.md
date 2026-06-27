@@ -8,53 +8,57 @@ Payment is the trigger. Trust is the product.
 
 ---
 
-## Evidence Pack Status
-
-**Status:** Prepared for public-safe review  
-**Controlled Pi Testnet Payment Spine:** PASSED  
-**Environment:** Pi Browser / Pi Sandbox / Testnet-oriented controlled flow  
-**Public Phase:** SafeGate Pilot Readiness  
-
----
-
 ## Purpose
 
-This evidence pack summarizes the controlled SafeGate Pi Testnet payment-spine result in a public-safe format.
+This evidence pack defines what SafeGate can share publicly after controlled payment-spine and backend validation tests.
 
-It is designed for:
+The purpose is to preserve useful technical evidence without exposing sensitive payment data, wallet data, identifiers, secrets, or internal infrastructure details.
 
-- technical reviewers
-- software developers
-- hackathon reviewers
-- ecosystem reviewers
-- pilot-readiness reviewers
+This is a public-safe evidence pack.
 
-It avoids exposing sensitive technical data.
+It is not a production-readiness claim.
 
----
+It is not a formal audit.
 
-## Controlled Flow Summary
-
-SafeGate completed a controlled payment-spine execution in Pi Browser.
-
-The demonstrated flow:
-
-1. V9 invoice was created.
-2. Initial access state remained locked.
-3. Pi Browser authentication succeeded.
-4. username + payments scope succeeded.
-5. Pi wallet payment succeeded in Sandbox / Testnet context.
-6. Backend approval / completion flow executed.
-7. Backend-verified payment state was reached.
-8. Receipt and evidence were generated after verified state.
-9. Public verify confirmed a minimum-disclosure record.
-10. Access unlocked only after backend-verified receipt.
+It is not a security certification.
 
 ---
 
-## Verified Public-Safe Outcome
+## Current Evidence Status
 
-The controlled test reached:
+| Evidence Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| Pilot Readiness | Open |
+| Production Readiness | Not claimed |
+| Pi Mainnet Settlement | Not claimed |
+| Official Pi Partnership | Not claimed |
+| Formal Third-Party Audit | Not claimed |
+| Security Certification | Not claimed |
+| Tamper-Proof Infrastructure | Not claimed |
+| Independent Cryptographic Verification | Not yet claimed |
+
+---
+
+## Evidence Item 1 — Controlled Pi Testnet Payment Spine
+
+SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
+
+The controlled flow demonstrated:
+
+1. V9 invoice creation
+2. initial access state remained locked
+3. Pi Browser authentication succeeded
+4. username + payments scope succeeded
+5. Pi wallet payment succeeded in Sandbox / Testnet context
+6. backend approval / completion flow executed
+7. backend-verified payment state reached
+8. receipt and evidence generated after verified state
+9. public verify confirmed minimum-disclosure result
+10. access unlocked only after backend-verified receipt
+
+Public-safe observed result:
 
 - paymentState: PAYMENT_VERIFIED_TESTNET
 - accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
@@ -71,148 +75,449 @@ The controlled test reached:
 - customerDataIncluded: false
 - accessUnlocked: true
 
----
+Related document:
 
-## Core Evidence Meaning
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
 
-This evidence shows that SafeGate does not unlock access from invoice creation or frontend callback alone.
+Live evidence page:
 
-Access unlock happens after:
-
-1. backend-verified payment state
-2. guarded receipt/evidence generation
-3. public verification path becoming available
-
-This is the core SafeGate trust claim.
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
 
 ---
 
-## What Can Be Shared Publicly
+## Evidence Item 2 — V9.1 Safe Negative Backend Validation
 
-Safe to share:
+SafeGate completed a live V9.1 safe negative backend behavior validation.
 
-- Main Hub link
-- V9 Payment Spine Evidence link
-- External Technical Review Note link
-- public-safe pass note
-- minimum-disclosure public verify result
-- redacted screenshots showing only safe fields
-- summary of the controlled flow
-- claim boundaries
+Live validation page:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Related document:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed selected public-safe negative behavior:
+
+- backend health returned ok
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Boundary:
+
+This validation does not prove real duplicate approve/complete behavior, real paymentId/txid replay handling, Pi API timeout behavior, Supabase failure recovery, production readiness, or formal audit completion.
 
 ---
 
-## What Must Not Be Shared Unredacted
+## Core Public-Safe Evidence Principle
 
-Raw screenshots may contain sensitive technical details.
+SafeGate evidence should prove the minimum useful outcome without exposing sensitive data.
 
-Do not publish unredacted screenshots containing:
+Public evidence should answer:
 
-- payment identifiers
-- transaction identifiers
+- Was backend-verified payment state reached?
+- Did access remain locked before backend verification?
+- Was receipt/evidence generated only after verified state?
+- Did public verify confirm the outcome?
+- Did public verify avoid exposing sensitive data?
+- Did selected negative backend cases fail safely?
+
+Public evidence should not expose:
+
+- raw payment identifiers
+- raw transaction identifiers
 - wallet addresses
 - recipient addresses
 - access tokens
-- user identifiers
-- app identifiers
+- service role keys
+- raw Pi API responses
 - internal logs
-- raw Pi API response
-- service role information
 - private wallet data
 - customer data
 
 ---
 
-## Redaction Checklist
+## Allowed Public-Safe Fields
 
-Before sharing screenshots publicly, redact or crop:
+The following fields may be shown publicly when they do not contain sensitive identifiers:
 
-- paymentId
-- txid
-- accessToken
-- uid
-- recipient wallet address
-- app_id if unnecessary
-- raw internal logs
-- long identifiers not required for public proof
-- anything that looks like a token, secret, key, or private address
+- paymentState
+- accessState
+- receiptStatus
+- evidenceStatus
+- verified
+- publicSafe
+- minimumDisclosure
+- privateDataIncluded
+- secretsIncluded
+- rawPiApiResponseIncluded
+- serviceRoleKeyIncluded
+- paymentIdIncluded
+- txidIncluded
+- customerDataIncluded
+- accessUnlocked
+- visible check count
+- passed check count
+- failed check count
+- warning check count
+- general browser environment
+- general test context
+- pass/fail outcome
 
-Keep visible:
+Example public-safe outcome:
 
-- paymentState: PAYMENT_VERIFIED_TESTNET
-- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
 - verified: true
 - minimumDisclosure: true
 - publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
 - paymentIdIncluded: false
 - txidIncluded: false
-- secretsIncluded: false
 - customerDataIncluded: false
 - accessUnlocked: true
 
 ---
 
-## Recommended Reviewer Links
+## Do Not Publish
 
-| Review Item | Link |
+Do not publish unredacted screenshots, logs, JSON responses, or browser console outputs containing:
+
+- paymentId
+- txid
+- wallet address
+- recipient address
+- Pi account identifier
+- user identifier
+- app identifier
+- access token
+- auth token
+- bearer token
+- service role key
+- Supabase secret
+- database URL
+- internal API key
+- raw Pi API response
+- raw backend logs
+- internal stack trace
+- private customer data
+- private wallet data
+- seed phrase
+- private key
+
+If such data appears in a screenshot or log, redact before public sharing.
+
+---
+
+## Public-Safe Payment Spine Evidence Template
+
+Use this structure when recording controlled payment-spine evidence:
+
+### Test Type
+
+Controlled Pi Testnet Payment Spine
+
+### Environment
+
+Pi Browser / Sandbox / Testnet-oriented controlled flow
+
+### Production Claim
+
+No
+
+### Result
+
+PASSED or FAILED
+
+### Public-Safe Observations
+
+- invoice created:
+- access initially locked:
+- Pi authentication:
+- payments scope:
+- Pi wallet payment:
+- backend approval / completion:
+- backend-verified payment state:
+- receipt/evidence generated:
+- public verify:
+- access unlocked after backend-verified receipt:
+- minimumDisclosure:
+- publicSafe:
+- privateDataIncluded:
+- secretsIncluded:
+- paymentIdIncluded:
+- txidIncluded:
+- customerDataIncluded:
+
+### Boundary
+
+This is controlled Testnet evidence.
+
+This is not Pi Mainnet settlement.
+
+This is not production readiness.
+
+This is not a formal audit.
+
+---
+
+## Public-Safe V9.1 Backend Validation Evidence Template
+
+Use this structure when recording safe negative backend validation evidence:
+
+### Test Type
+
+V9.1 Safe Negative Backend Behavior Validation
+
+### Environment
+
+Live SafeGate validation page / public-safe backend checks
+
+### Production Claim
+
+No
+
+### Result
+
+PASSED or FAILED
+
+### Visible Checks
+
+- total visible checks:
+- passed checks:
+- failed checks:
+- warning checks:
+
+### Confirmed Public-Safe Behavior
+
+- backend health returned ok:
+- invoice creation kept access locked:
+- invoice creation did not create receipt/evidence:
+- receipt/evidence before verified payment rejected safely:
+- missing invoiceId rejected safely:
+- missing paymentId rejected safely:
+- public verify missing inputs rejected safely:
+- public verify unknown pair did not return active verified trust:
+- obvious secret/internal leak terms detected:
+
+### Boundary
+
+This does not prove real duplicate approve/complete behavior.
+
+This does not prove real paymentId/txid replay handling.
+
+This does not prove Pi API timeout behavior.
+
+This does not prove Supabase failure recovery.
+
+This does not prove production readiness.
+
+This does not prove formal audit completion.
+
+---
+
+## Evidence Record — Controlled Pi Testnet Payment Spine
+
+**Status:** PASSED  
+**Public-Safe:** Yes  
+**Sensitive Identifiers Published:** No  
+**Production Claim:** No  
+
+Public-safe result:
+
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- public verify: confirmed
+- verified: true
+- minimumDisclosure: true
+- publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
+- rawPiApiResponseIncluded: false
+- serviceRoleKeyIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+- accessUnlocked: true
+
+Evidence link:
+
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
+
+Document link:
+
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
+
+---
+
+## Evidence Record — V9.1 Safe Negative Backend Validation
+
+**Status:** PASSED  
+**Visible Checks:** 18  
+**Passed:** 18  
+**Failed:** 0  
+**Warnings:** 0  
+**Public-Safe:** Yes  
+**Sensitive Identifiers Published:** No  
+**Production Claim:** No  
+
+Public-safe result:
+
+- backend health: PASS
+- invoice create: PASS
+- access locked after invoice create: PASS
+- no receipt/evidence at invoice stage: PASS
+- receipt before verified payment rejected: PASS
+- missing invoiceId rejected: PASS
+- missing paymentId rejected: PASS
+- public verify missing inputs rejected: PASS
+- public verify unknown pair did not return active verified trust: PASS
+- selected leak scans: PASS
+
+Evidence link:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Document link:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+---
+
+## Evidence Review Order
+
+Recommended review order:
+
+1. Main Review Hub
+2. V9 Payment Spine Evidence
+3. V9.1 Backend Behavior Validation
+4. Current Review Package
+5. Controlled Pi Testnet Payment Spine Pass Note
+6. V9.1 Safe Negative Backend Validation Pass Note
+7. Public-Safe Evidence Pack
+8. External Technical Review Note
+9. Controlled Pilot Execution Checklist
+10. Backend Behavior Evidence Matrix
+11. AI Review Risk Consensus
+12. Receipt Integrity Plan
+13. Pi Verification Depth Note
+14. Public Verify Freshness Policy
+15. Formal State Machine Table
+16. Merchant Explanation
+
+---
+
+## Live Public-Safe Evidence Links
+
+| Evidence | Link |
 |---|---|
 | Main Review Hub | https://www.safegatelabs.xyz |
 | V9 Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html |
-| External Technical Review Note | https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md |
-| Controlled Pi Testnet Pass Note | ./SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md |
-| Public Repository README | ./README.md |
-| Public Links | ./LINKS.md |
+| V9.1 Backend Behavior Validation | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html |
+| Controlled Checkout | https://www.safegatelabs.xyz/safegate-checkout.html |
+| Pi Auth Diagnostic | https://www.safegatelabs.xyz/v9-pi-auth-diagnostic.html |
+| Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html |
+| Pilot Readiness | https://www.safegatelabs.xyz/pilot-readiness.html |
+| Pilot Evidence Intake | https://www.safegatelabs.xyz/pilot-evidence-intake.html |
 
 ---
 
-## What This Evidence Does Not Claim
+## Public-Safe Claims
 
-This evidence does not claim:
+SafeGate may say:
 
-- production readiness
-- Pi Mainnet settlement
-- official Pi Core Team partnership
-- custodial payment processing
-- regulatory approval
-- formal third-party audit
-- enterprise-grade security certification
-- high-volume production operation
-- completed commercial pilot execution
+- Controlled Pi Testnet Payment Spine: PASSED
+- V9.1 Safe Negative Backend Validation: PASSED
+- access unlocked only after backend-verified receipt
+- receipt/evidence was generated after backend-verified payment state
+- invoice creation kept access locked
+- receipt/evidence before verified payment was rejected safely
+- public verify unknown pair did not return active verified trust
+- public-safe responses did not show obvious secret/internal leak terms
+- production readiness is not claimed
+- formal audit is not claimed
+
+SafeGate should not say:
+
+- production ready
+- fully secure
+- tamper-proof
+- formally audited
+- official Pi partnership
+- Pi Mainnet settlement completed
+- all duplicate/replay risks solved
+- all backend risks solved
+- independent cryptographic verification completed
+- regulatory approval completed
 
 ---
 
-## Current Technical Review Question
+## Reviewer Guidance
 
-The most important review question remains:
+A reviewer should focus on:
+
+- whether the payment/trust separation is clear
+- whether access unlock depends on backend-verified state
+- whether receipt/evidence creation is properly guarded
+- whether public verify avoids sensitive identifiers
+- whether negative backend behavior fails safely
+- whether duplicate/replay/failure cases need deeper testing
+- whether claim boundaries are disciplined
+
+Useful reviewer question:
 
 Where would this architecture break first if it moved from controlled Testnet evidence to a real pilot environment?
 
-Review focus areas:
+---
 
-- state machine strictness
-- illegal state transitions
-- approve / complete idempotency
-- replay resistance
-- duplicate callback handling
-- receipt/evidence guard
-- public verify minimum disclosure
-- fail-secure error handling
-- Supabase durable state handling
-- production hardening gap
+## Remaining Evidence Gaps
+
+The following evidence gaps remain before stronger pilot or production claims:
+
+- duplicate approve behavior
+- duplicate complete behavior
+- duplicate receipt/evidence behavior
+- real paymentId replay behavior
+- real txid replay behavior
+- paymentId mismatch behavior
+- txid mismatch behavior
+- public verify mismatched receipt/evidence pair
+- Pi API timeout behavior
+- Supabase write failure behavior
+- durable-state recovery behavior
+- receipt/evidence integrity implementation
+- public verify freshness implementation
+- rate limiting / abuse resistance
+- deeper safe error response validation
+- external technical reviewer feedback
 
 ---
 
-## Current Next Step
+## Final Evidence Boundary
 
-The next practical step is not to claim production readiness.
+This evidence pack strengthens SafeGate’s Pilot Readiness evidence.
 
-The next practical step is to:
+It does not claim production readiness.
 
-- preserve the stable evidence surface
-- collect technical review feedback
-- prepare redacted public evidence
-- repeat the controlled payment-spine test with another trusted reviewer when feasible
-- prepare a controlled pilot execution checklist
+It does not claim formal audit completion.
+
+It does not claim Pi Mainnet settlement.
+
+It does not claim official Pi partnership.
+
+It does not claim tamper-proof or independently verified cryptographic proof.
 
 ---
 
