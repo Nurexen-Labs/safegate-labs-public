@@ -8,641 +8,437 @@ Payment is the trigger. Trust is the product.
 
 ---
 
-## Document Status
+## Purpose
 
-**Status:** Backend behavior evidence matrix  
-**Scope:** V9 / V9.1 payment-spine backend behavior  
-**Current Public Phase:** Pilot Readiness  
-**Controlled Pi Testnet Payment Spine:** PASSED  
-**Production Claim:** No  
-**Security Certification Claim:** No  
-**Third-Party Audit Claim:** No  
+This matrix defines expected SafeGate backend behavior under normal, negative, duplicate, replay, mismatch, timeout, and failure scenarios.
 
----
+The purpose is to make backend behavior reviewable.
 
-## Important Boundary
+This is not a production-readiness claim.
 
-This document is not a production-readiness claim.
+This is not a formal audit.
 
-This document is not a formal audit.
-
-This document is not a security certification.
-
-This document does not claim that every edge case is already fully hardened.
-
-Its purpose is to make backend behavior clearer, safer, and more reviewable before controlled pilot execution.
+This is not a security certification.
 
 ---
 
-## Why This Matrix Exists
+## Current Status
 
-Technical reviewers identified one major next question:
-
-Can SafeGate’s backend behavior be externally reasoned about under duplicate callbacks, replay attempts, missing parameters, timeout cases, database failures, and public verify edge cases?
-
-This matrix answers that question in a public-safe format.
-
-It separates:
-
-- what has already been demonstrated
-- what is implemented directionally
-- what needs deeper live repeat evidence
-- what remains planned hardening
-
----
-
-## Status Labels
-
-| Label | Meaning |
+| Area | Status |
 |---|---|
-| PASSED_CONTROLLED | Demonstrated in controlled Pi Browser / Testnet-oriented flow |
-| PASSED_LOCAL_API | Demonstrated in local or controlled API skeleton test |
-| PARTIAL | Direction exists, but deeper backend evidence is needed |
-| NEEDS_LIVE_REPEAT | Should be repeated against live backend behavior |
-| PLANNED_HARDENING | Not claimed complete; planned for V9.1 hardening |
-| NOT_CLAIMED | Not currently claimed |
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| Backend Behavior Matrix | Active |
+| Pilot Readiness | Open |
+| Production Readiness | Not claimed |
+| Pi Mainnet Settlement | Not claimed |
+| Official Pi Partnership | Not claimed |
+| Formal Third-Party Audit | Not claimed |
 
 ---
 
-## Core Backend Principle
+## Completed Evidence Milestone 1 — Controlled Pi Testnet Payment Spine
 
-SafeGate backend behavior must follow this principle:
+SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
+
+Observed controlled result:
+
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- public verify: confirmed
+- verified: true
+- minimumDisclosure: true
+- publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
+- rawPiApiResponseIncluded: false
+- serviceRoleKeyIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+- accessUnlocked: true
+
+Related document:
+
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
+
+Live evidence page:
+
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
+
+---
+
+## Completed Evidence Milestone 2 — V9.1 Safe Negative Backend Validation
+
+SafeGate completed a live V9.1 safe negative backend behavior validation.
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed selected public-safe behavior:
+
+- backend health returned ok
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Related document:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Live validation page:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Boundary:
+
+This validation does not prove real duplicate approve/complete behavior, real paymentId/txid replay handling, Pi API timeout behavior, Supabase failure recovery, production readiness, or formal audit completion.
+
+---
+
+## Core Backend Rule
 
 No receipt, no evidence, and no access unlock before backend-verified payment state.
 
 Frontend callback alone must never unlock access.
 
----
-
-## Current Confirmed Payment Spine
-
-SafeGate has demonstrated the following controlled flow:
-
-1. V9 invoice creation
-2. initial access state locked
-3. Pi Browser authentication
-4. username + payments scope
-5. Pi wallet payment in Sandbox / Testnet context
-6. backend approval / completion flow
-7. backend-verified payment state
-8. receipt and evidence generation after verified state
-9. public verify confirmation
-10. access unlock only after backend-verified receipt
-
-Public-safe confirmed result:
-
-- paymentState: PAYMENT_VERIFIED_TESTNET
-- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
-- verified: true
-- minimumDisclosure: true
-- publicSafe: true
-- paymentIdIncluded: false
-- txidIncluded: false
-- secretsIncluded: false
-- customerDataIncluded: false
-- accessUnlocked: true
+Unknown, missing, ambiguous, duplicate, replayed, mismatched, stale, or failed states should fail secure.
 
 ---
 
-# Endpoint Behavior Matrix
+## Behavior Matrix
+
+| Scenario | Expected Backend Behavior | Evidence Status |
+|---|---|---|
+| Backend health check | Return safe ok status without exposing secrets | PASSED in V9.1 validation |
+| Valid invoice create | Create invoice and keep access locked | PASSED in V9.1 validation |
+| Invoice create access state | Access remains locked until backend-verified payment | PASSED in V9.1 validation |
+| Invoice create receipt/evidence | No receipt/evidence at invoice stage | PASSED in V9.1 validation |
+| Receipt/evidence before verified payment | Reject safely; no receipt, no evidence, no access unlock | PASSED in V9.1 validation |
+| Missing invoiceId | Reject safely | PASSED in V9.1 validation |
+| Missing paymentId | Reject safely | PASSED in V9.1 validation |
+| Public verify missing receiptId | Reject safely | PASSED in V9.1 validation |
+| Public verify missing evidenceId | Reject safely | PASSED in V9.1 validation |
+| Public verify unknown pair | Do not return active verified trust | PASSED in V9.1 validation |
+| Selected response leak scan | No obvious secret/internal leak terms | PASSED in V9.1 validation |
+| Controlled payment happy path | Backend-verified payment state, receipt/evidence, public verify, access unlock | PASSED in controlled Pi Testnet flow |
+| Duplicate approve | Idempotent response; no duplicate state corruption | Open V9.1 target |
+| Duplicate complete | Idempotent response; no duplicate receipt/evidence | Open V9.1 target |
+| Duplicate receipt/evidence request | Return stable existing state or reject safely | Open V9.1 target |
+| paymentId replay | Reject or return safe already-finalized state | Open V9.1 target |
+| txid replay | Reject or return safe already-finalized state | Open V9.1 target |
+| paymentId mismatch | Reject; no receipt/evidence/access unlock | Open V9.1 target |
+| txid mismatch | Reject; no receipt/evidence/access unlock | Open V9.1 target |
+| Public verify mismatched pair | Reject or return not verified | Open V9.1 target |
+| Pi API timeout | Fail secure; no verified state | Open V9.1 target |
+| Supabase write failure | Fail secure; no ambiguous access unlock | Open V9.1 target |
+| Partial receipt/evidence write failure | Fail secure; no active public trust from partial state | Open V9.1 target |
+| Access unlock write failure | Keep state safe; do not misreport active trust | Open V9.1 target |
+| Internal backend error | Safe error; no secrets or stack trace | Open V9.1 target |
+| Rate-limit abuse | Throttle or reject safely | Future target |
 
 ---
 
-## 1. Invoice Create Endpoint
+## Endpoint Behavior Expectations
 
-**Endpoint:** `POST /api/v9-invoice-create`
+### `/api/health`
 
-Purpose:
+Expected behavior:
 
-Create a controlled invoice/payment intent and keep access locked until backend payment verification.
+- return basic ok status
+- expose no secrets
+- expose no service role information
+- expose no raw environment data
+- expose no internal stack trace
 
----
+Current evidence:
 
-### Matrix
-
-| Scenario | Expected Result | Access Result | Receipt/Evidence Result | Public-Safe Response | Current Status |
-|---|---|---|---|---|---|
-| Valid invoice create | Invoice created | LOCKED_UNTIL_BACKEND_VERIFIED_PAYMENT | No receipt/evidence | Public-safe invoice summary | PASSED_CONTROLLED |
-| Invoice create without durable storage | Reject safely | No unlock | No receipt/evidence | DURABLE_STATE_UNAVAILABLE or safe error | PLANNED_HARDENING |
-| Duplicate invoice create with new request | New invoice may be created if intentionally requested | Locked | No receipt/evidence | Public-safe invoice summary | PARTIAL |
-| Missing required server configuration | Reject safely | No unlock | No receipt/evidence | Safe configuration error, no secrets | PARTIAL |
-| Unexpected backend error | Reject safely | No unlock | No receipt/evidence | INTERNAL_SAFE_FAILURE, no stack trace | PLANNED_HARDENING |
+- Passed selected V9.1 validation
+- Selected leak scan passed
 
 ---
 
-### Evidence Notes
+### `/api/v9-invoice-create`
 
-Confirmed:
+Expected behavior:
 
-- Controlled invoice creation reached `INVOICE_CREATED`.
-- Initial access remained locked.
-- No receipt/evidence was created at invoice creation.
+- create invoice
+- return invoice identifier
+- set payment state to invoice-created / not verified
+- keep access locked
+- do not create receipt
+- do not create evidence
+- expose no sensitive data
 
-Needs deeper evidence:
+Current evidence:
 
-- safe behavior when durable storage is unavailable
-- safe behavior when required environment variables are missing
-- no internal error leakage under failure
-
----
-
-## 2. Pi Approve Endpoint
-
-**Endpoint:** `POST /api/v9-pi-approve`
-
-Purpose:
-
-Approve a Pi payment server-side after invoice/payment binding checks.
+- Passed selected V9.1 validation
+- Access locked after invoice create
+- No receipt/evidence at invoice stage
+- Selected leak scan passed
 
 ---
 
-### Matrix
+### `/api/v9-receipt-evidence`
 
-| Scenario | Expected Result | Access Result | Receipt/Evidence Result | Public-Safe Response | Current Status |
-|---|---|---|---|---|---|
-| Valid approve | Server-approved state recorded | Still locked | No receipt/evidence | PI_APPROVED_BY_SERVER | PASSED_CONTROLLED |
-| Missing invoiceId | Reject | No unlock | No receipt/evidence | MISSING_INVOICE_ID | NEEDS_LIVE_REPEAT |
-| Missing paymentId | Reject | No unlock | No receipt/evidence | MISSING_PAYMENT_ID | NEEDS_LIVE_REPEAT |
-| Unknown invoiceId | Reject | No unlock | No receipt/evidence | INVOICE_NOT_FOUND | NEEDS_LIVE_REPEAT |
-| paymentId already bound to same invoice | Return existing state idempotently | Still locked unless already complete | No duplicate receipt/evidence | Existing approve state | NEEDS_LIVE_REPEAT |
-| paymentId already bound to another invoice | Reject as mismatch/replay | No unlock | No receipt/evidence | PAYMENT_ID_MISMATCH or REPLAY_REJECTED | PLANNED_HARDENING |
-| Pi API approve timeout | Do not fake success | No unlock | No receipt/evidence | PAYMENT_APPROVAL_UNAVAILABLE or AMBIGUOUS | PLANNED_HARDENING |
-| Pi API approve error | Do not fake success | No unlock | No receipt/evidence | Safe payment approval error | PLANNED_HARDENING |
-| Duplicate approve callback | No duplicate state corruption | No premature unlock | No duplicate receipt/evidence | Existing state returned | NEEDS_LIVE_REPEAT |
-| Malformed request body | Reject | No unlock | No receipt/evidence | MALFORMED_REQUEST | PLANNED_HARDENING |
+Expected behavior:
 
----
+- reject if invoiceId is missing
+- reject if paymentId is missing
+- reject if payment is not backend verified
+- reject if paymentId does not belong to invoice
+- reject if paymentId is replayed
+- reject if txid is reused
+- prevent duplicate receipt/evidence creation
+- create receipt/evidence only after verified payment state
+- expose no sensitive data
 
-### Evidence Notes
+Current evidence:
 
-Confirmed:
+- Missing invoiceId rejected in V9.1 validation
+- Missing paymentId rejected in V9.1 validation
+- Receipt/evidence before verified payment rejected in V9.1 validation
 
-- Controlled payment flow reached server approval direction.
-- Receipt/evidence was not created at approval stage alone.
+Still open:
 
-Needs deeper evidence:
-
-- duplicate approve behavior
-- paymentId mismatch behavior
-- safe Pi API timeout behavior
-- safe public error model
+- real duplicate receipt/evidence test
+- real paymentId replay test
+- real txid replay test
+- mismatch tests
 
 ---
 
-## 3. Pi Complete Endpoint
+### `/api/v9-public-verify`
 
-**Endpoint:** `POST /api/v9-pi-complete`
+Expected behavior:
 
-Purpose:
+- reject missing receiptId
+- reject missing evidenceId
+- reject unknown pair
+- reject mismatched pair
+- avoid raw payment identifiers
+- avoid wallet identifiers
+- avoid secrets
+- return minimum-disclosure status
+- eventually support freshness / stale-state indicators
 
-Complete the Pi payment server-side and move the record to backend-verified payment state only after completion succeeds.
+Current evidence:
 
----
+- Missing receiptId rejected in V9.1 validation
+- Missing evidenceId rejected in V9.1 validation
+- Unknown pair did not return active verified trust in V9.1 validation
+- Selected leak scan passed
 
-### Matrix
+Still open:
 
-| Scenario | Expected Result | Access Result | Receipt/Evidence Result | Public-Safe Response | Current Status |
-|---|---|---|---|---|---|
-| Valid complete after approve | PAYMENT_VERIFIED_TESTNET | Still locked until receipt/evidence guard completes | No duplicate receipt/evidence at complete alone | Verified payment state | PASSED_CONTROLLED |
-| Missing invoiceId | Reject | No unlock | No receipt/evidence | MISSING_INVOICE_ID | NEEDS_LIVE_REPEAT |
-| Missing paymentId | Reject | No unlock | No receipt/evidence | MISSING_PAYMENT_ID | NEEDS_LIVE_REPEAT |
-| Missing txid | Reject | No unlock | No receipt/evidence | MISSING_TXID | NEEDS_LIVE_REPEAT |
-| Complete before approve | Reject or require approval | No unlock | No receipt/evidence | APPROVAL_REQUIRED | NEEDS_LIVE_REPEAT |
-| Unknown invoiceId | Reject | No unlock | No receipt/evidence | INVOICE_NOT_FOUND | NEEDS_LIVE_REPEAT |
-| paymentId mismatch | Reject | No unlock | No receipt/evidence | PAYMENT_ID_MISMATCH | NEEDS_LIVE_REPEAT |
-| Duplicate complete after verified state | Return existing verified state idempotently | No duplicate unlock | No duplicate receipt/evidence | Existing verified state | NEEDS_LIVE_REPEAT |
-| Same txid submitted for another invoice | Reject as replay | No unlock | No receipt/evidence | TXID_REPLAY_REJECTED | PLANNED_HARDENING |
-| Pi API complete timeout | Do not fake verification | No unlock | No receipt/evidence | COMPLETION_TIMEOUT or AMBIGUOUS | PLANNED_HARDENING |
-| Pi API complete error | Do not fake verification | No unlock | No receipt/evidence | PAYMENT_COMPLETION_FAILED | PLANNED_HARDENING |
-| Backend crash during complete | No fake success; reconciliation required | No unlock unless durable verified state exists | No receipt/evidence unless verified state persisted | RECONCILIATION_REQUIRED | PLANNED_HARDENING |
-
----
-
-### Evidence Notes
-
-Confirmed:
-
-- Controlled Pi Browser flow reached `PAYMENT_VERIFIED_TESTNET`.
-- Access unlock happened after receipt/evidence guard, not from complete callback alone.
-
-Needs deeper evidence:
-
-- duplicate complete behavior
-- missing txid behavior
-- same txid replay behavior
-- completion timeout behavior
-- durable write failure behavior
+- mismatched real receipt/evidence pair test
+- freshness / expired / revoked / disputed state behavior
 
 ---
 
-## 4. Receipt / Evidence Endpoint
+## State Transition Matrix
 
-**Endpoint:** `POST /api/v9-receipt-evidence`
-
-Purpose:
-
-Create receipt/evidence only after backend-verified payment state.
-
----
-
-### Matrix
-
-| Scenario | Expected Result | Access Result | Receipt/Evidence Result | Public-Safe Response | Current Status |
-|---|---|---|---|---|---|
-| Receipt requested before verified payment | Reject | No unlock | No receipt/evidence | PAYMENT_NOT_VERIFIED | PASSED_LOCAL_API |
-| Receipt requested after PAYMENT_VERIFIED_TESTNET | Create receipt/evidence | ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT | Receipt/evidence generated | Public-safe receipt/evidence summary | PASSED_CONTROLLED |
-| Missing invoiceId | Reject | No unlock | No receipt/evidence | MISSING_INVOICE_ID | NEEDS_LIVE_REPEAT |
-| Missing paymentId | Reject | No unlock | No receipt/evidence | MISSING_PAYMENT_ID | NEEDS_LIVE_REPEAT |
-| paymentId mismatch | Reject | No unlock | No receipt/evidence | PAYMENT_ID_MISMATCH | NEEDS_LIVE_REPEAT |
-| Duplicate receipt/evidence request | Return existing pair | No duplicate unlock | Existing receipt/evidence returned | Existing public-safe pair | NEEDS_LIVE_REPEAT |
-| Receipt generation fails after verified payment | No fake public verify; mark failure/retry | No unlock unless completed | Failure state or retry required | RECEIPT_CREATE_FAILED | PLANNED_HARDENING |
-| Evidence generation fails after receipt | No inconsistent public verify | No unlock unless pair is complete | Failure state or retry required | EVIDENCE_CREATE_FAILED | PLANNED_HARDENING |
-| Attempt receipt for failed payment | Reject | No unlock | No receipt/evidence | PAYMENT_NOT_VERIFIED | PLANNED_HARDENING |
-| Attempt receipt for expired payment | Reject or manual review | No unlock | No receipt/evidence | PAYMENT_EXPIRED | PLANNED_HARDENING |
-
----
-
-### Evidence Notes
-
-Confirmed:
-
-- Local/skeleton test showed receipt/evidence rejects before verification.
-- Controlled Pi Browser flow created receipt/evidence after `PAYMENT_VERIFIED_TESTNET`.
-- Access unlock occurred after backend-verified receipt/evidence.
-
-Needs deeper evidence:
-
-- duplicate receipt/evidence request behavior
-- receipt create failure behavior
-- evidence create failure behavior
-- expired/failed state behavior
-
----
-
-## 5. Public Verify Endpoint
-
-**Endpoint:** `GET /api/v9-public-verify`
-
-Purpose:
-
-Confirm receipt/evidence status publicly with minimum disclosure.
-
----
-
-### Matrix
-
-| Scenario | Expected Result | Access Result | Receipt/Evidence Result | Public-Safe Response | Current Status |
-|---|---|---|---|---|---|
-| Valid receipt/evidence pair | verified true | accessUnlocked true if backend-verified unlock exists | Existing pair confirmed | minimumDisclosure true, publicSafe true | PASSED_CONTROLLED |
-| Missing receiptId | Reject safely | No change | No new receipt/evidence | MISSING_RECEIPT_ID | PASSED_LOCAL_API |
-| Missing evidenceId | Reject safely | No change | No new receipt/evidence | MISSING_EVIDENCE_ID | PASSED_LOCAL_API |
-| Unknown receipt/evidence | Not found / verified false | No change | No new receipt/evidence | RECEIPT_EVIDENCE_NOT_FOUND | NEEDS_LIVE_REPEAT |
-| Mismatched receipt/evidence pair | verified false | No change | No new receipt/evidence | RECEIPT_EVIDENCE_MISMATCH | NEEDS_LIVE_REPEAT |
-| Malformed receipt/evidence ID | Reject safely | No change | No new receipt/evidence | MALFORMED_ID | PLANNED_HARDENING |
-| Expired receipt | verified false or expired state | No active unlock | Existing pair marked expired | VERIFIED_EXPIRED | PLANNED_HARDENING |
-| Revoked receipt | verified false or revoked state | No active unlock | Existing pair marked revoked | VERIFIED_REVOKED | PLANNED_HARDENING |
-| Disputed receipt | disputed public-safe state | Context-dependent | Existing pair marked disputed | VERIFIED_DISPUTED | PLANNED_HARDENING |
-| Backend read failure | No fake verified response | No change | No new receipt/evidence | DURABLE_STATE_UNAVAILABLE | PLANNED_HARDENING |
-
----
-
-### Evidence Notes
-
-Confirmed:
-
-- Public verify confirmed the controlled V9 payment-spine result.
-- Minimum-disclosure output did not expose paymentId or txid.
-- Public verify public-safe fields were visible.
-
-Needs deeper evidence:
-
-- mismatched pair behavior
-- unknown pair behavior
-- stale/expired/revoked/disputed state behavior
-- backend read failure behavior
-- public verify freshness policy
-
----
-
-## 6. Safe Error Behavior Matrix
-
-SafeGate should return public-safe errors without exposing internals.
-
----
-
-### Matrix
-
-| Scenario | Expected Result | Sensitive Data Exposure | Current Status |
+| From State | Event | Expected Result | Status |
 |---|---|---|---|
-| Missing required parameter | 400 safe rejection | No secrets | NEEDS_LIVE_REPEAT |
-| Invalid payment state | 409 safe rejection | No secrets | NEEDS_LIVE_REPEAT |
-| Payment not verified | 409 safe rejection | No secrets | PASSED_LOCAL_API |
-| Unknown receipt/evidence | 404 or verified false | No secrets | NEEDS_LIVE_REPEAT |
-| Durable state unavailable | 503 safe rejection | No secrets | PLANNED_HARDENING |
-| Pi API timeout | 502/503 safe rejection or ambiguous state | No raw Pi response | PLANNED_HARDENING |
-| Internal exception | INTERNAL_SAFE_FAILURE | No stack trace | PLANNED_HARDENING |
-| Rate limit exceeded | RATE_LIMITED | No internals | PLANNED_HARDENING |
+| none | create invoice | INVOICE_CREATED + access locked | PASSED selected validation |
+| INVOICE_CREATED | frontend callback only | no access unlock | Must preserve |
+| INVOICE_CREATED | receipt/evidence request before verified payment | reject safely | PASSED selected validation |
+| INVOICE_CREATED | missing paymentId | reject safely | PASSED selected validation |
+| INVOICE_CREATED | backend verified payment | PAYMENT_VERIFIED_TESTNET | PASSED controlled flow |
+| PAYMENT_VERIFIED_TESTNET | receipt/evidence request | receipt/evidence created | PASSED controlled flow |
+| RECEIPT_EVIDENCE_CREATED | public verify | minimum-disclosure verified result | PASSED controlled flow |
+| PUBLIC_VERIFY_AVAILABLE | access unlock | ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT | PASSED controlled flow |
+| PAYMENT_PENDING | timeout | fail secure / pending / expired | Open target |
+| PAYMENT_FAILED | access unlock attempt | reject safely | Open target |
+| EXPIRED_INVOICE | payment completion | reject or review-required | Open target |
+| VERIFIED_PAYMENT | duplicate complete | idempotent stable response | Open target |
+| FINALIZED_PAYMENT | replay paymentId | reject or stable already-finalized state | Open target |
+| FINALIZED_PAYMENT | replay txid | reject or stable already-finalized state | Open target |
+| RECEIPT_EVIDENCE_CREATED | duplicate receipt/evidence request | no uncontrolled duplicate | Open target |
+| PUBLIC_VERIFY_AVAILABLE | mismatched pair | not verified / reject | Open target |
+| ANY | backend internal error | safe error, no secret leak | Open target |
 
 ---
 
-## 7. State Transition Behavior Matrix
+## Safe Negative Cases Already Passed
 
-SafeGate state transitions must remain strict.
+The V9.1 safe negative backend validation confirmed:
 
----
+- invoice creation does not unlock access
+- invoice creation does not create receipt/evidence
+- receipt/evidence before verified payment is rejected safely
+- missing invoiceId is rejected safely
+- missing paymentId is rejected safely
+- public verify missing inputs are rejected safely
+- public verify unknown pair does not return active verified trust
+- selected responses do not show obvious secret/internal leak terms
 
-### Legal Transition Targets
+This is meaningful evidence.
 
-| From | To | Required Condition | Current Status |
-|---|---|---|---|
-| INVOICE_CREATED | PAYMENT_PENDING | Payment attempt starts | PARTIAL |
-| PAYMENT_PENDING | PI_APPROVED_BY_SERVER | Backend approve succeeds | PASSED_CONTROLLED |
-| PI_APPROVED_BY_SERVER | PAYMENT_VERIFIED_TESTNET | Backend complete succeeds | PASSED_CONTROLLED |
-| PAYMENT_VERIFIED_TESTNET | RECEIPT_EVIDENCE_CREATED | Receipt/evidence guard passes | PASSED_CONTROLLED |
-| RECEIPT_EVIDENCE_CREATED | ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT | Backend-verified receipt unlock condition passes | PASSED_CONTROLLED |
-| PAYMENT_PENDING | PAYMENT_EXPIRED | Timeout policy reached | PLANNED_HARDENING |
-| PI_APPROVED_BY_SERVER | COMPLETION_TIMEOUT | Complete timeout reached | PLANNED_HARDENING |
-| Any ambiguous state | MANUAL_REVIEW_REQUIRED | Ambiguity cannot be resolved safely | PLANNED_HARDENING |
+It is not complete backend hardening.
 
 ---
 
-### Illegal Transition Targets
+## Open Duplicate / Replay Cases
 
-| Illegal Transition | Expected Behavior | Current Status |
-|---|---|---|
-| INVOICE_CREATED → ACCESS_UNLOCKED | Reject | PASSED_BY_DESIGN / NEEDS_BACKEND_EVIDENCE |
-| FRONTEND_CALLBACK_ONLY → ACCESS_UNLOCKED | Reject | PASSED_CONTROLLED_BY_FLOW |
-| PAYMENT_PENDING → RECEIPT_EVIDENCE_CREATED | Reject | PASSED_LOCAL_API |
-| PAYMENT_FAILED → ACCESS_UNLOCKED | Reject | PLANNED_HARDENING |
-| PAYMENT_EXPIRED → ACCESS_UNLOCKED | Reject | PLANNED_HARDENING |
-| PAYMENT_ID_MISMATCH → RECEIPT_EVIDENCE_CREATED | Reject | NEEDS_LIVE_REPEAT |
-| MISMATCHED_RECEIPT_EVIDENCE → VERIFIED_TRUE | Reject | NEEDS_LIVE_REPEAT |
-| DUPLICATE_PAYMENT_ID_ON_NEW_INVOICE → VERIFIED | Reject | PLANNED_HARDENING |
-| DUPLICATE_TXID_ON_NEW_INVOICE → VERIFIED | Reject | PLANNED_HARDENING |
+The following remain open V9.1 targets:
 
----
+- duplicate approve with real paymentId
+- duplicate complete with real paymentId and txid
+- duplicate receipt/evidence request
+- same paymentId reused across invoices
+- same txid reused across receipts
+- stale paymentId used after invoice expiry
+- public verify using mismatched real receipt/evidence pair
+- replay attempt after access already unlocked
 
-## 8. Idempotency Evidence Matrix
+Expected behavior:
 
-Idempotency means repeated valid calls do not corrupt state.
-
----
-
-| Scenario | Target Behavior | Current Status | Required Next Evidence |
-|---|---|---|---|
-| duplicate approve, same invoice/paymentId | Return existing approve/verified state | NEEDS_LIVE_REPEAT | Repeat approve call and capture safe result |
-| duplicate complete, same invoice/paymentId/txid | Return existing verified state | NEEDS_LIVE_REPEAT | Repeat complete call and capture safe result |
-| duplicate receipt/evidence request | Return existing receipt/evidence pair | NEEDS_LIVE_REPEAT | Repeat endpoint call and confirm no duplicate pair |
-| duplicate public verify | Return same minimum-disclosure result | PASSED_CONTROLLED / NEEDS_REPEAT | Repeat public verify call |
-| duplicate invoice create | Create separate invoice only if intentionally requested | PARTIAL | Define idempotency key policy |
-| browser refresh during checkout | No duplicate receipt/evidence | NEEDS_LIVE_REPEAT | Simulate refresh/retry |
-| network retry after payment | No duplicate trust record | NEEDS_LIVE_REPEAT | Simulate retry behavior |
+- no duplicate receipt
+- no duplicate evidence
+- no invalid access unlock
+- no state corruption
+- no raw sensitive data exposure
+- stable idempotent response or safe rejection
 
 ---
 
-## 9. Replay Protection Evidence Matrix
+## Open Failure Cases
 
-Replay protection prevents old proof material from being reused.
+The following remain open V9.1 targets:
 
----
+- Pi API timeout
+- Pi API ambiguous response
+- Supabase read failure
+- Supabase write failure
+- receipt write succeeds but evidence write fails
+- evidence write succeeds but access unlock fails
+- public verify reads stale state
+- internal backend exception
+- rate-limit pressure
+- automated abuse probing
 
-| Scenario | Target Behavior | Current Status | Required Next Evidence |
-|---|---|---|---|
-| same paymentId used on another invoice | Reject | PLANNED_HARDENING | DB-level unique/binding evidence |
-| same txid used on another invoice | Reject | PLANNED_HARDENING | DB-level unique/binding evidence |
-| old receipt used for unrelated access | Reject | PLANNED_HARDENING | Receipt context binding |
-| receipt/evidence pair mixed with another record | Reject | NEEDS_LIVE_REPEAT | Mismatched public verify test |
-| malformed receipt/evidence IDs | Reject | PLANNED_HARDENING | Safe parser test |
-| stale receipt after expiry | Reject or expired state | PLANNED_HARDENING | Expiry policy |
-| revoked receipt | Revoked state | PLANNED_HARDENING | Revocation policy |
-| disputed receipt | Disputed state | PLANNED_HARDENING | Dispute state policy |
+Expected behavior:
 
----
-
-## 10. Durable State Failure Matrix
-
-Durable state failure must not create fake success.
-
----
-
-| Failure Scenario | Target Behavior | Access Result | Receipt/Evidence Result | Current Status |
-|---|---|---|---|---|
-| database read fails before approve | Reject safely | No unlock | No receipt/evidence | PLANNED_HARDENING |
-| database write fails during approve | No fake approval | No unlock | No receipt/evidence | PLANNED_HARDENING |
-| database write fails during complete | No fake verified state unless persisted | No unlock | No receipt/evidence | PLANNED_HARDENING |
-| payment verified but state write fails | Reconciliation required | No unlock unless durable verified state exists | No receipt/evidence | PLANNED_HARDENING |
-| receipt create fails after verified state | Retry or failure state | No unlock unless pair is complete | No complete pair | PLANNED_HARDENING |
-| evidence create fails after receipt | Retry or failure state | No unlock unless pair is complete | Incomplete pair not public verified | PLANNED_HARDENING |
-| public verify DB read fails | No fake verified response | No change | No new record | PLANNED_HARDENING |
-| partial state exists | Manual review/reconciliation | No fake unlock | No duplicate pair | PLANNED_HARDENING |
+- fail secure
+- do not unlock access from ambiguous state
+- do not create active public trust from partial state
+- do not leak internal error details
+- preserve auditability where possible
 
 ---
 
-## 11. Public Verify Minimum Disclosure Matrix
+## Safe Error Response Rules
 
-Public verify must remain minimum-disclosure.
+SafeGate backend responses should not expose:
 
----
+- stack traces
+- service role key
+- environment variables
+- database URL
+- raw Supabase error internals
+- raw Pi API response
+- access token
+- bearer token
+- wallet address
+- recipient address
+- private customer data
+- internal table details
 
-| Field / Data Type | Public Verify Behavior | Current Status |
-|---|---|---|
-| verified | Allowed | PASSED_CONTROLLED |
-| receiptId | Allowed if public-safe | PASSED_CONTROLLED |
-| evidenceId | Allowed if public-safe | PASSED_CONTROLLED |
-| paymentState | Allowed in public-safe form | PASSED_CONTROLLED |
-| accessState | Allowed in public-safe form | PASSED_CONTROLLED |
-| accessUnlocked | Allowed | PASSED_CONTROLLED |
-| minimumDisclosure | Allowed | PASSED_CONTROLLED |
-| publicSafe | Allowed | PASSED_CONTROLLED |
-| paymentId | Must not expose | PASSED_CONTROLLED |
-| txid | Must not expose | PASSED_CONTROLLED |
-| raw Pi API response | Must not expose | PASSED_CONTROLLED |
-| service role key | Must not expose | PASSED_CONTROLLED |
-| access token | Must not expose | PASSED_CONTROLLED |
-| private wallet data | Must not expose | PASSED_CONTROLLED |
-| customer data | Must not expose | PASSED_CONTROLLED |
-| stack trace | Must not expose | PLANNED_HARDENING |
-| internal deployment path | Must not expose | PLANNED_HARDENING |
+V9.1 selected leak scans passed.
+
+Deeper safe error testing remains open.
 
 ---
 
-## 12. Receipt Integrity Matrix
+## Public Verify Minimum Disclosure Rules
 
-Receipt/evidence integrity is a V9.1 hardening target.
+Public verify should not expose:
 
----
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- raw Pi API response
+- private customer data
+- private wallet data
 
-| Integrity Feature | Purpose | Current Status |
-|---|---|---|
-| receiptId | Public-safe receipt reference | PASSED_CONTROLLED |
-| evidenceId | Public-safe evidence reference | PASSED_CONTROLLED |
-| issuedAt / createdAt | Time context | PARTIAL |
-| receiptHash | Tamper-evidence | PLANNED_HARDENING |
-| evidenceHash | Tamper-evidence | PLANNED_HARDENING |
-| server-side HMAC/signature | Integrity proof | PLANNED_HARDENING |
-| signaturePresent field | Public-safe integrity indicator | PLANNED_HARDENING |
-| tamperCheckPassed field | Public-safe integrity result | PLANNED_HARDENING |
-| expires_at | Optional expiry control | PLANNED_HARDENING |
-| revoked/disputed state | Lifecycle control | PLANNED_HARDENING |
-| immutable receipt/evidence binding | Replay protection | PLANNED_HARDENING |
+Public verify may expose safe outcome fields such as:
 
----
-
-## 13. Pi Verification Depth Matrix
-
-Backend-verified payment state should be technically specific.
-
----
-
-| Verification Check | Purpose | Current Status |
-|---|---|---|
-| paymentId exists | Identify Pi payment object | PASSED_CONTROLLED |
-| paymentId bound to invoice | Prevent mismatch | PARTIAL / NEEDS_LIVE_REPEAT |
-| amount matches invoice | Prevent under/over mismatch | NEEDS_DOCUMENTATION |
-| txid present at completion | Confirm completion payload | PASSED_CONTROLLED |
-| txid not reused | Replay prevention | PLANNED_HARDENING |
-| payment state completed/verified | Confirm payment status | PASSED_CONTROLLED |
-| invoice/order binding | Prevent cross-invoice binding | PARTIAL |
-| environment boundary | Keep Sandbox/Testnet separate from Mainnet claims | PASSED_PUBLIC_BOUNDARY |
-| replay checks | Prevent reuse | PLANNED_HARDENING |
-| Pi API timeout behavior | Fail secure | PLANNED_HARDENING |
+- verified
+- publicSafe
+- minimumDisclosure
+- accessState
+- receiptStatus
+- evidenceStatus
+- privateDataIncluded
+- secretsIncluded
+- paymentIdIncluded
+- txidIncluded
+- customerDataIncluded
 
 ---
 
-## 14. Rate Limiting / Abuse Matrix
+## Review Priority
 
-Abuse resistance is a V9.1 hardening target.
+Highest-priority backend review questions:
 
----
-
-| Abuse Scenario | Target Behavior | Current Status |
-|---|---|---|
-| repeated invoice creation | Throttle or limit | PLANNED_HARDENING |
-| repeated approve calls | Idempotent + rate controlled | PLANNED_HARDENING |
-| repeated complete calls | Idempotent + rate controlled | PLANNED_HARDENING |
-| public verify scraping | Rate limit / anti-enumeration | PLANNED_HARDENING |
-| brute-force receipt/evidence IDs | Anti-enumeration + rate limit | PARTIAL |
-| AI-agent high-frequency calls | API limits before agent readiness | PLANNED_HARDENING |
-| malformed request spam | Safe rejection + throttle | PLANNED_HARDENING |
-| callback endpoint abuse | Auth/validation + throttle | PLANNED_HARDENING |
+1. Can access unlock without backend-verified payment?
+2. Can receipt/evidence be created before verified payment?
+3. Are duplicate approve and complete idempotent?
+4. Can paymentId be replayed?
+5. Can txid be replayed?
+6. Can a paymentId from one invoice affect another invoice?
+7. Can public verify return verified for mismatched pair?
+8. What happens if Pi API times out?
+9. What happens if Supabase write fails?
+10. Can error responses leak secrets?
 
 ---
 
-## 15. Current Evidence Summary
+## Safe Public Language
 
-### Demonstrated Strongly
+SafeGate may say:
 
-- controlled Pi Testnet payment-spine pass
-- Pi Browser authentication
-- username + payments scope
-- Pi wallet payment in Sandbox / Testnet context
-- backend verified payment state
-- receipt/evidence after verified state
-- access unlock after backend-verified receipt
-- public verify minimum disclosure
-- no public exposure of paymentId / txid in public verify
+- backend behavior matrix is available
+- selected safe negative backend behavior passed V9.1 validation
+- invoice creation kept access locked
+- receipt/evidence before verified payment was rejected safely
+- public verify unknown pair did not return active verified trust
+- selected responses did not show obvious secret/internal leak terms
+- duplicate/replay/failure cases remain V9.1 targets
 
----
+SafeGate should not say:
 
-### Demonstrated Directionally
-
-- fail-secure receipt/evidence guard
-- no frontend-callback-only unlock
-- server-side approval/completion direction
-- durable state direction
-- public-safe evidence direction
-- claim boundary discipline
+- all backend behavior is proven
+- backend is production-ready
+- all duplicate/replay risks are solved
+- all failure cases are solved
+- formal audit passed
+- tamper-proof backend confirmed
 
 ---
 
-### Needs Live Repeat Evidence
+## Final Matrix Statement
 
-- duplicate approve behavior
-- duplicate complete behavior
-- duplicate receipt/evidence behavior
-- paymentId mismatch behavior
-- receipt/evidence mismatch public verify
-- missing parameter behavior
-- safe public error behavior
-- public verify unknown pair behavior
+SafeGate has passed selected public-safe backend behavior checks.
 
----
+SafeGate still needs deeper duplicate, replay, mismatch, timeout, durable-state failure, freshness, integrity, and rate-limit validation.
 
-### Planned V9.1 Hardening
+This matrix exists to keep the next engineering tests clear and reviewable.
 
-- database failure behavior
-- timeout/ambiguous payment handling
-- cleanup/manual review policy
-- receipt hash/signature
-- replay immutability
-- public verify freshness policy
-- rate limiting
-- abuse resistance
-- formal state table
-- merchant-facing simplified behavior explanation
-
----
-
-## 16. Reviewer Interpretation
-
-This matrix should be read as a technical honesty document.
-
-It does not claim that every backend edge case is already complete.
-
-It shows that SafeGate understands the required backend behaviors and is turning reviewer criticism into a hardening plan.
-
-The current strongest claim remains:
-
-SafeGate passed a controlled Pi Testnet payment-spine flow and unlocks access only after backend-verified receipt/evidence.
-
-The next required claim should be:
-
-SafeGate backend behavior remains safe under duplicate, replay, timeout, mismatch, and failure scenarios.
-
-That next claim is not yet fully made.
-
----
-
-## 17. Next Test Targets
-
-Recommended next tests:
-
-1. duplicate approve test
-2. duplicate complete test
-3. duplicate receipt/evidence test
-4. receipt before verified payment test repeat
-5. paymentId mismatch test
-6. receipt/evidence mismatch public verify test
-7. missing txid test
-8. unknown receipt/evidence public verify test
-9. safe error response test
-10. durable state failure simulation
-
----
-
-## 18. What This Matrix Does Not Claim
-
-This matrix does not claim:
-
-- production readiness
-- complete backend hardening
-- complete replay protection
-- complete idempotency proof
-- complete rate limiting
-- complete cryptographic integrity
-- formal security audit
-- official Pi partnership
-- Pi Mainnet settlement
-- enterprise-grade security
-- completed commercial pilot
-
----
-
-## 19. Final Backend Rule
-
-SafeGate backend behavior must remain conservative:
-
-If payment state is missing, ambiguous, duplicated, mismatched, stale, or not durably verified, SafeGate must not unlock access.
+SafeGate remains not production-ready and not formally audited.
 
 ---
 
