@@ -1,4 +1,4 @@
-# SafeGate AI Review Risk Consensus — V9 Payment Spine
+# SafeGate AI Review Risk Consensus — V9 / V9.1
 
 SafeGate verifies what happened after payment.
 
@@ -8,671 +8,566 @@ Payment is the trigger. Trust is the product.
 
 ---
 
-## Document Status
+## Purpose
 
-**Status:** AI-assisted technical risk consensus  
-**Scope:** SafeGate V9 controlled Pi Testnet payment-spine review  
-**Current Public Phase:** Pilot Readiness  
-**Controlled Pi Testnet Payment Spine:** PASSED  
-**Production Claim:** No  
-**Security Certification Claim:** No  
-**Third-Party Audit Claim:** No  
+This document summarizes AI-assisted technical review feedback for SafeGate V9 and V9.1.
 
----
+The purpose is risk tracking.
 
-## Important Boundary
+This is not a formal audit.
 
-This document is not a third-party audit.
+This is not a security certification.
 
-This document is not a formal security certification.
+This is not third-party verification.
 
-This document is not a production-readiness claim.
-
-This document summarizes AI-assisted technical review findings from multiple independent model reviews.
-
-Its purpose is to track risks before controlled pilot execution.
+This is an advisory consensus document based on technical review themes from multiple AI review passes and internal analysis.
 
 ---
 
-## Current Confirmed Foundation
+## Current Status
 
-SafeGate has demonstrated a controlled Pi Testnet payment-spine execution in Pi Browser.
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| Pilot Readiness | Open |
+| V9.1 Backend + Integrity Hardening | Active direction |
+| Production Readiness | Not claimed |
+| Pi Mainnet Settlement | Not claimed |
+| Official Pi Partnership | Not claimed |
+| Formal Third-Party Audit | Not claimed |
+| Security Certification | Not claimed |
 
-The controlled flow showed:
+---
 
-- V9 invoice creation
-- initial access state locked
+## Review Context
+
+SafeGate V9 focused on proving a controlled Pi Testnet payment-spine flow:
+
+- invoice creation
 - Pi Browser authentication
-- username + payments scope
+- payments scope
 - Pi wallet payment in Sandbox / Testnet context
 - backend approval / completion flow
 - backend-verified payment state
-- receipt and evidence generation after verified state
-- public verify confirmation
-- access unlock only after backend-verified receipt
+- guarded receipt/evidence generation
+- minimum-disclosure public verify
+- access unlock after backend-verified receipt
 
-Public-safe result:
+SafeGate V9.1 focuses on backend and integrity hardening:
 
-- paymentState: PAYMENT_VERIFIED_TESTNET
-- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
-- verified: true
-- minimumDisclosure: true
-- publicSafe: true
-- paymentIdIncluded: false
-- txidIncluded: false
-- secretsIncluded: false
-- customerDataIncluded: false
-- accessUnlocked: true
+- duplicate callback behavior
+- idempotency
+- replay resistance
+- timeout behavior
+- database failure behavior
+- receipt/evidence integrity
+- public verify freshness
+- safe error model
+- formal state machine clarity
+- controlled pilot preparation
 
 ---
 
-## Review Sources
+## Evidence Milestone 1 — Controlled Pi Testnet Payment Spine
 
-This consensus summarizes technical review themes from:
+**Status:** PASSED
 
-- Gemini technical review
-- Claude technical review
-- DeepSeek technical review
-- Grok technical review
-- internal SafeGate architecture review
+SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
 
-These reviews should be treated as advisory risk analysis.
+Observed controlled result:
 
-They are not formal external audits.
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- public verify: confirmed
+- verified: true
+- minimumDisclosure: true
+- publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
+- rawPiApiResponseIncluded: false
+- serviceRoleKeyIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+- accessUnlocked: true
+
+Related document:
+
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
+
+Live evidence page:
+
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
+
+---
+
+## Evidence Milestone 2 — V9.1 Safe Negative Backend Validation
+
+**Status:** PASSED
+
+SafeGate completed a live V9.1 safe negative backend behavior validation.
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed selected public-safe behavior:
+
+- backend health returned ok
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Related document:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Live validation page:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Boundary:
+
+This validation does not prove real duplicate approve/complete behavior, real paymentId/txid replay handling, Pi API timeout behavior, Supabase failure recovery, production readiness, or formal audit completion.
 
 ---
 
 ## Consensus Strengths
 
-The reviewers consistently identified the following strengths.
+Across review passes, the strongest SafeGate points are:
 
-### 1. Backend-Verified Access Unlock
-
-SafeGate does not unlock access from frontend callback alone.
-
-Access unlock depends on backend-verified payment state and guarded receipt/evidence generation.
-
-This is the strongest architectural decision.
-
----
-
-### 2. Payment Layer and Trust Layer Separation
-
-SafeGate does not process payments directly.
-
-The payment event triggers a separate trust-state flow:
-
-- payment intent
-- backend verification
-- receipt/evidence
-- public verify
-- access state
-
-This separation supports the core SafeGate positioning.
+- clear post-payment trust positioning
+- payment and trust layer separation
+- backend-verified access unlock direction
+- receipt/evidence guard concept
+- minimum-disclosure public verify direction
+- disciplined public claim boundaries
+- controlled Pi Testnet payment-spine pass
+- live V9.1 safe negative backend validation pass
+- public-safe evidence packaging
+- explicit hardening roadmap
+- reviewer-friendly documentation surface
 
 ---
 
-### 3. Receipt/Evidence Guard Concept
+## Consensus Risk Areas
 
-Receipt and evidence are not created before verified payment state.
-
-This guard supports the post-payment trust-layer model.
-
----
-
-### 4. Minimum-Disclosure Public Verify
-
-Public verify intentionally avoids exposing sensitive payment data.
-
-Positive public-safe fields include:
-
-- verified
-- minimumDisclosure
-- publicSafe
-- accessUnlocked
-
-Sensitive fields should remain excluded:
-
-- paymentId
-- txid
-- secrets
-- raw Pi API response
-- service role keys
-- customer data
-- private wallet data
-
----
-
-### 5. Boundary Discipline
-
-SafeGate correctly avoids overclaiming.
-
-Current public language does not claim:
-
-- production readiness
-- Pi Mainnet settlement
-- official Pi Core Team partnership
-- custodial payment processing
-- regulatory approval
-- formal third-party audit
-- enterprise-grade certification
-
-This strengthens reviewer trust.
-
----
-
-## Consensus Risks
-
-The reviewers consistently identified the following risks.
-
----
-
-### Risk 1 — Duplicate Callback / Idempotency
-
-A real payment environment may deliver duplicate callbacks or repeated approve/complete requests.
-
-Risk scenarios:
-
-- same paymentId sent twice
-- same txid sent twice
-- approve called multiple times
-- complete called multiple times
-- browser refresh triggers repeated client behavior
-- network retry causes duplicate backend calls
-
-Expected SafeGate behavior:
-
-- no duplicate receipt
-- no duplicate evidence
-- no duplicate access extension
-- no inconsistent state
-- same verified record returned idempotently
-
-Status:
-
-**Needs deeper backend behavior evidence.**
-
----
-
-### Risk 2 — Replay Attack
-
-A previous payment identifier or receipt/evidence pair must not be reusable for another invoice or access event.
-
-Risk scenarios:
-
-- paymentId reused for a different invoice
-- txid reused for a different invoice
-- old receipt used to unlock new access
-- mismatched receipt/evidence pair submitted to public verify
-- stale verified record reused outside intended context
-
-Expected SafeGate behavior:
-
-- paymentId binds to one invoice only
-- txid binds to one payment record only
-- receipt/evidence pair remains immutable
-- mismatched pair fails public verify
-- stale or expired receipts are rejected if expiration is implemented
-
-Status:
-
-**Needs deeper replay and immutability testing.**
-
----
-
-### Risk 3 — Pending State / Timeout Handling
-
-Payment flows can become ambiguous.
-
-Risk scenarios:
-
-- user starts payment but does not complete
-- Pi API times out
-- Pi API returns ambiguous state
-- backend approval succeeds but completion does not
-- completion succeeds but client loses connection
-- backend remains stuck in pending state
-
-Expected SafeGate behavior:
-
-- access remains locked
-- no fake success
-- no receipt/evidence before verified state
-- pending records expire or move to review state
-- cleanup worker or manual review path exists
-
-Status:
-
-**Needs explicit timeout, expiry, cleanup, and manual-review policy.**
-
----
-
-### Risk 4 — Supabase Write Failure / Durable State Failure
-
-SafeGate currently depends on durable backend state.
-
-Risk scenarios:
-
-- payment verified but database write fails
-- receipt generation fails after payment verification
-- evidence generation fails after receipt creation
-- Supabase connection drops mid-flow
-- partial state is written
-- state update race condition occurs
-
-Expected SafeGate behavior:
-
-- no access unlock without durable verified state
-- safe retry or reconciliation path
-- audit trail of partial failure
-- no duplicate receipt/evidence
-- operator-visible failure state
-
-Status:
-
-**Needs failure-mode documentation and backend test evidence.**
-
----
-
-### Risk 5 — Backend Behavior Not Fully Externally Verifiable
-
-Reviewers can see public pages and public-safe summaries, but cannot yet fully inspect endpoint behavior.
-
-Missing external evidence areas:
+The main risk areas are:
 
 - duplicate approve behavior
 - duplicate complete behavior
-- invalid paymentId behavior
-- missing txid behavior
+- duplicate receipt/evidence behavior
+- idempotency
+- replay protection
 - paymentId mismatch behavior
-- receipt before verified state behavior
-- public verify mismatch behavior
-- safe error codes
-- database failure behavior
-
-Expected SafeGate behavior:
-
-- clear endpoint behavior table
-- expected HTTP status codes
-- public-safe error responses
-- no internal stack traces
-- no secret leakage
-- repeatable test notes
-
-Status:
-
-**Needs Backend Behavior Evidence Matrix.**
+- txid mismatch behavior
+- timeout / pending-state behavior
+- Supabase / durable-state failure behavior
+- receipt/evidence cryptographic integrity
+- public verify freshness
+- stale trust records
+- safe error response model
+- rate limiting / API abuse resistance
+- merchant-facing simplicity
+- external reproducibility
 
 ---
 
-### Risk 6 — Cryptographic Receipt Integrity
+## Risk 1 — Duplicate Callback Behavior
 
-Minimum-disclosure public verify is privacy-positive, but it is not the same as independent cryptographic verification.
+### Risk
 
-Risk questions:
+Payment systems can send duplicate or repeated callbacks.
 
-- Is the receipt signed?
-- Is evidence hashed?
-- Can receipt/evidence be tampered with after creation?
-- Is there a server-side HMAC or signature?
-- Is there a receipt hash?
-- Is there a timestamp?
-- Is there an expiry policy?
-- Can public verify detect modified receipt data?
+If approve or complete callbacks are repeated, the backend must not create inconsistent state.
 
-Expected SafeGate direction:
+### Expected Safe Behavior
 
-- server-side signed receipt or HMAC
-- receipt hash
-- timestamp
-- immutable receipt/evidence pair
-- future public verification of integrity metadata
+Duplicate callbacks should be idempotent.
 
-Status:
+They should not:
 
-**Needs cryptographic receipt integrity layer.**
+- create duplicate receipt
+- create duplicate evidence
+- unlock access from invalid state
+- overwrite verified state unsafely
+- create inconsistent public verify result
 
----
+### Current Status
 
-### Risk 7 — Pi Verification Depth
+Documented as V9.1 hardening target.
 
-The phrase backend-verified payment state should be technically specified.
-
-Verification should clarify:
-
-- paymentId match
-- invoiceId/order match
-- amount match
-- memo/metadata match if used
-- recipient/app context match where applicable
-- completion state
-- replay protection
-- environment boundary: Sandbox / Testnet / Mainnet
-
-Expected SafeGate direction:
-
-- document exactly what backend verification checks
-- separate Testnet/Sandbox claims from future Mainnet claims
-- avoid vague “verified” language without verification depth
-
-Status:
-
-**Needs Pi verification depth documentation.**
+Not fully proven with real paymentId / txid duplicate callbacks.
 
 ---
 
-### Risk 8 — Public Verify Freshness / Stale Data
+## Risk 2 — Replay Protection
 
-Public verify should clarify whether it reads live durable state or a static generated record.
+### Risk
 
-Risk scenarios:
+An old paymentId or txid could be reused or replayed against another invoice or receipt path.
 
-- receipt was valid but later disputed
-- receipt was revoked
-- access expired
-- state changed but public verify still shows old verified state
-- cached public data creates stale trust signal
+### Expected Safe Behavior
 
-Expected SafeGate direction:
+Replay attempts should be rejected or return stable already-known state without creating a new trust outcome.
 
-- clarify public verify data source
-- define freshness rules
-- define revoked/expired/disputed behavior
-- show updated public-safe state when needed
+The backend should verify:
 
-Status:
+- paymentId belongs to expected invoice
+- txid is not reused
+- payment is not bound to another invoice
+- receipt/evidence already exists if previously finalized
+- access unlock is not triggered by replay
 
-**Needs public verify freshness policy.**
+### Current Status
 
----
+Documented as V9.1 hardening target.
 
-### Risk 9 — Rate Limiting / Abuse Resistance
-
-A real pilot may face repeated requests, spam, or AI-agent style abuse.
-
-Risk scenarios:
-
-- repeated invoice creation
-- repeated verify requests
-- brute force receipt/evidence guessing
-- public verify scraping
-- callback endpoint abuse
-- AI-agent high-frequency calls
-
-Expected SafeGate direction:
-
-- rate limits
-- anti-enumeration IDs
-- token bucket policy
-- merchant/API-key-based limits for future API use
-- safe error responses
-
-Status:
-
-**Needs controlled abuse-resistance plan.**
+Not fully proven with real paymentId / txid replay tests.
 
 ---
 
-### Risk 10 — Merchant Understanding
+## Risk 3 — Receipt / Evidence Before Verified Payment
 
-Technical reviewers can understand SafeGate, but merchants need a simpler explanation.
+### Risk
 
-Merchant questions:
+If receipt or evidence can be created before backend-verified payment, the trust layer fails.
 
-- What happens after my customer pays?
-- What proof do I receive?
-- What does public verify show?
-- What happens if payment is delayed?
-- What happens if the buyer says they paid but access is locked?
-- What do I see in a dispute or support case?
+### Expected Safe Behavior
 
-Expected SafeGate direction:
+No receipt, no evidence, and no access unlock before backend-verified payment state.
 
-- simple merchant-facing explanation
-- no heavy state-machine language
-- one merchant scenario
-- one payment
-- one receipt
-- one public verify result
+### Current Status
 
-Status:
+Selected public-safe validation passed.
 
-**Needs merchant-facing explanation before broader pilot.**
+V9.1 validation confirmed receipt/evidence before verified payment was rejected safely.
 
 ---
 
-## Combined Must-Fix Before Controlled Pilot
+## Risk 4 — Access Unlock From Frontend Callback
 
-Before claiming controlled pilot execution, SafeGate should address the following.
+### Risk
 
-### 1. Backend Behavior Evidence Matrix
+If frontend callback alone unlocks access, a malicious or broken client could bypass backend verification.
 
-Create a matrix showing endpoint behavior for:
+### Expected Safe Behavior
 
-- valid invoice create
-- valid approve
-- duplicate approve
-- valid complete
-- duplicate complete
-- missing paymentId
-- missing txid
-- paymentId mismatch
-- receipt before payment verified
-- duplicate receipt/evidence request
-- mismatched receipt/evidence public verify
-- unknown receipt/evidence public verify
+Frontend callback must never unlock access by itself.
 
-Each row should include:
+Access unlock should require backend-verified payment state and guarded receipt/evidence.
 
-- scenario
-- expected result
-- access state
-- receipt/evidence result
-- public-safe response
-- current status
+### Current Status
+
+Controlled Pi Testnet payment-spine pass supports the claim that access unlock occurred after backend-verified receipt.
+
+V9.1 validation also confirmed invoice creation kept access locked.
 
 ---
 
-### 2. Idempotency and Replay Test Evidence
+## Risk 5 — Public Verify Unknown Pair
 
-Demonstrate that:
+### Risk
 
-- duplicate callbacks do not create duplicate receipt/evidence
-- same paymentId cannot bind to another invoice
-- same txid cannot bind to another invoice
-- receipt/evidence pair cannot be mixed
-- duplicate complete returns existing verified result where appropriate
+Public verify must not return active verified trust for unknown, missing, or mismatched receipt/evidence pairs.
 
----
+### Expected Safe Behavior
 
-### 3. Supabase / Durable State Failure Policy
+Unknown or missing public verify inputs should fail safely.
 
-Define behavior when:
+They should not return active verified trust.
 
-- database write fails
-- database read fails
-- connection drops
-- partial state exists
-- receipt creation fails after verified payment
-- evidence creation fails after receipt
+### Current Status
+
+Selected public-safe validation passed.
+
+V9.1 validation confirmed missing inputs and unknown pair did not return active verified trust.
+
+Mismatched real receipt/evidence pair testing remains a deeper target.
 
 ---
 
-### 4. Safe Error Model
+## Risk 6 — Secret / Internal Leak In Responses
 
-Ensure public and API errors do not expose:
+### Risk
 
+Backend error or validation responses may leak sensitive details.
+
+### Expected Safe Behavior
+
+Responses should not expose:
+
+- service role key
+- environment variables
+- access tokens
+- raw Pi API response
+- raw database errors
 - stack traces
-- Supabase internals
-- service role details
-- raw Pi API responses
-- secrets
-- internal filesystem or deployment paths
+- internal secrets
+- private wallet data
+- customer data
+
+### Current Status
+
+Selected public-safe leak scans passed.
+
+V9.1 validation responses did not show obvious secret/internal leak terms.
+
+Deeper safe error testing remains open.
 
 ---
 
-### 5. Receipt Integrity Plan
+## Risk 7 — Pi Verification Depth
 
-Define the next integrity layer:
+### Risk
 
+“Backend verified” can become vague if not mapped to exact checks.
+
+### Expected Safe Behavior
+
+Backend verification should clarify:
+
+- invoice exists
+- invoice is eligible
+- paymentId exists
+- paymentId belongs to invoice
+- amount matches
+- environment is correct
+- payment is completed/verified
+- txid exists when required
+- txid is not reused
+- receipt/evidence is not duplicated
+- access remains locked before verification
+
+### Current Status
+
+Documented in:
+
+SAFEGATE_PI_VERIFICATION_DEPTH_NOTE.md
+
+Still requires deeper implementation/testing evidence.
+
+---
+
+## Risk 8 — Supabase / Durable-State Failure
+
+### Risk
+
+Payment verification may succeed while database write, receipt write, evidence write, or access unlock write fails.
+
+### Expected Safe Behavior
+
+Ambiguous state should fail secure.
+
+No access unlock should happen from partial or uncertain state.
+
+### Current Status
+
+Documented as V9.1 hardening target.
+
+Not fully proven with failure injection.
+
+---
+
+## Risk 9 — Public Verify Freshness
+
+### Risk
+
+A public verify record may become stale, expired, revoked, disputed, or misleading over time.
+
+### Expected Safe Behavior
+
+Public verify should eventually distinguish:
+
+- active
+- expired
+- revoked
+- disputed
+- stale
+- unavailable
+- review-required
+
+### Current Status
+
+Documented in:
+
+SAFEGATE_PUBLIC_VERIFY_FRESHNESS_POLICY.md
+
+Implementation detail remains future hardening work.
+
+---
+
+## Risk 10 — Receipt / Evidence Integrity
+
+### Risk
+
+Minimum disclosure protects privacy, but does not automatically provide tamper-evident integrity.
+
+### Expected Safe Behavior
+
+Future receipt/evidence integrity should include:
+
+- canonical payload
 - receipt hash
-- signed receipt or HMAC
-- timestamp
-- optional expires_at
-- immutable receipt/evidence pair
+- evidence hash
+- server-side HMAC or signature direction
+- issuedAt
+- optional expiresAt
+- immutable binding
 - tamper-detection behavior
+- public-safe integrity metadata
+
+### Current Status
+
+Documented in:
+
+SAFEGATE_RECEIPT_INTEGRITY_PLAN.md
+
+SafeGate does not currently claim tamper-proof infrastructure or independent cryptographic verification.
 
 ---
 
-### 6. Pi Verification Depth Documentation
+## Risk 11 — Rate Limiting / Abuse Resistance
 
-Clarify what backend verification checks.
+### Risk
 
-At minimum:
+Automated users or AI agents may repeatedly call endpoints, test edge cases, or attempt abuse.
 
-- paymentId
-- invoiceId/order binding
-- amount
-- payment state
-- completion state
-- environment boundary
-- replay protection
+### Expected Safe Behavior
 
----
+Future backend should include:
 
-### 7. Public Verify Freshness Policy
+- rate limiting
+- abuse resistance
+- idempotency protection
+- anti-enumeration behavior
+- safe error responses
+- monitoring direction
+- strict state transition control
 
-Clarify whether public verify is:
+### Current Status
 
-- live DB-backed
-- cached
-- static
-- revocable
-- expiry-aware
-- dispute-aware
+Documented as future hardening target.
+
+Not production-claimed.
 
 ---
 
-### 8. Controlled External Repeat Test
+## AI Review Consensus Interpretation
 
-Repeat the controlled payment-spine flow with at least one trusted external reviewer when feasible.
+The consensus is:
 
-The test should remain public-safe and redacted.
+SafeGate has moved beyond static concept evidence.
 
----
+SafeGate now has:
 
-## Must-Not-Claim List
+- controlled Pi Testnet happy-path payment-spine evidence
+- selected live safe negative backend validation evidence
+- public-safe documentation package
+- clear risk tracking
+- clear claim boundaries
+- clear next hardening targets
 
-SafeGate should not claim:
+The consensus is also:
 
-- production readiness
-- secure system
-- tamper-proof infrastructure
-- independently verifiable proof
-- formal audit completion
-- regulatory approval
-- official Pi partnership
-- Pi Mainnet settlement
-- enterprise-grade security
-- high-volume production readiness
-- completed commercial pilot
-- complete privacy protocol
+SafeGate should not overclaim.
 
-Safer language:
-
-- controlled Pi Testnet payment-spine pass
-- backend-verified receipt/evidence direction
-- minimum-disclosure public verify direction
-- pilot-readiness preparation
-- AI-assisted risk tracking
-- not a formal audit
-- not production-ready
+The next credibility layer is deeper backend behavior proof under duplicate, replay, mismatch, timeout, durable-state failure, freshness, and receipt-integrity scenarios.
 
 ---
 
-## Updated Technical Direction
+## What Improved After V9.1 Validation
 
-The next SafeGate phase should focus on:
+Before V9.1 validation, reviewers could reasonably say:
 
-**V9.1 Backend + Integrity Hardening**
+Backend behavior is not externally visible enough.
 
-This phase should come before broad AI-agent expansion.
+After V9.1 validation, SafeGate can show:
 
-Suggested V9.1 priorities:
+- selected negative backend checks are live
+- invoice create does not unlock access
+- invoice create does not create receipt/evidence
+- receipt/evidence before verified payment is rejected
+- missing backend inputs are rejected
+- unknown public verify pair does not return active verified trust
+- selected responses do not show obvious secret/internal leak terms
 
-1. Backend Behavior Evidence Matrix
-2. Duplicate callback handling
-3. Idempotency proof
-4. Replay protection proof
-5. Supabase failure behavior
-6. Safe error model
-7. Receipt integrity hash/signature
-8. Public verify freshness policy
-9. Formal state machine table
-10. Controlled external repeat test
+This reduces one review concern.
 
----
-
-## Future AI Agent Readiness
-
-A later SafeGate layer may focus on AI Agent Readiness:
-
-- machine-readable trust states
-- OpenAPI specification
-- llms.txt
-- agent integration guide
-- privacy-first receipt verification
-
-However, AI Agent Readiness should not outrun backend hardening.
-
-AI agents increase request volume, automation risk, replay risk, and abuse pressure.
-
-Therefore, backend behavior and integrity hardening should come first.
+It does not close all backend risks.
 
 ---
 
-## Consensus Pilot Readiness Interpretation
+## Remaining Highest-Priority Tests
 
-Different reviewers gave different readiness impressions.
+The next highest-priority tests are:
 
-The fair combined interpretation:
-
-- SafeGate is no longer only an idea.
-- SafeGate is no longer only a static demo.
-- SafeGate has passed a controlled Pi Testnet payment-spine flow.
-- SafeGate has strong positioning and disciplined public boundaries.
-- SafeGate is suitable for continued hackathon / reviewer / technical feedback.
-- SafeGate still needs backend behavior evidence and hardening before controlled pilot execution.
-- SafeGate is not production-ready.
-
-Reasonable current status:
-
-**Controlled Evidence:** Strong  
-**Public Documentation:** Strong  
-**Backend External Verifiability:** Needs work  
-**Security Hardening:** Needs work  
-**Controlled Pilot Readiness:** Partial  
-**Production Readiness:** Not claimed  
+1. duplicate approve with real paymentId
+2. duplicate complete with real paymentId / txid
+3. duplicate receipt/evidence request
+4. paymentId mismatch
+5. txid mismatch
+6. public verify mismatched receipt/evidence pair
+7. Pi API timeout behavior
+8. Supabase write failure behavior
+9. durable-state recovery behavior
+10. receipt/evidence integrity implementation
+11. public verify freshness implementation
+12. rate limiting / abuse resistance
 
 ---
 
-## Final Risk Statement
+## Safe Public Language
 
-SafeGate’s strongest foundation is its refusal to trust frontend payment callbacks.
+SafeGate may say:
 
-The next major engineering challenge is proving that backend behavior remains safe under:
+- controlled Pi Testnet payment-spine passed
+- V9.1 safe negative backend validation passed
+- access unlocked only after backend-verified receipt
+- receipt/evidence before verified payment was rejected safely
+- public verify unknown pair did not return active verified trust
+- public-safe validation responses did not show obvious secret/internal leak terms
+- AI-assisted review identified risks and next hardening targets
+- production readiness is not claimed
+- formal audit is not claimed
 
-- duplicate callbacks
-- replay attempts
-- timeouts
-- database failures
-- partial writes
-- public verify misuse
-- stale trust states
-- receipt tampering
-- higher request volume
+SafeGate should not say:
 
-This is the correct next hardening frontier.
+- production ready
+- fully secure
+- formally audited
+- all backend risks solved
+- all duplicate/replay risks solved
+- tamper-proof infrastructure complete
+- independent cryptographic verification complete
+- official Pi partnership exists
+- Pi Mainnet settlement completed
+
+---
+
+## Final Consensus
+
+SafeGate’s current evidence is meaningful for Pilot Readiness and technical review.
+
+SafeGate has passed:
+
+- Controlled Pi Testnet Payment Spine
+- V9.1 Safe Negative Backend Validation
+
+SafeGate still needs deeper backend hardening before stronger pilot or production claims.
+
+The strongest next review question remains:
+
+Where would this architecture break first if it moved from controlled Testnet evidence to a real pilot environment?
 
 ---
 
