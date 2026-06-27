@@ -1,312 +1,587 @@
-# SafeGate V12 — Trust State, Privacy and Web3 Expansion Plan
+# SafeGate V12 Trust-State / Privacy / Web3 Plan
 
-## Status
+SafeGate verifies what happened after payment.
 
-SafeGate V12 is the machine-readable trust state, privacy-aware evidence, and Web3 expansion planning phase.
+SafeGate does not process payments.
 
-V12 does not replace V8, V9, V10, or V11.
-
-V12 defines the next architecture direction after submission readiness and security hardening.
+Payment is the trigger. Trust is the product.
 
 ---
 
-## V12 Purpose
+## Purpose
 
-The purpose of V12 is to move SafeGate beyond a payment-afterproof MVP into a broader trust infrastructure direction.
+This document explains SafeGate’s V12 trust-state, privacy, and Web3 architecture direction.
 
-SafeGate should not only show trust to humans.
+V12 is a forward-looking architecture plan.
 
-SafeGate should also expose clear, public-safe, machine-readable trust states that can be read by apps, merchants, users, dashboards, auditors, and future automated systems.
+It builds on the current V9 / V9.1 evidence baseline:
 
----
+- Controlled Pi Testnet Payment Spine: PASSED
+- V9.1 Safe Negative Backend Validation: PASSED
 
-## Core Idea
+This is not a production-readiness claim.
 
-Payment creates an event.
+This is not a completed privacy protocol.
 
-SafeGate creates a trusted outcome.
+This is not a formal audit.
 
-The future is not only payment.
+This is not Pi Mainnet settlement.
 
-The future is verifiable post-payment trust.
-
----
-
-## Machine-Readable Trust States
-
-SafeGate can define simple trust states that humans and systems can both understand.
-
-Example trust state:
-
-- payment: VERIFIED
-- evidence: AVAILABLE
-- access: UNLOCKED
-- publicVerify: AVAILABLE
-
-Trust state should be clear, predictable, and safe to expose publicly.
-
-Short line:
-
-Trust should be readable by both humans and systems.
+This is not an official Pi partnership claim.
 
 ---
 
-## Public-Safe Verification
+## Current Status
 
-Public verification should not expose private data, secrets, internal database details, or sensitive transaction information.
-
-SafeGate should show enough to verify the outcome, but not enough to expose private user or merchant data.
-
-Example public-safe fields:
-
-- receiptId
-- paymentState
-- evidenceState
-- accessState
-- verifiedAt
-- safeToDisplay
-
-Short line:
-
-Verify the result, not the private details.
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| V12 Trust-State / Privacy / Web3 Plan | Architecture direction |
+| Pilot Readiness | Open |
+| V9.1 Backend + Integrity Hardening | Active direction |
+| V10 Controlled Pilot Preparation | Planned |
+| Production Readiness | Not claimed |
+| Pi Mainnet Settlement | Not claimed |
+| Official Pi Partnership | Not claimed |
+| Formal Third-Party Audit | Not claimed |
+| Complete Privacy Protocol | Not claimed |
 
 ---
 
-## Privacy-Aware Evidence
+## Current Evidence Baseline
 
-Evidence is useful, but too much evidence can expose too much information.
+SafeGate has crossed two important evidence milestones:
 
-SafeGate should follow a minimum-data disclosure model.
+1. Controlled Pi Testnet Payment Spine
+2. V9.1 Safe Negative Backend Validation
 
-It should prove what happened after payment without revealing unnecessary personal, merchant, or transaction details.
+These milestones show:
 
-Possible direction:
+- controlled Pi Browser payment-spine evidence
+- backend-verified payment-state direction
+- receipt/evidence generated after verified payment state
+- access unlock after backend-verified receipt
+- selected negative backend cases rejected safely
+- public verify minimum-disclosure direction
+- no obvious secret/internal leak terms detected in selected validation responses
 
-- hide unnecessary user identifiers
-- avoid exposing full payment details
-- expose only verification state
-- expose receipt/evidence existence
-- expose timestamps carefully
-- use public-safe IDs
-- support hash-based proof previews
+These milestones strengthen the V12 architecture direction.
 
-Short line:
-
-Proof without overexposure.
+They do not prove production readiness or full privacy infrastructure.
 
 ---
 
-## Minimum-Data Public Verify
+## Evidence Milestone 1 — Controlled Pi Testnet Payment Spine
 
-Public verify should answer:
+**Status:** PASSED
 
-- Was payment verified?
-- Was evidence created?
-- Was access state recorded?
-- Can this result be trusted?
+SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
+
+The controlled flow demonstrated:
+
+- V9 invoice creation
+- initial access state remained locked
+- Pi Browser authentication succeeded
+- username + payments scope succeeded
+- Pi wallet payment succeeded in Sandbox / Testnet context
+- backend approval / completion flow executed
+- backend-verified payment state reached
+- receipt/evidence generated after verified state
+- public verify confirmed minimum-disclosure result
+- access unlocked only after backend-verified receipt
+
+Public-safe result:
+
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- verified: true
+- minimumDisclosure: true
+- publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
+- rawPiApiResponseIncluded: false
+- serviceRoleKeyIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+- accessUnlocked: true
+
+Live evidence:
+
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
+
+Related note:
+
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
+
+---
+
+## Evidence Milestone 2 — V9.1 Safe Negative Backend Validation
+
+**Status:** PASSED
+
+SafeGate completed a live V9.1 safe negative backend behavior validation.
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed selected public-safe behavior:
+
+- backend health returned ok
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Live validation:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Related note:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Boundary:
+
+This validation does not prove full backend security, real duplicate approve/complete behavior, real paymentId/txid replay handling, Pi API timeout behavior, Supabase failure recovery, production readiness, or formal audit completion.
+
+---
+
+## V12 Architecture Idea
+
+V12 treats SafeGate as a trust-state architecture.
+
+Payment is not the final product.
+
+Payment is the trigger.
+
+The product is a verifiable post-payment trust state.
+
+SafeGate should map:
+
+- invoice state
+- payment state
+- backend verification state
+- receipt state
+- evidence state
+- public verify state
+- access state
+- freshness state
+- integrity state
+- dispute / review state
+
+This makes SafeGate more than a checkout page.
+
+---
+
+## Trust-State Layer
+
+SafeGate should define machine-readable trust states.
+
+Possible trust states:
+
+- INVOICE_CREATED
+- PAYMENT_PENDING
+- PAYMENT_VERIFIED_TESTNET
+- RECEIPT_CREATED
+- EVIDENCE_CREATED
+- PUBLIC_VERIFY_AVAILABLE
+- ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- ACCESS_EXPIRED
+- ACCESS_REVOKED
+- ACCESS_DISPUTED
+- REVIEW_REQUIRED
+- STALE
+- UNAVAILABLE
+
+The core rule remains:
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+---
+
+## Privacy Layer
+
+SafeGate privacy direction is minimum disclosure.
+
+Public verify should confirm what happened without exposing sensitive identifiers.
 
 Public verify should not expose:
 
-- private user identity
-- private wallet details
-- secret backend data
-- internal database structure
-- merchant-sensitive data
-- full payment secrets
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- raw Pi API response
+- private customer data
+- private wallet data
+- internal backend logs
+- stack traces
+- environment variables
 
-Short line:
+Public verify may expose safe fields:
 
-Public verify must be safe by design.
-
----
-
-## Agent-Readable Trust Status
-
-In the future, apps, bots, AI agents, or automated services may need to know whether a payment-triggered action is trusted.
-
-SafeGate can prepare machine-readable trust states that future automated systems may consume.
-
-Correct conservative claim:
-
-SafeGate prepares machine-readable trust states.
-
-Risky claim to avoid:
-
-SafeGate is a fully autonomous AI-agent payment network.
-
-Short line:
-
-Do not sell hype. Define trust states.
-
----
-
-## Merchant Trust Dashboard Direction
-
-Merchants should not only see payment totals.
-
-Merchants should see post-payment trust state.
-
-Possible dashboard items:
-
-- verified payments
-- created receipts
-- created evidence
-- unlocked access
-- failed payments
-- cancelled payments
-- disputes
-- refunds
-- public verify records
-
-Short line:
-
-Merchants need proof, not only payment totals.
+- verified
+- publicSafe
+- minimumDisclosure
+- paymentState label
+- accessState label
+- receiptStatus
+- evidenceStatus
+- freshnessStatus
+- integrityStatus
+- privateDataIncluded
+- secretsIncluded
+- paymentIdIncluded
+- txidIncluded
+- customerDataIncluded
 
 ---
 
-## Aggregate Reporting
+## Web3 Layer
 
-SafeGate can later support aggregate reporting without exposing sensitive individual records.
+SafeGate is Pi-first, not Pi-only.
 
-Examples:
+The current evidence path is Pi-first because Pi provides:
 
-- number of verified post-payment outcomes
-- number of public verifies
-- number of access unlocks
-- number of failed or disputed flows
-- merchant-level trust summaries
+- Pi Browser
+- Pi authentication
+- payments scope
+- Pi Wallet
+- Pi payment flow
+- app ecosystem direction
+- merchant utility potential
+- identity-oriented environment
 
-Short line:
+The long-term Web3 direction can remain chain-agnostic.
 
-Show patterns without exposing people.
+However:
 
----
+Pi-first does not mean all Pi production claims are complete.
 
-## Payment Adapter Architecture
+Chain-agnostic direction does not mean all chains are integrated.
 
-SafeGate is Pi-first, but digital commerce exists across many payment systems.
-
-SafeGate can prepare adapter-based architecture.
-
-Core idea:
-
-SafeGate keeps the post-payment trust logic.
-
-Adapters connect different payment systems to the same trust layer.
-
-Example direction:
-
-- Pi Payment Adapter to SafeGate Trust State Engine
-- Future Web3 Adapter to SafeGate Trust State Engine
-- Future Digital Payment Adapter to SafeGate Trust State Engine
-
-Short line:
-
-Pi-first, not Pi-only.
+V12 should preserve this boundary.
 
 ---
 
-## Web3 Expansion Direction
+## Post-Payment Trust Model
 
-Web3 commerce often has payment, but weak post-payment trust, proof, access, and merchant records.
+A SafeGate trust record should answer:
 
-SafeGate can become a chain-agnostic post-payment trust layer over time.
-
-Possible future use cases:
-
-- digital access
-- memberships
-- gated content
-- education
-- freelancer services
-- merchant receipts
-- Web3 commerce
-- RWA service proof
-- marketplace trust records
-
-Short line:
-
-SafeGate can grow from Pi evidence layer into Web3 trust infrastructure.
+- Was an invoice created?
+- Did access start locked?
+- Was payment backend verified?
+- Was receipt created after verified state?
+- Was evidence created after verified state?
+- Was public verify available?
+- Did public verify avoid sensitive identifiers?
+- Did access unlock only after backend-verified receipt?
+- Is the record still fresh?
+- Is the record still active?
+- Is integrity valid if implemented?
+- Is there a dispute or review-required state?
 
 ---
 
-## Privacy + Compliance Direction
+## Public Verify As Trust Interface
 
-Future payment and merchant systems need both privacy and accountability.
+Public verify should become the public-safe trust interface.
 
-SafeGate should support auditable privacy.
+It should allow a reviewer, merchant, or user to check the outcome without seeing private data.
 
-Meaning:
+Possible future public verify response:
 
-- enough proof for trust
-- minimum data exposure
-- public-safe verification
-- merchant accountability
-- user protection
-- controlled evidence records
+- verified: true
+- publicSafe: true
+- minimumDisclosure: true
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- receiptStatus: RECEIPT_CREATED
+- evidenceStatus: EVIDENCE_CREATED
+- freshnessStatus: ACTIVE
+- integrityStatus: INTEGRITY_VALID
+- privateDataIncluded: false
+- secretsIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
 
-Short line:
+Boundary:
 
-Auditable privacy, not blind exposure.
+Freshness and integrity are not fully implemented claims yet.
 
 ---
 
-## Standard Trust State Language
+## Receipt / Evidence Integrity Direction
 
-SafeGate can define standard state language.
+V12 should connect with the receipt integrity plan.
 
-Example states:
+Future receipt/evidence integrity may include:
 
-- PAYMENT_CREATED
-- PAYMENT_PENDING
-- PAYMENT_VERIFIED
-- PAYMENT_FAILED
-- RECEIPT_CREATED
-- EVIDENCE_AVAILABLE
-- ACCESS_LOCKED
-- ACCESS_UNLOCKED
+- canonical receipt payload
+- canonical evidence payload
+- receipt hash
+- evidence hash
+- combined trust hash
+- server-side HMAC or signature
+- issuedAt
+- verifiedAt
+- optional expiresAt
+- key versioning
+- integrityStatus
+- tamper-detection behavior
+- public-safe integrity metadata
+
+Boundary:
+
+SafeGate does not currently claim tamper-proof infrastructure.
+
+SafeGate does not currently claim independent cryptographic verification.
+
+---
+
+## Freshness Direction
+
+V12 should connect with public verify freshness.
+
+Public verify should eventually distinguish:
+
+- ACTIVE
+- EXPIRED
+- REVOKED
 - DISPUTED
-- REFUNDED
+- STALE
+- UNAVAILABLE
+- REVIEW_REQUIRED
+- FRESHNESS_NOT_IMPLEMENTED
 
-Short line:
+A historical verification should not automatically mean current active trust forever.
 
-Trust needs a shared language.
+Boundary:
 
----
-
-## V12 Correct Claim
-
-SafeGate V12 is the roadmap direction for machine-readable post-payment trust states, privacy-aware evidence, public-safe verification, merchant trust dashboards, and future Web3/payment adapter expansion.
-
----
-
-## V12 Claim Boundary
-
-SafeGate V12 should not claim:
-
-- fully autonomous AI-agent network
-- complete privacy protocol
-- production-grade multi-chain infrastructure
-- official cross-chain standard
-- full regulatory compliance system
-- complete enterprise audit layer
-
-unless those are actually built, tested, and reviewed.
+SafeGate does not currently claim completed freshness implementation.
 
 ---
 
-## V12 One-Line Summary
+## Dispute / Review Direction
 
-V12 turns SafeGate’s post-payment evidence flow into a machine-readable, privacy-aware trust infrastructure direction.
+Real trust systems need dispute and review states.
+
+Future states may include:
+
+- ACCESS_DISPUTED
+- RECEIPT_REVIEW_REQUIRED
+- EVIDENCE_REVIEW_REQUIRED
+- PUBLIC_VERIFY_REVIEW_REQUIRED
+- PAYMENT_REVIEW_REQUIRED
+- TRUST_RECORD_REVIEW_REQUIRED
+
+These states should prevent overclaiming clean active trust when the backend state is ambiguous.
 
 ---
 
-## Final Principle
+## Merchant Trust Direction
 
-Payment creates an event.
+For merchants, V12 should help answer:
 
-SafeGate creates a trusted outcome.
+What happened after payment?
 
-The future is not only payment.
+Merchant value:
 
-The future is verifiable post-payment trust.
+- clearer post-payment records
+- receipt/evidence trail
+- access-state clarity
+- public-safe proof
+- support context
+- dispute context
+- reduced screenshot dependence
+- structured reviewer evidence
+
+SafeGate should remain clear:
+
+It does not process payments.
+
+It verifies the outcome after payment.
+
+---
+
+## AI Agent Readiness Direction
+
+V12 can prepare a future AI-agent-readable trust layer.
+
+Possible future AI-agent components:
+
+- machine-readable trust states
+- OpenAPI specification
+- llms.txt
+- agent integration guide
+- privacy-first receipt verification
+- agent-readable public verify responses
+
+But AI Agent Readiness should not outrun backend hardening.
+
+AI agents increase:
+
+- request volume
+- replay risk
+- automation abuse
+- callback pressure
+- API misuse risk
+- rate-limit requirements
+
+Therefore backend behavior, idempotency, replay protection, safe errors, integrity, freshness, and rate limiting must come first.
+
+---
+
+## V12 Data Minimization Direction
+
+SafeGate should follow data minimization.
+
+Store and expose only what is needed for trust-state verification.
+
+Avoid unnecessary exposure of:
+
+- raw payment identifiers
+- wallet addresses
+- private user identifiers
+- customer data
+- internal API responses
+- raw logs
+- secrets
+- access tokens
+
+Public verification should remain minimum-disclosure by design.
+
+---
+
+## V12 Chain-Agnostic Direction
+
+Long-term SafeGate may support a chain-agnostic trust model.
+
+Potential direction:
+
+- PaymentAdapter abstraction
+- PiAdapter
+- future EVM adapter
+- future Stellar/Soroban adapter
+- future multi-chain receipt mapping
+- shared trust-state model
+- shared public verify model
+- shared privacy boundary
+
+Boundary:
+
+The current evidence is Pi Testnet / Sandbox-oriented.
+
+Multi-chain production support is not claimed.
+
+---
+
+## V12 Reviewer Questions
+
+A reviewer should ask:
+
+1. Are trust states clearly defined?
+2. Can frontend callback unlock access?
+3. Can receipt/evidence be created before backend verification?
+4. Does public verify expose sensitive data?
+5. Can public verify become stale?
+6. Is receipt integrity implemented or only planned?
+7. Can duplicate/replay events create new trust outcomes?
+8. What happens if backend state is unavailable?
+9. How would AI agents safely read trust states?
+10. Which parts are current evidence versus future architecture?
+
+---
+
+## Relationship To V9.1 Hardening
+
+V12 should not bypass V9.1.
+
+V9.1 hardening remains the active engineering layer.
+
+V12 depends on V9.1 work such as:
+
+- duplicate approve behavior
+- duplicate complete behavior
+- duplicate receipt/evidence behavior
+- real paymentId replay handling
+- real txid replay handling
+- paymentId mismatch behavior
+- public verify mismatched pair behavior
+- Pi API timeout behavior
+- Supabase failure behavior
+- receipt/evidence integrity implementation
+- public verify freshness implementation
+- rate limiting / abuse resistance
+- deeper safe error response validation
+
+---
+
+## Safe Public Language
+
+SafeGate may say:
+
+- V12 trust-state / privacy / Web3 direction is documented
+- SafeGate is Pi-first, not Pi-only
+- SafeGate’s current evidence includes controlled Pi Testnet payment-spine pass
+- SafeGate’s current evidence includes V9.1 safe negative backend validation pass
+- V12 is an architecture direction
+- production readiness is not claimed
+- formal audit is not claimed
+- complete privacy protocol is not claimed
+
+SafeGate should not say:
+
+- V12 is production-ready
+- complete privacy protocol is finished
+- all chains are integrated
+- formal audit passed
+- tamper-proof infrastructure completed
+- independent cryptographic verification completed
+- AI-agent readiness is complete
+- all duplicate/replay risks are solved
+
+---
+
+## Final V12 Position
+
+V12 is SafeGate’s trust-state, privacy, and Web3 architecture direction.
+
+It builds on a meaningful current evidence baseline:
+
+- Controlled Pi Testnet Payment Spine: PASSED
+- V9.1 Safe Negative Backend Validation: PASSED
+
+V12 should remain disciplined:
+
+- trust states first
+- minimum disclosure always
+- backend hardening before AI agents
+- public verify freshness before strong current-trust claims
+- receipt integrity before tamper-evidence claims
+- pilot readiness before production claims
+
+SafeGate remains not production-ready and not formally audited.
+
+---
+
+## Final Positioning
+
+SafeGate does not process payments.
+
+SafeGate verifies what happened after payment.
+
+Payment is the trigger. Trust is the product.
