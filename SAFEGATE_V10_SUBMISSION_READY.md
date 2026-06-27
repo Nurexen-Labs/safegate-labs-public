@@ -1,264 +1,331 @@
-# SafeGate V10 — Submission Ready
+# SafeGate V10 Submission Ready Note
 
-## Status
-
-SafeGate V10 is focused on hackathon submission readiness, public visibility, reviewer clarity, and ecosystem feedback.
-
-V8 and V9 are closed as controlled MVP evidence layers.
-
-V10 does not introduce new backend risk, new payment claims, or new production claims.
-
-V10 prepares SafeGate to be understood, reviewed, and submitted through the correct Pi / Brainstorm / Hackathon process.
-
----
-
-## Core Positioning
-
-SafeGate is not another payment app.
-
-SafeGate does not process payments.  
 SafeGate verifies what happened after payment.
 
-Payment is the trigger.  
-Trust is the product.
+SafeGate does not process payments.
 
-Pi handles the payment.  
-SafeGate verifies the outcome after payment.
-
-SafeGate is Pi-first, but not Pi-only.
+Payment is the trigger. Trust is the product.
 
 ---
 
-## What V8 Proved
+## Purpose
 
-V8 established the public evidence and reviewer layer.
+This document explains what “V10 Submission Ready” means for SafeGate after the controlled Pi Testnet payment-spine pass and the V9.1 safe negative backend validation pass.
 
-V8 demonstrated:
+This is not a production-readiness claim.
 
-- Invoice Lite
-- Multi Receipt / Multi Evidence
-- durable database-backed records
-- public receipt verification
-- merchant record visibility
-- tester evidence intake
-- reviewer-friendly Start Here path
+This is not a Pi Mainnet settlement claim.
 
-V8 Status:
+This is not an official Pi Core Team partnership claim.
 
-**CLOSED**
+This is not a formal audit claim.
+
+This is a submission-readiness note for hackathon / reviewer / pilot-readiness context.
 
 ---
 
-## What V9 Proved
+## Current Status
 
-V9 established controlled Pi Sandbox / Testnet-oriented payment spine evidence.
-
-V9 demonstrated:
-
-- Pi SDK initialization
-- Pi authentication
-- payment permission flow
-- Test-Pi payment flow
-- backend verified payment state
-- guarded receipt/evidence creation
-- public verify URL generation
-- Supabase durable storage
-- no frontend-only unlock claim
-
-V9 Status:
-
-**CLOSED / FREEZE**
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| Pilot Readiness | Open |
+| V10 Submission Readiness | Ready for review package positioning |
+| Controlled Pilot Execution | Planned / not yet claimed complete |
+| Production Readiness | Not claimed |
+| Pi Mainnet Settlement | Not claimed |
+| Official Pi Partnership | Not claimed |
+| Formal Third-Party Audit | Not claimed |
 
 ---
 
-## V10 Purpose
+## What V10 Submission Ready Means
 
-V10 exists to make SafeGate ready for review.
+V10 Submission Ready means SafeGate has enough public-safe material for serious review.
 
-The goal is not to add risky new code.
+It means:
 
-The goal is to make the existing evidence, documentation, demo, roadmap, and claim boundaries clear.
+- the main review hub is live
+- the controlled Pi Testnet payment-spine evidence is available
+- the V9.1 backend behavior validation page is live
+- public-safe pass notes exist
+- current review package exists
+- hackathon submission pack exists
+- final hackathon submission pack exists
+- architecture document exists
+- security boundaries are documented
+- backend behavior matrix is documented
+- formal state machine direction is documented
+- receipt integrity direction is documented
+- public verify freshness direction is documented
+- merchant explanation exists
+- controlled pilot checklist exists
+- simple reviewer brief exists
 
-V10 prepares SafeGate for:
-
-- hackathon review
-- Brainstorm visibility
-- Pi ecosystem feedback
-- reviewer walkthrough
-- public-safe sharing
-- future pilot conversations
+It does not mean production launch.
 
 ---
 
-## V10 Assets
+## Evidence Milestone 1 — Controlled Pi Testnet Payment Spine
 
-Main Demo:
+**Status:** PASSED
 
-https://safegatelabs.xyz
+SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
 
-Public GitHub Documentation:
+The controlled flow demonstrated:
 
-https://github.com/Nurexen-Labs/safegate-labs-public
+- V9 invoice creation
+- access initially locked
+- Pi Browser authentication
+- username + payments scope
+- Pi wallet payment in Sandbox / Testnet context
+- backend approval / completion flow
+- backend-verified payment state
+- receipt/evidence generation after verified state
+- minimum-disclosure public verification
+- access unlock only after backend-verified receipt
 
-Demo Video:
+Public-safe result:
 
-https://youtu.be/oJi_xyrAgtM
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- verified: true
+- minimumDisclosure: true
+- publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
+- rawPiApiResponseIncluded: false
+- serviceRoleKeyIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+- accessUnlocked: true
 
-Brainstorm Project:
+Live evidence:
 
-https://brainstorm.pinet.com/project/6a1aeda7b6020f2ca1d17219
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
 
-Public documentation includes:
+Related note:
 
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
+
+---
+
+## Evidence Milestone 2 — V9.1 Safe Negative Backend Validation
+
+**Status:** PASSED
+
+SafeGate completed a live V9.1 safe negative backend behavior validation.
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed selected public-safe behavior:
+
+- backend health returned ok
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Live validation:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Related note:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Boundary:
+
+This validation does not prove full backend security, real duplicate approve/complete behavior, real paymentId/txid replay handling, Pi API timeout behavior, Supabase failure recovery, production readiness, or formal audit completion.
+
+---
+
+## Why V10 Is Stronger Than Previous Submission State
+
+Before the controlled payment-spine pass, SafeGate had a strong concept and evidence surface.
+
+After V9 and V9.1, SafeGate now has:
+
+- controlled Pi Testnet happy-path evidence
+- selected safe negative backend validation evidence
+- public-safe validation result
+- explicit production boundaries
+- explicit security boundaries
+- explicit backend hardening plan
+- explicit reviewer flow
+- explicit merchant explanation
+- explicit controlled pilot checklist
+
+This makes the submission package clearer, safer, and more reviewable.
+
+---
+
+## V10 Submission Package
+
+The V10 submission package should include:
+
+- Main Review Hub
+- V9 Payment Spine Evidence
+- V9.1 Backend Behavior Validation
 - README
 - LINKS
+- HACKATHON_SUBMISSION_PACK
+- HACKATHON_FINAL_SUBMISSION_PACK
+- Current Review Package
 - Simple Reviewer Brief
-- Final Hackathon Submission Pack
-- V9 Pi Payment Spine Evidence
-- V9 Final Freeze Note
-- V10–V12 Roadmap
-- Security boundaries
-- Roadmap and architecture notes
+- Architecture
+- Security Boundaries
+- Controlled Pi Testnet Payment Spine Pass Note
+- V9.1 Safe Negative Backend Validation Pass Note
+- Backend Behavior Evidence Matrix
+- V9.1 Backend Hardening Plan
+- Formal State Machine Table
+- Receipt Integrity Plan
+- Public Verify Freshness Policy
+- Merchant Explanation
+- Controlled Pilot Checklist
+- Pilot Evidence Template
+- Public-Safe Evidence Pack
 
 ---
 
-## V10 Submission Readiness
+## Main Live Links
 
-SafeGate V10 is submission-ready because:
-
-- the main demo URL is stable
-- the public GitHub repository is prepared
-- the demo video is available
-- the Brainstorm project exists
-- the Developer Portal app is linked
-- V8 evidence is closed
-- V9 evidence is closed / frozen
-- the final reviewer materials are prepared
-- the V10–V12 roadmap is public
-- claim boundaries are documented
-- jury / reviewer explanation materials are ready
+| Item | Link |
+|---|---|
+| Main Review Hub | https://www.safegatelabs.xyz |
+| V9 Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html |
+| V9.1 Backend Behavior Validation | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html |
+| Controlled Checkout | https://www.safegatelabs.xyz/safegate-checkout.html |
+| Pi Auth Diagnostic | https://www.safegatelabs.xyz/v9-pi-auth-diagnostic.html |
+| Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html |
+| Pilot Readiness | https://www.safegatelabs.xyz/pilot-readiness.html |
+| Pilot Evidence Intake | https://www.safegatelabs.xyz/pilot-evidence-intake.html |
+| Public Repository | https://github.com/Nurexen-Labs/safegate-labs-public |
 
 ---
 
-## Current Waiting Items
+## Recommended Reviewer Flow
 
-V10 currently waits for external process items:
-
-- Pi / Brainstorm public visibility or indexing
-- official hackathon submission window or code
-- Doris / Pi-side guidance
-- final English voice delivery check
-
-These are process items, not missing SafeGate core evidence items.
+1. Open Main Review Hub.
+2. Open V9 Payment Spine Evidence.
+3. Open V9.1 Backend Behavior Validation.
+4. Read Simple Reviewer Brief.
+5. Read Current Review Package.
+6. Read Final Hackathon Submission Pack.
+7. Read Architecture.
+8. Read Security Boundaries.
+9. Read Backend Behavior Evidence Matrix.
+10. Read Formal State Machine Table.
+11. Read Merchant Explanation.
+12. Read Controlled Pilot Checklist.
 
 ---
 
-## Claim Boundaries
+## Strongest Current Claim
 
-SafeGate V10 does not claim:
+The strongest current claim is:
 
-- Mainnet payment live
-- production readiness
+SafeGate has passed a controlled Pi Testnet payment-spine flow and a live V9.1 safe negative backend validation for selected public-safe cases.
+
+SafeGate can show:
+
+- backend-verified payment-state direction
+- receipt/evidence generated after verified state
+- access unlock after backend-verified receipt
+- invoice creation keeps access locked
+- receipt/evidence before verified payment is rejected
+- unknown public verify pair does not return active verified trust
+- selected responses do not show obvious secret/internal leak terms
+
+---
+
+## Claims To Avoid
+
+SafeGate should not claim:
+
+- production ready
+- fully secure
+- formally audited
 - official Pi partnership
-- full external security audit completion
-- enterprise immutability
-- complete privacy protocol
-- fully autonomous AI-agent network
-- replacement of Pi Wallet
-- replacement of payment processors
-
-Correct V10 claim:
-
-SafeGate is a controlled MVP and Pi Sandbox / Testnet-oriented evidence layer that demonstrates backend-verified post-payment trust records.
+- Pi Mainnet settlement completed
+- all duplicate/replay risks solved
+- all failure cases solved
+- tamper-proof infrastructure completed
+- independent cryptographic verification completed
+- completed commercial pilot
 
 ---
 
-## Demo Strategy
+## V10 Remaining Technical Targets
 
-V10 uses an evidence-based demo strategy.
+Before stronger pilot or production claims, SafeGate should continue with:
 
-The reviewer should be shown:
-
-1. Main landing page
-2. Start Here / reviewer path
-3. V8 public evidence layer
-4. V9 Pi payment spine evidence
-5. public GitHub documentation
-6. Simple Reviewer Brief
-7. V10–V12 Roadmap
-8. final positioning
-
-SafeGate should not rely on risky live payment testing during review.
-
-The preferred review approach is:
-
-**Evidence-based demo, not live-build risk.**
-
----
-
-## V10 Rule Going Forward
-
-Do not reopen V8 or V9 unless there is:
-
-- a typo
-- a broken link
-- a reviewer-critical clarification
-
-Do not add new backend logic during V10.
-
-Do not create a duplicate Brainstorm project unless Pi / Doris recommends it.
-
-Do not add new public claims.
-
-Do not claim production readiness or Mainnet payment live.
+- duplicate approve behavior
+- duplicate complete behavior
+- duplicate receipt/evidence behavior
+- real paymentId replay behavior
+- real txid replay behavior
+- paymentId mismatch behavior
+- txid mismatch behavior
+- public verify mismatched pair behavior
+- Pi API timeout behavior
+- Supabase write failure behavior
+- durable-state recovery behavior
+- receipt/evidence integrity implementation
+- public verify freshness implementation
+- rate limiting / abuse resistance
+- deeper safe error response validation
+- external technical reviewer feedback
 
 ---
 
-## Next Roadmap
+## Submission Readiness Boundary
 
-### V11
+V10 Submission Ready means:
 
-Security hardening:
+- ready for review
+- ready for hackathon package positioning
+- ready for controlled feedback
+- ready for limited pilot planning
 
-- replay protection
-- idempotency
-- duplicate payment handling
-- timeout handling
-- cancelled / failed / refund / dispute states
-- state-machine integrity
-- public-safe errors
-- anti-enumeration
-- rate limiting
-- audit logs
+V10 Submission Ready does not mean:
 
-### V12
-
-Trust infrastructure expansion:
-
-- machine-readable trust states
-- privacy-aware evidence
-- public-safe JSON verification
-- merchant trust dashboards
-- future payment adapter architecture
-- Web3 expansion direction
+- production ready
+- audited
+- certified
+- officially partnered
+- Mainnet settled
+- commercially launched
+- fully hardened
 
 ---
 
-## Final Summary
+## Final V10 Submission Statement
 
-SafeGate V10 marks the transition from technical proof-building to submission readiness.
+SafeGate has a live review surface, controlled payment-spine evidence, V9.1 safe negative backend validation evidence, public-safe documentation, and clear review boundaries.
 
-V8 proved the public evidence layer.
+SafeGate is suitable for serious technical review and controlled pilot planning.
 
-V9 proved the controlled Pi Sandbox / Testnet payment spine evidence.
+SafeGate remains not production-ready and not formally audited.
 
-V10 prepares SafeGate for review, visibility, and ecosystem feedback.
+---
+
+## Final Positioning
 
 SafeGate does not process payments.
 
 SafeGate verifies what happened after payment.
 
-Payment is the trigger.  
-Trust is the product.
-
-Architecture is destiny.
+Payment is the trigger. Trust is the product.
