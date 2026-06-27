@@ -1,0 +1,364 @@
+# SafeGate V11 Implementation Sprint Scope
+
+## Purpose
+
+This document defines the first practical V11 implementation sprint scope after:
+
+- V10 Submission Ready
+- V10.1 Review Feedback Open
+- V11 Hardening Backlog Open
+- V11 Hardening Test Plan Open
+
+This is not V13.
+
+This is not production readiness.
+
+This is not a formal audit.
+
+This is a focused implementation scope for backend hardening.
+
+---
+
+## Current Position
+
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| V9.1 Public Review Sync | COMPLETE |
+| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
+| V10.1 Review Feedback | OPEN |
+| V11 Hardening Backlog | OPEN |
+| V11 Hardening Test Plan | OPEN |
+| V11 Implementation Sprint Scope | OPEN |
+| V13 | NOT OPENED |
+| Production Readiness | NOT CLAIMED |
+| Formal Third-Party Audit | NOT CLAIMED |
+
+---
+
+## Sprint Principle
+
+The sprint must improve backend safety without expanding public claims.
+
+The goal is not to add new marketing pages.
+
+The goal is to reduce real technical risk.
+
+---
+
+## Core Rule
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+Frontend callback alone must never unlock access.
+
+Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
+
+---
+
+## Sprint 1 Scope
+
+Sprint 1 should focus only on the highest-risk P0 items.
+
+### Included
+
+1. Idempotency guard
+2. Replay protection
+3. PaymentId / invoice mismatch handling
+4. Pi API timeout / ambiguous response fail-secure behavior
+5. Durable state failure fail-secure behavior
+6. Safe error response scan
+7. Public verify unknown / mismatched pair behavior
+8. Access unlock guard regression check
+
+### Excluded
+
+The following are important but should not block Sprint 1:
+
+- full cryptographic receipt signing
+- complete privacy protocol
+- complete AI-agent readiness
+- all-chain payment adapters
+- full public verify freshness model
+- formal security audit
+- production deployment claim
+- Pi Mainnet settlement claim
+- official partnership claim
+
+---
+
+## Sprint 1 Deliverables
+
+### 1. Idempotency Behavior
+
+Target:
+
+Repeated approve, complete, receipt, and evidence calls should not create conflicting state.
+
+Required result:
+
+- duplicate call returns existing safe result or safe duplicate response
+- no conflicting receipt/evidence records
+- no incorrect access unlock
+- no unsafe public verify output
+
+Evidence expected:
+
+- public-safe test output
+- summary of expected vs observed behavior
+- no secrets exposed
+
+---
+
+### 2. Replay Protection Behavior
+
+Target:
+
+A paymentId or txid must not be reusable against a different invoice.
+
+Required result:
+
+- replay attempt rejected
+- mismatch does not unlock access
+- mismatch does not create receipt/evidence
+- public verify does not show active verified trust
+
+Evidence expected:
+
+- public-safe replay test result
+- mismatch test result
+- safe error output
+
+---
+
+### 3. Mismatch Handling
+
+Target:
+
+A valid-looking payment must still match the correct invoice/payment context.
+
+Required result:
+
+- wrong invoiceId fails secure
+- wrong paymentId fails secure
+- wrong merchant context fails secure when applicable
+- wrong amount fails secure when applicable
+- no receipt/evidence/access unlock for mismatch
+
+Evidence expected:
+
+- mismatch matrix
+- public-safe result table
+
+---
+
+### 4. Timeout / Ambiguous Response Handling
+
+Target:
+
+Pi API timeout, malformed response, partial response, or ambiguous verification must not be treated as verified.
+
+Required result:
+
+- access remains locked
+- no receipt/evidence created
+- safe error returned
+- no raw Pi API response exposed publicly
+
+Evidence expected:
+
+- simulated timeout result
+- simulated ambiguous response result
+- safe error scan
+
+---
+
+### 5. Durable State Failure Handling
+
+Target:
+
+Database write/readback failure must not create false trust state.
+
+Required result:
+
+- partial write does not unlock access
+- receipt without evidence does not show normal verified trust
+- evidence without receipt does not show normal verified trust
+- public verify fails safe on incomplete state
+
+Evidence expected:
+
+- incomplete state test
+- public verify result
+- safe error response
+
+---
+
+### 6. Safe Error Handling
+
+Target:
+
+Public outputs must not expose internal implementation details.
+
+Required result:
+
+Public outputs should not expose:
+
+- service role
+- secret key
+- private key
+- passphrase
+- environment variable
+- stack trace
+- raw database error
+- raw Pi API response
+- sensitive customer data
+
+Evidence expected:
+
+- public-safe error scan result
+- list of checked terms
+- pass/fail summary
+
+---
+
+### 7. Public Verify Unknown / Mismatched Pair
+
+Target:
+
+Unknown or mismatched public verify pair must not return active verified trust.
+
+Required result:
+
+- unknown pair returns safe not-found / not-verified / unavailable state
+- mismatched pair does not show active verified trust
+- no private identifiers or secrets exposed
+
+Evidence expected:
+
+- unknown pair test
+- mismatched pair test
+- public-safe output sample
+
+---
+
+### 8. Access Unlock Guard Regression
+
+Target:
+
+Access must never unlock before backend-verified payment state and required receipt/evidence state.
+
+Required result:
+
+- invoice stage remains locked
+- pending state remains locked
+- timeout state remains locked
+- mismatch state remains locked
+- verified receipt/evidence state may unlock only through legal path
+
+Evidence expected:
+
+- access state matrix
+- public-safe result table
+
+---
+
+## Sprint 1 Out-of-Scope Claims
+
+Completing this sprint would not mean:
+
+- production readiness
+- formal third-party audit
+- security certification
+- Pi Mainnet settlement
+- official Pi partnership
+- complete privacy protocol
+- complete AI-agent readiness
+- all duplicate / replay / failure risks solved
+- all chains integrated
+
+---
+
+## Sprint 1 Evidence Pack
+
+If Sprint 1 is implemented, the evidence pack should include:
+
+- V11 hardening test runner page or report
+- idempotency test summary
+- replay test summary
+- mismatch test summary
+- timeout / ambiguity test summary
+- durable state failure test summary
+- safe error scan summary
+- public verify unknown/mismatch summary
+- access unlock guard regression summary
+
+All evidence must remain public-safe.
+
+---
+
+## Public-Safe Evidence Rules
+
+Do not expose:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- private key
+- passphrase
+- raw Pi API response
+- raw database error
+- stack trace
+- environment variables
+- sensitive customer data
+
+---
+
+## Sprint 1 Exit Criteria
+
+Sprint 1 can be considered complete only if:
+
+1. Included P0 items have clear status.
+2. Test outputs are public-safe.
+3. No access unlock happens before backend-verified payment state.
+4. Duplicate/replay/mismatch cases fail secure.
+5. Timeout/ambiguous cases fail secure.
+6. Durable failure cases fail secure.
+7. Public verify unknown/mismatch pair does not return active verified trust.
+8. Safe error scan does not expose obvious secrets/internal details.
+9. Remaining limitations are documented.
+10. No production/audit/partnership claim is added.
+
+---
+
+## V13 Gate
+
+V13 should not be opened until at least one of the following is true:
+
+1. Technical reviewer feedback is received and summarized.
+2. Controlled pilot requirements are selected.
+3. Sprint 1 implementation target is selected.
+4. A V11 hardening test runner or evidence pack is implemented.
+5. A concrete post-feedback implementation version is defined.
+
+---
+
+## Current Safe Statement
+
+SafeGate is V10 Submission Ready.
+
+V10.1 Review Feedback is open.
+
+V11 Hardening Backlog is open.
+
+V11 Hardening Test Plan is open.
+
+V11 Implementation Sprint Scope is open.
+
+V13 is not opened yet.
+
+The next implementation sprint should be driven by concrete hardening requirements and review feedback.
