@@ -166,8 +166,8 @@ This validation does not prove real duplicate approve/complete behavior, real pa
 | SAFEGATE_BACKEND_BEHAVIOR_EVIDENCE_MATRIX.md | Makes endpoint behavior reviewable under duplicate, replay, mismatch, timeout, and failure scenarios |
 | SAFEGATE_RECEIPT_INTEGRITY_PLAN.md | Defines future receipt/evidence hash, signature/HMAC, lifecycle, and tamper-detection direction |
 | SAFEGATE_PI_VERIFICATION_DEPTH_NOTE.md | Clarifies what backend-verified payment state should technically verify |
-| SAFEGATE_PUBLIC_VERIFY_FRESHNESS_POLICY.md | Defines freshness, expiry, revocation, dispute, stale-data, and fail-secure public verify direction |
-| SAFEGATE_FORMAL_STATE_MACHINE_TABLE.md | Defines legal/illegal state transitions, timeout states, replay states, and access unlock conditions |
+| SAFEGATE_PUBLIC_VERIFY_FRESHNESS_POLICY.md | Defines freshness, expiry, revocation, dispute, and stale-data direction |
+| SAFEGATE_FORMAL_STATE_MACHINE_TABLE.md | Defines legal/illegal transitions, timeout states, replay states, and access unlock conditions |
 | SAFEGATE_MERCHANT_EXPLANATION.md | Explains SafeGate in simple merchant-facing language |
 
 ---
