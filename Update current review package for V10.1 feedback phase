@@ -1,0 +1,499 @@
+# SafeGate V11 Hardening Backlog
+
+## Purpose
+
+This document defines the practical V11 backend hardening backlog after V10 Submission Ready and V10.1 Review Feedback Open.
+
+This is not V13.
+
+This is not production readiness.
+
+This is not a formal audit.
+
+This backlog exists to prepare the next real implementation sprint after technical review feedback is collected.
+
+---
+
+## Current Position
+
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| V9.1 Public Review Sync | COMPLETE |
+| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
+| V10.1 Review Feedback | OPEN |
+| V11 Hardening Backlog | OPEN |
+| V12 Trust-State / Privacy / Web3 | DOCUMENTED ARCHITECTURE DIRECTION |
+| V13 | NOT OPENED |
+| Production Readiness | NOT CLAIMED |
+| Formal Third-Party Audit | NOT CLAIMED |
+
+---
+
+## Core Rule
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+Frontend callback alone must never unlock access.
+
+Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
+
+---
+
+## Priority Levels
+
+| Priority | Meaning |
+|---|---|
+| P0 | Must be solved before any real controlled pilot execution |
+| P1 | Should be solved before wider pilot expansion |
+| P2 | Important hardening / observability / documentation improvement |
+| P3 | Future improvement |
+
+---
+
+## P0 Hardening Items
+
+### 1. Idempotency Guard
+
+Priority: P0
+
+Problem:
+
+Duplicate callbacks or repeated user actions may call approve, complete, receipt, or evidence creation more than once.
+
+Required behavior:
+
+- Same invoice/payment event should not create conflicting states.
+- Duplicate calls should return deterministic safe responses.
+- Receipt/evidence should not duplicate incorrectly.
+- Access state should remain consistent.
+
+Target checks:
+
+- duplicate approve
+- duplicate complete
+- duplicate receipt creation
+- duplicate evidence creation
+- duplicate public verify request
+
+Status:
+
+PLANNED
+
+---
+
+### 2. Replay Protection
+
+Priority: P0
+
+Problem:
+
+A paymentId or txid from one payment could be reused against another invoice or access request.
+
+Required behavior:
+
+- paymentId must map to the correct invoice.
+- txid must map to the correct payment record when used.
+- A completed payment cannot be replayed into another invoice.
+- Replay attempts must fail secure.
+
+Target checks:
+
+- same paymentId used twice
+- same txid used twice
+- paymentId from another invoice
+- completed payment replayed into new invoice
+- mismatched invoice/payment pair
+
+Status:
+
+PLANNED
+
+---
+
+### 3. Payment Mismatch Handling
+
+Priority: P0
+
+Problem:
+
+A payment may be valid in isolation but mismatched against the wrong invoice, merchant, amount, memo, or expected state.
+
+Required behavior:
+
+- Mismatched payment must not unlock access.
+- Mismatched payment must not create receipt/evidence.
+- Public verify must not show active verified trust for mismatched pair.
+
+Target checks:
+
+- wrong invoiceId
+- wrong paymentId
+- wrong amount
+- wrong merchant context
+- wrong state transition
+- unknown public verify pair
+
+Status:
+
+PLANNED
+
+---
+
+### 4. Pi API Timeout / Ambiguous Response Handling
+
+Priority: P0
+
+Problem:
+
+Pi API or external verification path may timeout, fail, return 502, return partial data, or return ambiguous results.
+
+Required behavior:
+
+- Timeout must not be treated as verified.
+- Ambiguous response must not be treated as verified.
+- Access must stay locked.
+- Receipt/evidence must not be created.
+- Safe error should be returned.
+
+Target checks:
+
+- Pi API timeout
+- Pi API 500 / 502
+- Pi API ambiguous response
+- missing API response field
+- malformed API response
+- backend unavailable during verification
+
+Status:
+
+PLANNED
+
+---
+
+### 5. Durable State Failure Handling
+
+Priority: P0
+
+Problem:
+
+Database write or readback may fail during invoice, payment, receipt, evidence, or access-state update.
+
+Required behavior:
+
+- Partial write must not create false verified state.
+- Receipt/evidence write failure must not unlock access.
+- Access unlock must only happen after required durable records exist.
+- Public verify must fail safe if records are incomplete.
+
+Target checks:
+
+- invoice write failure
+- payment state write failure
+- receipt write failure
+- evidence write failure
+- access state write failure
+- receipt exists but evidence missing
+- evidence exists but receipt missing
+- public verify readback failure
+
+Status:
+
+PLANNED
+
+---
+
+## P1 Hardening Items
+
+### 6. Receipt / Evidence Integrity
+
+Priority: P1
+
+Problem:
+
+Receipt/evidence records should be protected against accidental or malicious tampering.
+
+Required behavior:
+
+- Receipt/evidence should include deterministic integrity fields.
+- Hash or signature direction should be implemented before wider pilot expansion.
+- Public verify should be able to expose integrity status without exposing secrets.
+
+Target checks:
+
+- receipt hash
+- evidence hash
+- signed receipt proof
+- tamper detection
+- public integrity status
+- private signing secret never exposed
+
+Status:
+
+PLANNED
+
+---
+
+### 7. Public Verify Freshness
+
+Priority: P1
+
+Problem:
+
+A public verify result may become stale if access expires, is revoked, disputed, or updated.
+
+Required behavior:
+
+- Public verify should distinguish active, expired, revoked, disputed, stale, unavailable, and unknown states when implemented.
+- Public verify should not imply permanent trust if trust state can change.
+
+Target checks:
+
+- active state
+- expired state
+- revoked state
+- disputed state
+- stale state
+- unavailable state
+- unknown state
+
+Status:
+
+PLANNED
+
+---
+
+### 8. Safe Error Handling
+
+Priority: P1
+
+Problem:
+
+Errors may leak internal implementation details.
+
+Required behavior:
+
+- No service role keys.
+- No environment variables.
+- No raw database errors.
+- No stack traces.
+- No raw Pi API response in public output.
+- No sensitive user data.
+- No passphrase or private key request.
+
+Target checks:
+
+- missing input error
+- invalid input error
+- backend failure error
+- database failure error
+- Pi API failure error
+- public verify error
+- validation runner output
+
+Status:
+
+PLANNED
+
+---
+
+### 9. Rate Limiting / Abuse Resistance
+
+Priority: P1
+
+Problem:
+
+Attackers or bots may spam invoice creation, public verify, receipt/evidence creation, or missing-input probes.
+
+Required behavior:
+
+- Sensitive endpoints should have request limits.
+- Abuse should fail safe.
+- Rate limits should not expose internal state.
+- Merchant/API-key-aware limits may be needed later.
+
+Target checks:
+
+- invoice creation burst
+- public verify burst
+- missing input burst
+- invalid paymentId burst
+- replay probing burst
+- receipt/evidence creation burst
+
+Status:
+
+PLANNED
+
+---
+
+## P2 Hardening Items
+
+### 10. Formal State Machine Enforcement
+
+Priority: P2
+
+Problem:
+
+Illegal state transitions could create inconsistent trust states.
+
+Required behavior:
+
+Only legal transitions should be allowed.
+
+Example legal transitions:
+
+- INVOICE_CREATED to PAYMENT_PENDING
+- PAYMENT_PENDING to PAYMENT_VERIFIED_TESTNET
+- PAYMENT_VERIFIED_TESTNET to RECEIPT_CREATED
+- RECEIPT_CREATED to EVIDENCE_CREATED
+- EVIDENCE_CREATED to ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+
+Illegal transitions should be blocked and logged.
+
+Examples of illegal transitions:
+
+- INVOICE_CREATED to ACCESS_UNLOCKED
+- PAYMENT_FAILED to ACCESS_UNLOCKED
+- UNKNOWN to RECEIPT_CREATED
+- MISMATCHED to EVIDENCE_CREATED
+- TIMEOUT to PAYMENT_VERIFIED
+
+Status:
+
+PLANNED
+
+---
+
+### 11. Audit Log Direction
+
+Priority: P2
+
+Problem:
+
+Reviewers and future operators need safe operational visibility without exposing secrets.
+
+Required behavior:
+
+- Log state transitions.
+- Log blocked illegal transitions.
+- Log replay attempts.
+- Log mismatch attempts.
+- Log timeout/failure cases.
+- Keep public output minimum-disclosure.
+
+Status:
+
+PLANNED
+
+---
+
+### 12. Pilot Evidence Intake Hardening
+
+Priority: P2
+
+Problem:
+
+Pilot evidence intake must remain public-safe and avoid sensitive data collection.
+
+Required behavior:
+
+- Do not request passphrases.
+- Do not request private keys.
+- Do not request wallet secrets.
+- Do not request sensitive customer data.
+- Allow public-safe tester notes.
+- Allow controlled evidence references.
+- Clearly label Testnet / Sandbox context.
+
+Status:
+
+PLANNED
+
+---
+
+## P3 Future Items
+
+### 13. AI-Agent Readiness
+
+Priority: P3
+
+Problem:
+
+AI agents may need machine-readable trust state, but agent access can increase abuse risk.
+
+Required behavior:
+
+- Machine-readable public verify should remain minimum-disclosure.
+- Agent-readable output should not expose secrets.
+- Rate limiting must exist before wider agent access.
+- Agent-readable trust states should not outrun backend hardening.
+
+Status:
+
+FUTURE
+
+---
+
+### 14. Chain-Agnostic Payment Adapter Direction
+
+Priority: P3
+
+Problem:
+
+SafeGate is Pi-first, not Pi-only. Future chains may require adapter abstraction.
+
+Required behavior:
+
+- Shared trust-state model.
+- Chain-specific payment adapters.
+- Unified receipt/evidence state.
+- Unified public verify boundary.
+- No claim of all-chain integration until implemented and validated.
+
+Status:
+
+FUTURE
+
+---
+
+## V11 Exit Criteria
+
+V11 should not be considered complete until the following are implemented or explicitly deferred with reason:
+
+- idempotency guard
+- replay protection
+- mismatch handling
+- timeout / ambiguous response handling
+- durable state failure handling
+- receipt/evidence integrity direction
+- public verify freshness direction
+- safe error handling
+- rate limiting / abuse resistance
+- public-safe validation evidence
+
+---
+
+## V13 Gate
+
+V13 should not be opened until at least one of the following is true:
+
+1. Technical reviewer feedback is received and summarized.
+2. Controlled pilot requirements are selected.
+3. A concrete backend hardening sprint is defined.
+4. A specific implementation target is chosen.
+
+---
+
+## Current Safe Statement
+
+SafeGate is V10 Submission Ready.
+
+V10.1 Review Feedback is open.
+
+V11 Hardening Backlog is open.
+
+V13 is not opened yet.
+
+The next implementation sprint should be driven by review feedback and concrete hardening requirements.
