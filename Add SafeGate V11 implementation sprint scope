@@ -1,0 +1,502 @@
+# SafeGate V11 Developer Handoff
+
+## Purpose
+
+This document is a developer handoff for the first V11 backend hardening sprint.
+
+It converts the V11 hardening backlog, test plan, and sprint scope into a practical developer starting point.
+
+This is not V13.
+
+This is not production readiness.
+
+This is not a formal audit.
+
+---
+
+## Current SafeGate Position
+
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| V9.1 Public Review Sync | COMPLETE |
+| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
+| V10.1 Review Feedback | OPEN |
+| V11 Hardening Backlog | OPEN |
+| V11 Hardening Test Plan | OPEN |
+| V11 Implementation Sprint Scope | OPEN |
+| V11 Developer Handoff | OPEN |
+| V13 | NOT OPENED |
+| Production Readiness | NOT CLAIMED |
+| Formal Third-Party Audit | NOT CLAIMED |
+
+---
+
+## One-Line Product Rule
+
+SafeGate does not process payments.
+
+SafeGate verifies what happened after payment.
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+---
+
+## Developer Objective
+
+Improve backend safety around:
+
+- idempotency
+- replay protection
+- mismatch handling
+- timeout / ambiguous response handling
+- durable state failure handling
+- public verify unknown / mismatched pair behavior
+- safe error handling
+- access unlock guard regression
+
+The goal is to reduce real technical risk without expanding public claims.
+
+---
+
+## Do Not Change These Claims
+
+Do not claim:
+
+- production readiness
+- formal third-party audit
+- security certification
+- Pi Mainnet settlement
+- official Pi partnership
+- completed commercial pilot
+- complete privacy protocol
+- all duplicate / replay / failure risks solved
+- V13 implementation started
+
+---
+
+## Primary Implementation Questions
+
+A developer should answer these questions first:
+
+1. Can the same approve event run twice without creating conflicting state?
+2. Can the same complete event run twice without creating conflicting state?
+3. Can the same receipt/evidence creation run twice safely?
+4. Can a paymentId from one invoice be reused against another invoice?
+5. Can a txid from one payment be reused against another invoice?
+6. What happens when paymentId and invoiceId do not match?
+7. What happens when Pi API times out?
+8. What happens when Pi API response is malformed or ambiguous?
+9. What happens when the database write fails?
+10. What happens when receipt exists but evidence is missing?
+11. What happens when evidence exists but receipt is missing?
+12. Can public verify ever show active verified trust for an unknown or mismatched pair?
+13. Can access unlock before backend-verified payment state?
+14. Do public errors expose internal details?
+
+---
+
+## Suggested Work Order
+
+### Step 1: Map Current Endpoints
+
+Identify current live or local endpoints related to:
+
+- invoice creation
+- payment approval
+- payment completion
+- payment verification
+- receipt creation
+- evidence creation
+- public verify
+- access unlock
+- validation runner
+
+Expected output:
+
+- endpoint list
+- input fields
+- output states
+- current known safe behavior
+- current unknown behavior
+
+Status:
+
+TODO
+
+---
+
+### Step 2: Add Idempotency Guard Direction
+
+Target:
+
+Repeated calls should not create conflicting state.
+
+Recommended implementation direction:
+
+- use invoiceId as primary flow anchor
+- use paymentId as unique verified payment anchor
+- use txid as unique chain/payment settlement anchor when available
+- prevent duplicate receipt/evidence for same verified invoice/payment pair
+- return deterministic existing state when duplicate call is safe
+- reject duplicate call when mismatch or unsafe ambiguity exists
+
+Expected safe behavior:
+
+- duplicate approve returns safe result
+- duplicate complete returns safe result
+- duplicate receipt/evidence does not create conflict
+- access state remains consistent
+
+Status:
+
+TODO
+
+---
+
+### Step 3: Add Replay Protection Direction
+
+Target:
+
+A paymentId or txid must not be reusable for another invoice.
+
+Recommended implementation direction:
+
+- store paymentId once
+- store txid once when available
+- bind paymentId to invoiceId
+- bind txid to invoiceId/paymentId when available
+- reject reuse across invoice contexts
+- fail secure on missing or mismatched binding
+
+Expected safe behavior:
+
+- replay attempt rejected
+- no receipt created
+- no evidence created
+- no access unlocked
+
+Status:
+
+TODO
+
+---
+
+### Step 4: Add Mismatch Matrix
+
+Target:
+
+Valid-looking payment data must match the expected invoice/payment context.
+
+Mismatch cases to check:
+
+- wrong invoiceId
+- wrong paymentId
+- wrong txid
+- wrong amount
+- wrong merchant context
+- wrong payment state
+- unknown public verify pair
+- mismatched public verify pair
+
+Expected safe behavior:
+
+- mismatch fails secure
+- no receipt/evidence created
+- access remains locked
+- public verify does not show active verified trust
+
+Status:
+
+TODO
+
+---
+
+### Step 5: Add Timeout / Ambiguous Response Handling
+
+Target:
+
+Timeout, malformed response, or ambiguous verification must not be treated as verified.
+
+Cases to check:
+
+- Pi API timeout
+- Pi API 500 / 502
+- malformed Pi API response
+- missing response fields
+- unexpected response state
+- backend unavailable during verification
+
+Expected safe behavior:
+
+- access remains locked
+- no receipt/evidence created
+- safe error returned
+- no raw Pi API response exposed publicly
+
+Status:
+
+TODO
+
+---
+
+### Step 6: Add Durable State Failure Handling
+
+Target:
+
+Database failure or partial state must not create false trust.
+
+Cases to check:
+
+- invoice write failure
+- payment state write failure
+- receipt write failure
+- evidence write failure
+- access state write failure
+- receipt exists / evidence missing
+- evidence exists / receipt missing
+- public verify readback failure
+
+Expected safe behavior:
+
+- partial state does not unlock access
+- incomplete state is not shown as active verified trust
+- public verify fails safe
+- safe error returned
+
+Status:
+
+TODO
+
+---
+
+### Step 7: Add Safe Error Scan
+
+Target:
+
+Public outputs must not expose secrets or internal details.
+
+Scan public outputs for:
+
+- service role
+- secret key
+- private key
+- passphrase
+- environment variable
+- stack trace
+- raw database error
+- raw Pi API response
+- sensitive customer data
+
+Expected safe behavior:
+
+- none of these appear in public output
+- errors are minimal and deterministic
+- debugging details remain private
+
+Status:
+
+TODO
+
+---
+
+### Step 8: Add Access Unlock Regression Matrix
+
+Target:
+
+Access must only unlock through the legal verified path.
+
+States to check:
+
+- invoice created
+- payment pending
+- payment timeout
+- payment ambiguous
+- payment mismatch
+- payment failed
+- payment verified
+- receipt created
+- evidence created
+- verified receipt/evidence pair
+
+Expected safe behavior:
+
+- all non-verified or incomplete states remain locked
+- only legal verified path can unlock access
+- unlock must depend on backend-verified state
+
+Status:
+
+TODO
+
+---
+
+## Suggested Internal State Fields
+
+A developer may need fields such as:
+
+- invoiceId
+- paymentId
+- txid
+- merchantId
+- expectedAmount
+- paymentState
+- receiptId
+- evidenceId
+- accessState
+- verifyStatus
+- integrityStatus
+- freshnessStatus
+- createdAt
+- updatedAt
+- idempotencyKey
+- replayCheckStatus
+- mismatchCheckStatus
+- failureReason
+- publicSafe
+
+These are suggestions, not final schema.
+
+---
+
+## Suggested Safe State Labels
+
+Possible labels:
+
+- INVOICE_CREATED
+- PAYMENT_PENDING
+- PAYMENT_VERIFIED_TESTNET
+- PAYMENT_FAILED
+- PAYMENT_TIMEOUT
+- PAYMENT_AMBIGUOUS
+- PAYMENT_MISMATCHED
+- REPLAY_REJECTED
+- DUPLICATE_SAFE
+- RECEIPT_CREATED
+- EVIDENCE_CREATED
+- ACCESS_LOCKED
+- ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- PUBLIC_VERIFY_AVAILABLE
+- PUBLIC_VERIFY_NOT_FOUND
+- PUBLIC_VERIFY_MISMATCHED
+- PUBLIC_VERIFY_UNAVAILABLE
+- REVIEW_REQUIRED
+
+These are suggested labels, not final protocol claims.
+
+---
+
+## Public-Safe Output Rules
+
+Public outputs should not expose:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- private key
+- passphrase
+- raw Pi API response
+- raw database error
+- stack trace
+- environment variables
+- sensitive customer data
+
+Public outputs may expose safe labels such as:
+
+- verified
+- not verified
+- locked
+- unlocked
+- receipt created
+- evidence created
+- public safe
+- minimum disclosure
+- missing input
+- unknown pair
+- mismatch rejected
+- timeout rejected
+- replay rejected
+- duplicate safe
+
+---
+
+## Developer Deliverables
+
+A first V11 hardening implementation should produce:
+
+1. Endpoint map
+2. Idempotency behavior summary
+3. Replay behavior summary
+4. Mismatch behavior summary
+5. Timeout / ambiguous response behavior summary
+6. Durable failure behavior summary
+7. Safe error scan summary
+8. Access unlock regression summary
+9. Public-safe test output
+10. Remaining limitations list
+
+---
+
+## Evidence Rules
+
+Any public evidence must be safe to share.
+
+Do not include:
+
+- real user secrets
+- passphrases
+- private keys
+- service role keys
+- raw database errors
+- raw Pi API responses
+- sensitive customer data
+- private wallet data
+- raw production identifiers
+
+---
+
+## V11 Done Definition
+
+V11 can only be considered meaningfully advanced when:
+
+- P0 hardening items have clear observed behavior
+- duplicate behavior is deterministic
+- replay attempts fail secure
+- mismatch attempts fail secure
+- timeout and ambiguity fail secure
+- durable state failure does not create false trust
+- access unlock guard still holds
+- public verify unknown/mismatched pair does not show active verified trust
+- safe error scan passes
+- limitations are documented
+- no production/audit/partnership claim is added
+
+---
+
+## V13 Gate
+
+V13 should not be opened until at least one of the following is true:
+
+1. Technical reviewer feedback is received and summarized.
+2. Controlled pilot requirements are selected.
+3. Sprint 1 implementation target is selected.
+4. A V11 hardening test runner or evidence pack is implemented.
+5. A concrete post-feedback implementation version is defined.
+
+---
+
+## Final Developer Handoff Statement
+
+SafeGate is V10 Submission Ready.
+
+V10.1 Review Feedback is open.
+
+V11 Hardening Backlog, Test Plan, Implementation Sprint Scope, and Developer Handoff are open.
+
+V13 is not opened yet.
+
+The next implementation sprint should improve backend safety, not expand marketing claims.
