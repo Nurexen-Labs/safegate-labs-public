@@ -49,7 +49,7 @@ Payment is the trigger. Trust is the product.
 | 13 | https://www.safegatelabs.xyz/pilot-review-index.html | Pilot review navigation |
 | 14 | https://www.safegatelabs.xyz/pilot-readiness.html | Controlled pilot planning readiness |
 | 15 | ./README.md | Public repository overview |
-| 11 | ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: split if supported, separate verified fee payment if not |
+| 16 | ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: split if supported, separate verified fee payment if not |
 
 ---
 
