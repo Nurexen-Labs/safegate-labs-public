@@ -49,6 +49,7 @@ Payment is the trigger. Trust is the product.
 | 13 | https://www.safegatelabs.xyz/pilot-review-index.html | Pilot review navigation |
 | 14 | https://www.safegatelabs.xyz/pilot-readiness.html | Controlled pilot planning readiness |
 | 15 | ./README.md | Public repository overview |
+| 11 | ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: split if supported, separate verified fee payment if not |
 
 ---
 
@@ -140,6 +141,7 @@ The recommended review order is:
 | ./ROADMAP.md | Roadmap notes |
 | ./NOTICE.md | Public notice and boundaries |
 | ./README.md | Public repository overview |
+| ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Defines SafeGate’s 100 + 1 verification fee model, split/non-split handling, and no-postpaid-fee rule |
 
 ---
 
@@ -166,7 +168,17 @@ V13 exists to harden the highest-risk backend trust areas:
 - public verify unknown or mismatched pair
 - safe error handling
 - access unlock regression
+## Fee Architecture Decision
 
+SafeGate may use a transparent 100 + 1 verification fee model.
+
+Where native non-custodial split is supported, the fee can be routed automatically.
+
+Where native split is not supported, including Pi if multi-recipient split is unavailable, SafeGate uses a separate verified fee payment.
+
+SafeGate does not finalize verified receipt, evidence, access unlock, or public verify until the required service payment and SafeGate verification fee are confirmed.
+
+SafeGate does not use postpaid merchant debt as the primary fee model.
 ---
 
 ## Main Review Question
