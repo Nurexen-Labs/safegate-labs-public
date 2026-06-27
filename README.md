@@ -115,8 +115,8 @@ Where native split is not supported, including Pi if multi-recipient split is un
 SafeGate does not finalize verified receipt, evidence, access unlock, or public verify until the required service payment and SafeGate verification fee are confirmed.
 
 SafeGate does not use postpaid merchant debt as the primary fee model.
-
 See: ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md
+
 ---
 
 ## Start Here
