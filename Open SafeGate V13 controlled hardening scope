@@ -1,0 +1,168 @@
+# SafeGate V13 Controlled Hardening Test Matrix
+
+## Purpose
+
+This document tracks the public-safe V13 controlled backend hardening test matrix.
+
+V13 is open.
+
+V13 is not complete.
+
+V13 has not passed evidence validation yet.
+
+This matrix should be filled with observed results only after implementation or validation tests are run.
+
+---
+
+## Current Position
+
+| Area | Status |
+|---|---|
+| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
+| V10.1 Review Feedback | OPEN |
+| V11 Hardening Backlog | OPEN |
+| V11 Hardening Test Plan | OPEN |
+| V13 Controlled Hardening Scope | OPEN |
+| V13 Test Matrix | OPEN |
+| V13 Complete | NOT CLAIMED |
+| V13 Passed | NOT CLAIMED |
+| Production Readiness | NOT CLAIMED |
+| Formal Third-Party Audit | NOT CLAIMED |
+
+---
+
+## Core Rule Under Test
+
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+Frontend callback alone must never unlock access.
+
+Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
+
+---
+
+## Result Labels
+
+| Label | Meaning |
+|---|---|
+| PASS | Expected safe behavior observed |
+| FAIL | Unsafe behavior observed |
+| BLOCKED | Test could not run due to missing environment or dependency |
+| NEEDS REVIEW | Output requires human review |
+| NOT IMPLEMENTED | Required behavior is not implemented yet |
+| PLANNED | Test exists but has not been run |
+
+---
+
+## V13 Test Matrix
+
+| ID | Area | Test Case | Expected Safe Behavior | Current Result | Evidence Link / Note |
+|---|---|---|---|---|---|
+| V13-001 | Idempotency | Duplicate approve | No conflicting payment state, no unsafe unlock, deterministic safe response | PLANNED | TBD |
+| V13-002 | Idempotency | Duplicate complete | No conflicting final state, no duplicate unsafe receipt/evidence, deterministic safe response | PLANNED | TBD |
+| V13-003 | Idempotency | Duplicate receipt creation | No conflicting duplicate receipt, existing safe result or safe duplicate response | PLANNED | TBD |
+| V13-004 | Idempotency | Duplicate evidence creation | No conflicting duplicate evidence, public verify remains consistent | PLANNED | TBD |
+| V13-005 | Replay | Reuse same paymentId on same invoice | Deterministic safe response, no conflicting records | PLANNED | TBD |
+| V13-006 | Replay | Reuse paymentId on different invoice | Replay rejected, no receipt, no evidence, access locked | PLANNED | TBD |
+| V13-007 | Replay | Reuse same txid if applicable | Replay rejected or safely handled, no false trust | PLANNED | TBD |
+| V13-008 | Mismatch | paymentId does not match invoiceId | Mismatch rejected, no receipt/evidence/access unlock | PLANNED | TBD |
+| V13-009 | Mismatch | wrong amount if amount check exists | Mismatch rejected, no active verified trust | PLANNED | TBD |
+| V13-010 | Mismatch | wrong merchant context if merchant check exists | Mismatch rejected, no active verified trust | PLANNED | TBD |
+| V13-011 | Timeout | Pi API timeout | Fail secure, access locked, no receipt/evidence, safe error | PLANNED | TBD |
+| V13-012 | Timeout | Backend timeout during verification | Fail secure, access locked, no receipt/evidence, safe error | PLANNED | TBD |
+| V13-013 | Ambiguity | Malformed Pi API response | Fail secure, no verified payment state, safe error | PLANNED | TBD |
+| V13-014 | Ambiguity | Missing verification response field | Fail secure, no receipt/evidence/access unlock | PLANNED | TBD |
+| V13-015 | Durable State | Payment state write failure | No false verified state, access locked, safe error | PLANNED | TBD |
+| V13-016 | Durable State | Receipt write failure | No access unlock, public verify not active verified trust | PLANNED | TBD |
+| V13-017 | Durable State | Evidence write failure | No access unlock, public verify not active verified trust | PLANNED | TBD |
+| V13-018 | Durable State | Receipt exists but evidence missing | Incomplete state, not normal active verified trust | PLANNED | TBD |
+| V13-019 | Durable State | Evidence exists but receipt missing | Incomplete state, not normal active verified trust | PLANNED | TBD |
+| V13-020 | Public Verify | Unknown receipt/evidence pair | No active verified trust, no secret exposure | PLANNED | TBD |
+| V13-021 | Public Verify | Mismatched receipt/evidence pair | No active verified trust, mismatch rejected or safe unavailable state | PLANNED | TBD |
+| V13-022 | Public Verify | Missing receiptId | Safe rejection, no internal leak | PLANNED | TBD |
+| V13-023 | Public Verify | Missing evidenceId | Safe rejection, no internal leak | PLANNED | TBD |
+| V13-024 | Access Guard | Invoice created state | Access locked | PLANNED | TBD |
+| V13-025 | Access Guard | Payment pending state | Access locked | PLANNED | TBD |
+| V13-026 | Access Guard | Timeout state | Access locked | PLANNED | TBD |
+| V13-027 | Access Guard | Ambiguous state | Access locked | PLANNED | TBD |
+| V13-028 | Access Guard | Mismatch state | Access locked | PLANNED | TBD |
+| V13-029 | Access Guard | Replay rejected state | Access locked | PLANNED | TBD |
+| V13-030 | Access Guard | Verified receipt/evidence state | Access may unlock only through legal backend-verified path | PLANNED | TBD |
+| V13-031 | Safe Errors | Missing input error scan | No service role, secret, stack trace, raw DB error, raw Pi API response | PLANNED | TBD |
+| V13-032 | Safe Errors | Invalid input error scan | No internal leakage, deterministic safe response | PLANNED | TBD |
+| V13-033 | Safe Errors | Backend failure error scan | No internal leakage, deterministic safe response | PLANNED | TBD |
+| V13-034 | Safe Errors | Database failure error scan | No raw database error exposed publicly | PLANNED | TBD |
+| V13-035 | Safe Errors | Pi API failure error scan | No raw Pi API response exposed publicly | PLANNED | TBD |
+
+---
+
+## Public-Safe Evidence Requirements
+
+Each completed test should record:
+
+| Field | Required |
+|---|---|
+| Test ID | YES |
+| Test name | YES |
+| Expected safe behavior | YES |
+| Observed behavior | YES |
+| Result label | YES |
+| Public-safe evidence note | YES |
+| Secrets excluded | YES |
+| Remaining limitation | YES if applicable |
+
+---
+
+## Public Output Must Not Expose
+
+Do not include the following in public evidence:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- private key
+- passphrase
+- raw Pi API response
+- raw database error
+- stack trace
+- environment variables
+- sensitive customer data
+
+---
+
+## V13 Pass Requirements
+
+V13 cannot be called passed unless:
+
+- duplicate approve behavior has a clear safe result
+- duplicate complete behavior has a clear safe result
+- duplicate receipt/evidence behavior has a clear safe result
+- paymentId replay fails secure
+- txid replay fails secure when applicable
+- paymentId / invoice mismatch fails secure
+- Pi API timeout fails secure
+- Pi API ambiguity fails secure
+- durable state failure fails secure
+- public verify unknown pair does not return active verified trust
+- public verify mismatched pair does not return active verified trust
+- access unlock guard still holds
+- safe error scan passes
+- remaining limitations are documented
+- no production/audit/partnership claim is added
+
+---
+
+## Current Safe Statement
+
+SafeGate V13 Controlled Hardening Scope is open.
+
+V13 Test Matrix is open.
+
+V13 is not complete.
+
+V13 has not passed evidence validation yet.
+
+SafeGate remains not production-ready and not formally audited.
