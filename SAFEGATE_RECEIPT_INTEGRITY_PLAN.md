@@ -8,592 +8,503 @@ Payment is the trigger. Trust is the product.
 
 ---
 
-## Document Status
+## Purpose
 
-**Status:** Receipt/evidence integrity planning document  
-**Scope:** V9.1 backend + integrity hardening  
-**Current Public Phase:** Pilot Readiness  
-**Controlled Pi Testnet Payment Spine:** PASSED  
-**Production Claim:** No  
-**Security Certification Claim:** No  
-**Third-Party Audit Claim:** No  
-**Tamper-Proof Claim:** No  
-**Independent Cryptographic Verification Claim:** Not yet claimed  
+This document defines SafeGate’s receipt and evidence integrity direction.
+
+The purpose is to clarify how SafeGate can move from minimum-disclosure public verification toward stronger tamper-evident receipt and evidence records.
+
+This is a plan.
+
+This is not a production-readiness claim.
+
+This is not a formal audit.
+
+This is not a completed cryptographic proof system.
+
+This is not a tamper-proof infrastructure claim.
 
 ---
 
-## Important Boundary
+## Current Status
 
-This document is a plan.
+| Area | Status |
+|---|---|
+| Controlled Pi Testnet Payment Spine | PASSED |
+| V9.1 Safe Negative Backend Validation | PASSED |
+| Receipt Integrity | Planned / documented direction |
+| Pilot Readiness | Open |
+| Production Readiness | Not claimed |
+| Formal Third-Party Audit | Not claimed |
+| Tamper-Proof Infrastructure | Not claimed |
+| Independent Cryptographic Verification | Not yet claimed |
 
-It does not claim that cryptographic receipt integrity is already fully implemented.
+---
 
-It does not claim that SafeGate receipts are tamper-proof.
+## Completed Evidence Context
 
-It does not claim independent third-party verification.
+SafeGate has already passed two important controlled evidence milestones:
 
-It defines the next integrity layer needed before stronger pilot or production claims.
+1. Controlled Pi Testnet Payment Spine
+2. V9.1 Safe Negative Backend Validation
+
+These milestones show:
+
+- backend-verified payment state direction
+- receipt/evidence generated after verified payment state
+- access unlock after backend-verified receipt
+- selected negative backend cases rejected safely
+- public verify minimum-disclosure direction
+- no obvious secret/internal leak terms detected in selected validation responses
+
+They do not prove full receipt integrity.
+
+---
+
+## Controlled Pi Testnet Payment Spine — PASSED
+
+SafeGate completed a controlled Pi Testnet payment-spine execution in Pi Browser.
+
+Observed public-safe result:
+
+- paymentState: PAYMENT_VERIFIED_TESTNET
+- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
+- public verify: confirmed
+- verified: true
+- minimumDisclosure: true
+- publicSafe: true
+- privateDataIncluded: false
+- secretsIncluded: false
+- rawPiApiResponseIncluded: false
+- serviceRoleKeyIncluded: false
+- paymentIdIncluded: false
+- txidIncluded: false
+- customerDataIncluded: false
+- accessUnlocked: true
+
+Related document:
+
+SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md
+
+Live evidence page:
+
+https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html
+
+---
+
+## V9.1 Safe Negative Backend Validation — PASSED
+
+SafeGate completed a live V9.1 safe negative backend behavior validation.
+
+Observed validation result:
+
+- total visible checks: 18
+- passed checks: 18
+- failed checks: 0
+- warning checks: 0
+
+Confirmed selected public-safe behavior:
+
+- invoice creation kept access locked
+- invoice creation did not create receipt/evidence
+- receipt/evidence before verified payment was rejected safely
+- missing invoiceId was rejected safely
+- missing paymentId was rejected safely
+- public verify missing inputs were rejected safely
+- public verify unknown pair did not return active verified trust
+- validation responses did not show obvious secret/internal leak terms
+
+Related document:
+
+SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md
+
+Live validation page:
+
+https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html
+
+Boundary:
+
+This validation does not prove receipt cryptographic integrity, tamper-proof infrastructure, independent verification, production readiness, or formal audit completion.
 
 ---
 
 ## Why Receipt Integrity Matters
 
-SafeGate’s current strongest claim is:
-
-Access unlock happens only after backend-verified payment state and guarded receipt/evidence creation.
-
-The next reviewer question is:
-
-How can SafeGate prove that receipt/evidence data was not altered after creation?
-
-Receipt integrity is needed to answer that question.
-
----
-
-## Current Foundation
-
-SafeGate has already demonstrated:
-
-- invoice creation
-- initial locked access state
-- Pi Browser authentication
-- Pi wallet payment in Sandbox / Testnet context
-- backend approval / completion flow
-- backend-verified payment state
-- receipt/evidence generation after verified state
-- public verify confirmation
-- access unlock only after backend-verified receipt
-
-Public-safe result:
-
-- paymentState: PAYMENT_VERIFIED_TESTNET
-- accessState: ACCESS_UNLOCKED_BY_BACKEND_VERIFIED_RECEIPT
-- verified: true
-- minimumDisclosure: true
-- publicSafe: true
-- paymentIdIncluded: false
-- txidIncluded: false
-- secretsIncluded: false
-- customerDataIncluded: false
-- accessUnlocked: true
-
----
-
-## Current Gap
-
 Minimum-disclosure public verify protects privacy.
 
-However, minimum-disclosure alone is not the same as cryptographic integrity.
+However, privacy alone is not integrity.
 
-A public verify response showing `verified: true` is useful, but reviewers may still ask:
+A stronger receipt integrity layer should help answer:
 
-- Was this receipt generated by SafeGate backend?
-- Has this receipt changed after creation?
-- Is this receipt bound to the original invoice/payment state?
-- Can the same receipt be replayed elsewhere?
-- Can a database write or manual state change fake a verified receipt?
-- Is there a hash or signature that proves integrity?
-
-This plan defines how SafeGate should answer those questions.
-
----
-
-## Receipt vs Evidence
-
-SafeGate should keep receipt and evidence conceptually separate.
-
-### Receipt
-
-A receipt is the public-safe proof reference for a completed post-payment trust event.
-
-It should answer:
-
-- What was verified?
-- When was it issued?
-- Which SafeGate invoice/trust event does it belong to?
-- What is the final public-safe payment/access state?
-- Is the receipt still active, expired, revoked, or disputed?
-
-### Evidence
-
-Evidence is the supporting record behind the receipt.
-
-It may include internal or semi-private operational details that should not be fully public.
-
-Public verify should expose only minimum-disclosure evidence status, not raw sensitive material.
+- Was this receipt created by SafeGate backend?
+- Was it created after backend-verified payment state?
+- Is the receipt bound to the correct invoice?
+- Is the evidence bound to the correct receipt?
+- Has the receipt payload changed?
+- Has the evidence payload changed?
+- Is the public verify record stale, revoked, disputed, or still active?
+- Can a reviewer detect tampering without seeing sensitive payment identifiers?
 
 ---
 
-## Integrity Goals
+## Core Receipt Integrity Principle
 
-The receipt integrity layer should provide:
+Receipt integrity should preserve this rule:
 
-1. Tamper detection
-2. Immutable receipt/evidence binding
-3. Invoice/payment-state binding
-4. Timestamped issuance
-5. Replay resistance
-6. Public-safe verification metadata
-7. No secret exposure
-8. Future upgrade path to stronger cryptographic verification
+No receipt, no evidence, and no access unlock before backend-verified payment state.
+
+Receipt integrity should strengthen, not replace, backend verification.
+
+A signed or hashed receipt is only meaningful if it is generated from a valid backend state.
 
 ---
 
-## Non-Goals
+## Planned Receipt Integrity Components
 
-This plan does not attempt to claim:
-
-- full production security
-- formal audit completion
-- tamper-proof infrastructure
-- independent third-party notarization
-- complete privacy protocol
-- legal/regulatory certification
-- Pi Mainnet settlement proof
-
----
-
-## Proposed Integrity Model
-
-SafeGate should move toward a versioned integrity model.
-
-Recommended first version:
-
-**Integrity Version:** `SG-INTEGRITY-V1`
-
-The integrity model should include:
+Future receipt integrity should include:
 
 - canonical receipt payload
-- canonical evidence summary payload
+- canonical evidence payload
 - receipt hash
 - evidence hash
-- server-side HMAC or signature
-- issuedAt timestamp
-- optional expiresAt
 - receipt/evidence binding
-- payment state binding
-- public-safe integrity result
+- invoice binding
+- verified payment-state binding
+- issuedAt timestamp
+- optional expiresAt timestamp
+- server-side HMAC or signature
+- integrityStatus field
+- freshnessStatus field
+- tamper-detection behavior
+- minimum-disclosure public verify metadata
 
 ---
 
 ## Canonical Receipt Payload
 
-Before hashing or signing, the receipt payload should be canonicalized.
+A canonical receipt payload should use stable field order and stable values.
 
-A canonical receipt payload may include:
+Possible public-safe fields:
 
 - receiptId
-- evidenceId
 - invoiceId
-- orderId
-- merchantId or merchant reference
-- paymentState
-- accessState
-- issuedAt
-- expiresAt if used
-- integrityVersion
-- environment
-- amountPublicLabel if safe
-- currencyPublicLabel if safe
-- publicSafe flags
-- minimumDisclosure flag
-
-Sensitive fields should not be included in public output.
-
-Sensitive fields may be included in internal integrity computation only if safe handling is guaranteed.
-
-Sensitive fields must not be exposed publicly.
-
----
-
-## Canonical Evidence Summary Payload
-
-The evidence summary should be public-safe.
-
-It may include:
-
 - evidenceId
-- receiptId
-- invoiceId hash or internal reference
 - paymentState
 - accessState
-- issuedAt
-- integrityVersion
-- minimumDisclosure
-- publicSafe
-- source: SafeGate backend
-- environment boundary: Sandbox / Testnet / future Mainnet if separately verified
-
-It should not expose:
-
-- raw paymentId
-- raw txid
-- access token
-- service role key
-- raw Pi API response
-- private wallet data
-- customer data
-- internal stack traces
-- private logs
-
----
-
-## Receipt Hash
-
-SafeGate should compute a receipt hash from the canonical receipt payload.
-
-Purpose:
-
-- detect receipt changes
-- bind receipt fields together
-- provide a stable integrity reference
-- support future audit trail
-
-Example public-safe field:
-
-- receiptHash
-
-Boundary:
-
-A hash alone detects change only if the trusted original hash is preserved.
-
-A hash alone is not the same as an independent signature.
-
----
-
-## Evidence Hash
-
-SafeGate should compute an evidence hash from the canonical evidence summary payload.
-
-Purpose:
-
-- detect evidence summary changes
-- bind evidence to receipt
-- support public-safe integrity metadata
-- support future audit or review
-
-Example public-safe field:
-
-- evidenceHash
-
-Boundary:
-
-The evidence hash should not reveal sensitive raw payment data.
-
----
-
-## Server-Side HMAC or Signature
-
-SafeGate should add server-side integrity protection.
-
-Two possible paths:
-
-### Path A — Server-Side HMAC
-
-A server-side HMAC can prove that the receipt was generated by a backend holding the secret.
-
-Benefits:
-
-- simpler to implement
-- useful for backend tamper detection
-- supports internal verification
-
-Limitations:
-
-- the secret must never be public
-- third parties cannot independently verify without exposing secret
-- this is not public-key independent verification
-
-### Path B — Public-Key Digital Signature
-
-A digital signature can allow public verification using a public key.
-
-Benefits:
-
-- stronger independent verification direction
-- public key can verify receipt integrity
-- private signing key remains server-side
-
-Limitations:
-
-- requires careful key management
-- key rotation policy needed
-- stronger operational discipline required
-
-Recommended direction:
-
-- short term: server-side HMAC or signed hash for backend integrity
-- medium term: public-key signature for stronger independent verification
-
----
-
-## Public-Safe Integrity Fields
-
-Public verify may eventually expose fields such as:
-
-- integrityVersion
-- receiptHash
-- evidenceHash
-- issuedAt
-- expiresAt
-- signaturePresent
-- tamperCheckPassed
 - receiptStatus
 - evidenceStatus
+- issuedAt
+- verifiedAt
+- minimumDisclosure
+- publicSafe
+- privateDataIncluded
+- secretsIncluded
+- paymentIdIncluded
+- txidIncluded
+- customerDataIncluded
+
+Sensitive identifiers should not be included in public payloads.
+
+Raw paymentId and txid should not be exposed publicly.
+
+---
+
+## Canonical Evidence Payload
+
+A canonical evidence payload should summarize the verified outcome without exposing sensitive payment data.
+
+Possible fields:
+
+- evidenceId
+- receiptId
+- invoiceId
+- evidenceType
+- evidenceStatus
+- paymentState
+- accessState
+- verifiedAt
+- issuedAt
+- source
 - publicSafe
 - minimumDisclosure
-
-Public verify must not expose:
-
-- HMAC secret
-- private signing key
-- service role key
-- raw paymentId
-- raw txid
-- raw Pi API response
-- customer data
-- private wallet data
-- access token
+- privateDataIncluded
+- secretsIncluded
+- paymentIdIncluded
+- txidIncluded
+- customerDataIncluded
 
 ---
 
-## Receipt Status Lifecycle
+## Hash Direction
 
-SafeGate should define receipt lifecycle states.
+Future receipt/evidence records may include:
 
-Suggested states:
+- receiptHash
+- evidenceHash
+- combinedTrustHash
 
-- RECEIPT_ACTIVE
-- RECEIPT_EXPIRED
-- RECEIPT_REVOKED
-- RECEIPT_DISPUTED
-- RECEIPT_SUPERSEDED
-- RECEIPT_INTEGRITY_FAILED
-- RECEIPT_REVIEW_REQUIRED
+Hash purpose:
 
-Public verify should not always show only `verified: true`.
-
-It should eventually show the current public-safe lifecycle state.
-
----
-
-## Expiry Policy
-
-Some receipts may be permanent records.
-
-Some access proofs may be time-limited.
-
-SafeGate should distinguish:
-
-- receipt record validity
-- access entitlement validity
-- merchant proof validity
-- dispute/revocation status
-
-Optional fields:
-
-- issuedAt
-- expiresAt
-- accessExpiresAt
-- revokedAt
-- disputedAt
+- detect payload changes
+- bind receipt and evidence
+- make tampering easier to detect
+- support future audit trail
+- support reviewer confidence
 
 Boundary:
 
-Do not add expiry claims unless implemented and tested.
+A hash alone does not prove who created the record.
+
+A hash alone is not a signature.
+
+A hash alone is not a formal audit.
 
 ---
 
-## Replay Resistance
+## Signature / HMAC Direction
 
-Receipt integrity should help prevent replay.
+A stronger future layer may use a server-side HMAC or signature.
 
-Replay prevention should include:
+Possible fields:
 
-- receiptId bound to evidenceId
-- receipt/evidence bound to invoiceId
-- invoice bound to payment state
-- paymentId/txid bound to one invoice internally
-- old receipt cannot unlock unrelated access
-- mismatched receipt/evidence pair fails public verify
-- expired/revoked receipt does not show active access
+- signatureVersion
+- signatureAlgorithm
+- receiptSignature
+- evidenceSignature
+- signedAt
+- keyVersion
+
+Purpose:
+
+- prove receipt/evidence was generated by SafeGate backend
+- detect tampering
+- support future key rotation
+- support future auditability
+
+Boundary:
+
+SafeGate does not currently claim completed independent cryptographic verification.
+
+SafeGate does not currently claim tamper-proof infrastructure.
 
 ---
 
-## Tamper Detection Behavior
+## Binding Rules
 
-If a receipt/evidence payload changes after issuance, SafeGate should detect it.
+Receipt and evidence should be bound together.
+
+Expected binding:
+
+- receiptId binds to invoiceId
+- evidenceId binds to receiptId
+- receipt binds to backend-verified payment state
+- evidence binds to receipt
+- access unlock binds to backend-verified receipt
+- public verify binds to receipt/evidence pair
+
+Invalid behavior:
+
+- receipt without verified payment
+- evidence without receipt
+- access unlock without receipt
+- public verify active trust for unknown pair
+- public verify active trust for mismatched pair
+- duplicate receipt for replayed payment
+- duplicate evidence from duplicate callback
+
+---
+
+## Integrity Status Direction
+
+Future public verify may include an integrity status.
+
+Possible values:
+
+- INTEGRITY_NOT_IMPLEMENTED
+- INTEGRITY_VALID
+- INTEGRITY_MISMATCH
+- INTEGRITY_UNAVAILABLE
+- INTEGRITY_REVIEW_REQUIRED
+
+Current boundary:
+
+Integrity is planned.
+
+SafeGate should not currently claim integrity proof is complete.
+
+---
+
+## Freshness Status Direction
+
+Receipt integrity should connect with public verify freshness.
+
+Possible values:
+
+- ACTIVE
+- EXPIRED
+- REVOKED
+- DISPUTED
+- STALE
+- UNAVAILABLE
+- REVIEW_REQUIRED
+
+A receipt that was valid at one time may later require freshness context.
+
+---
+
+## Public Verify Integrity Direction
+
+Public verify should eventually show a minimum-disclosure integrity summary.
+
+Public-safe possible fields:
+
+- verified
+- publicSafe
+- minimumDisclosure
+- receiptStatus
+- evidenceStatus
+- accessState
+- integrityStatus
+- freshnessStatus
+- issuedAt
+- verifiedAt
+- lastCheckedAt
+- privateDataIncluded
+- secretsIncluded
+- paymentIdIncluded
+- txidIncluded
+- customerDataIncluded
+
+Public verify should not expose:
+
+- raw paymentId
+- raw txid
+- wallet address
+- recipient address
+- access token
+- service role key
+- raw Pi API response
+- private customer data
+- private wallet data
+
+---
+
+## Tamper Detection Direction
+
+If receipt/evidence payload changes, future verification should detect it.
 
 Expected behavior:
 
-- tamperCheckPassed: false
-- verified: false or integrity failed state
-- receiptStatus: RECEIPT_INTEGRITY_FAILED
-- accessUnlocked: false if active access depends on integrity
-- no sensitive internal details exposed
-- audit event recorded internally
+- recompute receipt hash
+- compare stored receipt hash
+- recompute evidence hash
+- compare stored evidence hash
+- verify signature or HMAC if implemented
+- return integrity mismatch if invalid
+- do not return active verified trust from mismatched payload
 
 ---
 
-## Key Management Boundary
+## Failure Behavior
 
-If HMAC or signatures are used, key management must be treated seriously.
+If integrity validation is unavailable or ambiguous, SafeGate should fail safe.
 
-Rules:
+Expected behavior:
 
-- signing secret stays server-side only
-- secret is never exposed to frontend
-- secret is never exposed in public verify
-- secret is never committed to repo
-- environment variables are used
-- key rotation plan is documented
-- old signatures remain verifiable if key rotation is used
-- leaked key requires incident response
-
-This plan does not claim that full enterprise key management is implemented.
+- do not claim integrity valid
+- do not expose secrets
+- return review-required or unavailable state
+- preserve minimum disclosure
+- avoid false verified trust
+- log internally if safe
 
 ---
 
-## Database Integrity Direction
+## Relationship To V9.1 Validation
 
-Receipt integrity should be supported by database constraints.
+The V9.1 safe negative backend validation strengthened the integrity direction by confirming selected pre-integrity behavior:
 
-Recommended constraints:
+- invoice creation does not create receipt/evidence
+- receipt/evidence before verified payment is rejected
+- unknown public verify pair does not return active verified trust
+- selected responses do not show obvious secret/internal leak terms
 
-- unique receiptId
-- unique evidenceId
-- unique paymentId where available
-- unique txid where available
-- receiptId/evidenceId pair binding
-- immutable finalized payment record
-- immutable receipt hash after issuance
-- audit log for manual state changes
-- no direct public write access to verified payment state
+These are prerequisites for receipt integrity.
+
+If receipt/evidence can be created before verified payment, integrity does not matter.
 
 ---
 
-## Public Verify Integrity Behavior
+## Remaining Receipt Integrity Work
 
-Public verify should eventually check:
+Remaining work includes:
 
-1. receipt/evidence pair exists
-2. pair is correctly bound
-3. payment state is verified
-4. access state is valid
-5. receipt hash matches stored canonical payload
-6. evidence hash matches stored canonical summary
-7. signature/HMAC check passes where applicable
-8. receipt is not expired/revoked/disputed
-9. minimum-disclosure rules are preserved
-
-Public verify should fail safe if integrity cannot be checked.
-
----
-
-## Failure Cases
-
-Receipt integrity should fail secure under these cases:
-
-| Failure Case | Expected Result |
-|---|---|
-| receipt hash mismatch | integrity failed |
-| evidence hash mismatch | integrity failed |
-| signature missing when required | integrity failed |
-| signature invalid | integrity failed |
-| receipt/evidence mismatch | verified false |
-| expired receipt | expired state |
-| revoked receipt | revoked state |
-| disputed receipt | disputed state |
-| backend cannot verify integrity | ambiguous/review state |
-| public verify read failure | no fake verified response |
+- define canonical receipt payload
+- define canonical evidence payload
+- implement receiptHash
+- implement evidenceHash
+- implement combinedTrustHash if useful
+- implement server-side HMAC or signature
+- define key versioning
+- define tamper-detection behavior
+- define public verify integrityStatus
+- define freshnessStatus behavior
+- test mismatched receipt/evidence pair
+- test duplicate receipt/evidence request
+- test replayed paymentId behavior
+- test replayed txid behavior
+- document safe error model
 
 ---
 
-## V9.1 Receipt Integrity Test Targets
+## Reviewer Questions
 
-Recommended tests:
+A technical reviewer should ask:
 
-1. valid receipt integrity check
-2. modified receipt payload fails check
-3. modified evidence payload fails check
-4. mismatched receipt/evidence pair fails
-5. duplicate receipt request returns existing pair
-6. old receipt cannot unlock unrelated access
-7. expired receipt shows expired state if expiry is implemented
-8. revoked receipt shows revoked state if revocation is implemented
-9. public verify does not expose secrets
-10. signature/HMAC secret never appears in frontend output
+1. What exactly is hashed?
+2. Are fields canonicalized?
+3. Is the receipt bound to invoice?
+4. Is evidence bound to receipt?
+5. Is access unlock bound to backend-verified receipt?
+6. Can receipt/evidence be duplicated?
+7. Can receipt/evidence be changed after issuance?
+8. Can public verify detect tampering?
+9. Does public verify expose sensitive identifiers?
+10. What happens if integrity validation fails?
 
 ---
 
-## Public Language Rules
+## Safe Public Language
 
 SafeGate may say:
 
-- receipt integrity plan
-- tamper-evident direction
-- signed/hash receipt direction
-- minimum-disclosure verification
-- backend-verified receipt/evidence
-- not yet formal audit
-- not yet production-ready
+- receipt integrity direction is documented
+- receipt/evidence should be generated only after backend-verified payment state
+- V9.1 validation confirmed receipt/evidence before verified payment was rejected safely
+- future receipt integrity may use hashes, HMAC, or signatures
+- tamper-proof infrastructure is not claimed
+- independent cryptographic verification is not yet claimed
 
-SafeGate should not say yet:
+SafeGate should not say:
 
-- tamper-proof
-- independently verified
-- secure system
-- enterprise-grade
+- receipts are tamper-proof
+- cryptographic integrity is complete
+- independent verification is complete
 - formal audit passed
-- regulatory approved
-- production-ready
-- complete cryptographic proof
+- production-grade receipt integrity is ready
+- all replay and duplicate risks are solved
 
 ---
 
-## Relationship to AI Agent Readiness
+## Final Receipt Integrity Position
 
-AI agents will require stronger integrity guarantees.
+SafeGate has a clear receipt/evidence integrity direction.
 
-Before AI agents rely on SafeGate trust states, SafeGate should define:
+SafeGate has not yet completed full cryptographic receipt integrity.
 
-- machine-readable receipt status
-- signed or hash-bound trust state
-- OpenAPI-safe verification endpoint
-- rate limits
-- replay protection
-- abuse resistance
-- minimum-disclosure response format
+The next engineering step is to implement and test canonical payloads, hashes, signatures/HMAC direction, integrity status, freshness status, and mismatch behavior.
 
-Therefore, receipt integrity should come before broad AI Agent Readiness.
-
----
-
-## V9.1 Completion Criteria for Receipt Integrity
-
-This receipt integrity plan can be considered ready for V9.1 planning when:
-
-- receipt/evidence data model is defined
-- canonical payload fields are defined
-- receipt hash plan is defined
-- evidence hash plan is defined
-- HMAC/signature direction is chosen
-- public-safe integrity fields are defined
-- lifecycle states are defined
-- failure behavior is defined
-- public language boundaries are preserved
-
-Implementation completion requires separate testing and evidence.
-
----
-
-## Final Integrity Rule
-
-A SafeGate receipt should not merely say that payment was verified.
-
-A SafeGate receipt should eventually prove that the verified post-payment trust record was generated by SafeGate backend and has not been altered after issuance.
-
-That is the receipt integrity target.
+SafeGate remains not production-ready and not formally audited.
 
 ---
 
