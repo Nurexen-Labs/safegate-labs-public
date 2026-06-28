@@ -91,6 +91,10 @@ Current boundary:
 
 ## Public Repository Documents
 
+README:
+
+https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/README.md
+
 Current Review Package:
 
 https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/SAFEGATE_CURRENT_REVIEW_PACKAGE.md
@@ -139,6 +143,7 @@ https://github.com/Nurexen-Labs/safegate-labs-public/blob/main/PILOT_EVIDENCE.md
 - Fee Architecture Decision: Documented
 - V13 Controlled Hardening Scope: Open
 - Controlled Pilot Planning: Open
+- Real Backend Hardening Evidence: Not passed yet
 - Production Readiness: Not claimed
 - Formal Third-Party Audit: Not claimed
 - Official Pi Partnership: Not claimed
@@ -167,6 +172,74 @@ SafeGate does not expose MCP or tool endpoints yet.
 
 SafeGate does not enable autonomous agent execution.
 
+SafeGate does not currently provide SilentSwap-like private transactions.
+
+SafeGate does not currently claim SilentSwap integration.
+
+SafeGate does not currently claim that blockchain transactions are hidden.
+
+---
+
+## Privacy-Aware Direction
+
+SafeGate is privacy-aware today, not a privacy protocol.
+
+Current SafeGate privacy boundary:
+
+- minimum public-safe evidence
+- no passphrase collection
+- no private key collection
+- no raw secrets in public evidence
+- no sensitive customer data in public verify
+- limited receipt/evidence/public verify output
+- no SilentSwap-like private transaction claim
+
+Future privacy direction:
+
+SafeGate may become privacy-preserving through future adapter integrations.
+
+Correct future framing:
+
+SilentSwap can protect payment privacy.
+
+SafeGate can verify what happened after the private payment.
+
+Current boundary:
+
+- no SilentSwap integration claim today
+- no private transaction claim today
+- no hidden blockchain transaction claim today
+- no mixer claim
+- no privacy protocol claim
+- no private payment network claim
+
+---
+
+## Agent-Readable Direction
+
+SafeGate is preparing for a future where trust states are readable not only by humans, but also by apps and AI agents.
+
+Current status:
+
+- Static preview only
+- No MCP endpoint
+- No tool endpoint
+- No agent execution
+- No autonomous payment permission
+- No autonomous access unlock permission
+- No receipt creation by agent
+- No evidence creation by agent
+
+Safe agent principles:
+
+- Read before act
+- Verify before trust
+- Fail closed on ambiguity
+- Never unlock before final state
+- Never expose secrets
+- Never treat simulation as real settlement
+- Never expose MCP/tools before hardening
+
 ---
 
 ## Current Review Focus
@@ -184,5 +257,24 @@ The current review focus is:
 - durable state failure behavior
 - safe error output
 - future agent-readable trust-state consumers
+- future privacy-preserving trust adapter boundaries
+
+Real backend hardening evidence remains the next frontier.
+
+---
+
+## Current Safe Statement
+
+SafeGate is ready for serious technical review and controlled pilot planning.
+
+SafeGate is not production-ready.
+
+SafeGate is not formally audited.
+
+SafeGate is not claiming official Pi partnership.
+
+SafeGate is privacy-aware today, not a privacy protocol.
+
+Agent-readable trust preview is open as a static preview only.
 
 Real backend hardening evidence remains the next frontier.
