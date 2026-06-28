@@ -1,282 +1,183 @@
-# SafeGate V13 Controlled Hardening Evidence Log
+# SafeGate V13 Controlled Hardening Test Matrix
 
 ## Purpose
 
-This document records public-safe evidence for SafeGate V13 controlled backend hardening.
+This matrix defines the V13 controlled hardening checks for SafeGate.
 
-V13 is open.
+SafeGate verifies what happened after payment.
 
-V13 is not complete.
+Payment is the trigger. Trust is the product.
 
-V13 has not passed evidence validation yet.
-
-This evidence log should only be updated with observed results after implementation or validation tests are run.
+AI will automate payments. SafeGate will automate trust.
 
 ---
 
-## Current Position
+## Current Status
 
-| Area | Status |
-|---|---|
-| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
-| V10.1 Review Feedback | OPEN |
-| V11 Hardening Backlog | OPEN |
-| V11 Hardening Test Plan | OPEN |
-| V13 Controlled Hardening Scope | OPEN |
-| V13 Test Matrix | OPEN |
-| V13 Evidence Log | OPEN |
-| V13 Complete | NOT CLAIMED |
-| V13 Passed | NOT CLAIMED |
-| Production Readiness | NOT CLAIMED |
-| Formal Third-Party Audit | NOT CLAIMED |
+- V13 Controlled Hardening Scope: Open
+- V13 Public Surface Validation: Passed
+- V13 Backend Policy Simulation: Passed
+- Agent-Readable Trust Preview: Open
+- Fee Architecture Decision: Documented
+- Real Backend Hardening Evidence: Not passed yet
+- Production Readiness: Not claimed
+- Formal Audit: Not claimed
+- Official Pi Partnership: Not claimed
 
 ---
 
-## Core Rule
+## Important Boundary
 
-No receipt, no evidence, and no access unlock before backend-verified payment state.
+This test matrix is for controlled hardening planning.
 
-Frontend callback alone must never unlock access.
+It does not claim production readiness.
 
-Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
+It does not claim formal audit.
 
----
+It does not claim official Pi partnership.
 
-## Result Labels
+It does not claim completed V13 backend hardening.
 
-| Label | Meaning |
-|---|---|
-| PASS | Expected safe behavior observed |
-| FAIL | Unsafe behavior observed |
-| BLOCKED | Test could not run due to missing environment or dependency |
-| NEEDS REVIEW | Output requires human review |
-| NOT IMPLEMENTED | Required behavior is not implemented yet |
-| PLANNED | Test exists but has not been run |
+It does not claim SilentSwap integration.
 
----
+It does not claim private transactions.
 
-## Evidence Entry Template
+It does not expose MCP or tool endpoints.
 
-Use this template for every V13 evidence entry.
-
-### Evidence ID
-
-V13-EVIDENCE-000
-
-### Related Test ID
-
-V13-000
-
-### Test Area
-
-Choose one:
-
-- Idempotency
-- Replay
-- Mismatch
-- Timeout
-- Ambiguity
-- Durable State
-- Public Verify
-- Access Guard
-- Safe Errors
-- Other
-
-### Test Case
-
-Short test case name:
-
-[Write test case here]
-
-### Expected Safe Behavior
-
-[Write expected safe behavior here]
-
-### Observed Behavior
-
-[Write observed behavior here]
-
-### Result
-
-Choose one:
-
-- PASS
-- FAIL
-- BLOCKED
-- NEEDS REVIEW
-- NOT IMPLEMENTED
-- PLANNED
-
-### Public-Safe Evidence Note
-
-[Write public-safe evidence note here]
-
-### Secrets Excluded?
-
-YES / NO
-
-### Remaining Limitation
-
-[Write limitation here if any]
-
-### SafeGate Response
-
-[Write response here]
-
-### Status
-
-Choose one:
-
-- RECORDED
-- UNDER REVIEW
-- FIX PLANNED
-- FIX IMPLEMENTED
-- NEEDS RETEST
-- CLOSED
+It does not enable autonomous agent execution.
 
 ---
 
-## Evidence Log
+## Test Matrix
 
-### V13-EVIDENCE-001
-
-Related Test ID:
-
-TBD
-
-Test Area:
-
-TBD
-
-Test Case:
-
-TBD
-
-Expected Safe Behavior:
-
-TBD
-
-Observed Behavior:
-
-TBD
-
-Result:
-
-PLANNED
-
-Public-Safe Evidence Note:
-
-TBD
-
-Secrets Excluded?
-
-YES
-
-Remaining Limitation:
-
-TBD
-
-SafeGate Response:
-
-TBD
-
-Status:
-
-PLANNED
+| ID | Area | Expected Behavior | Current Status |
+|---|---|---|---|
+| V13-001 | Access Guard | Access remains locked before backend-verified final state. | Simulated / Real backend evidence pending |
+| V13-002 | Receipt Guard | Receipt is not created before verified payment state. | Simulated / Real backend evidence pending |
+| V13-003 | Evidence Guard | Evidence is not created before verified payment state. | Simulated / Real backend evidence pending |
+| V13-004 | Duplicate Callback | Duplicate callback is idempotent and does not double-finalize. | Simulated / Real backend evidence pending |
+| V13-005 | Replay Resistance | Reused payment or tx identity cannot verify another invoice. | Simulated / Real backend evidence pending |
+| V13-006 | Invoice Mismatch | Payment / invoice mismatch fails secure. | Simulated / Real backend evidence pending |
+| V13-007 | Timeout / Ambiguous | Timeout or ambiguous verification is not treated as verified. | Simulated / Real backend evidence pending |
+| V13-008 | Durable Write Failure | Access remains locked if receipt/evidence durable write fails. | Simulated / Real backend evidence pending |
+| V13-009 | Public Verify Unknown Pair | Unknown or mismatched receipt/evidence pair returns not verified. | Simulated / Real backend evidence pending |
+| V13-010 | Safe Error Output | Public errors do not expose secrets, stack traces, or internals. | Simulated / Real backend evidence pending |
+| V13-011 | Fee Required / Missing | Fee-required flow does not finalize before fee verification. | Simulated / Real backend evidence pending |
+| V13-012 | Fee Verified | Payment + fee verified flow may finalize receipt/evidence/access/public verify. | Simulated / Real backend evidence pending |
+| V13-013 | Boundary Claims | Production, audit, custody, escrow, partnership, and unsupported split claims remain false. | Simulated / Real backend evidence pending |
+| V13-014 | Agent Readability | Agent-readable trust state remains read-only preview. | Static preview open |
+| V13-015 | Agent Execution | No autonomous payment, unlock, receipt, evidence, MCP, or tool execution is enabled. | Boundary active |
+| V13-016 | Privacy-Aware Evidence | Public evidence remains minimum, public-safe, and non-sensitive. | Boundary active |
+| V13-017 | Privacy Protocol Claim | No SilentSwap-like private transaction or hidden blockchain transaction claim. | Boundary active |
+| V13-018 | Deployment Boundary | No new serverless API function added while Vercel Hobby function limit is reached. | Boundary active |
 
 ---
 
-## Evidence Summary Table
+## Public Surface Validation
 
-| Evidence ID | Test ID | Area | Result | Status | Public-Safe Note |
-|---|---|---|---|---|---|
-| V13-EVIDENCE-001 | TBD | TBD | PLANNED | PLANNED | TBD |
+V13 Public Surface Validation passed 12/12 public-surface checks.
 
----
+This validates public page availability and claim-boundary language.
 
-## Public-Safe Evidence Rules
+It does not validate real backend behavior.
 
-Do not include the following in public evidence:
+It does not validate real Pi payment endpoints.
 
-- raw paymentId
-- raw txid
-- wallet address
-- recipient address
-- access token
-- service role key
-- private key
-- passphrase
-- raw Pi API response
-- raw database error
-- stack trace
-- environment variables
-- sensitive customer data
-- private wallet data
-- non-public customer information
+It does not validate real database durability.
 
 ---
 
-## Evidence May Include
+## Backend Policy Simulation
 
-Public-safe evidence may include:
+V13 Backend Policy Simulation passed 12/12 client-side policy checks.
 
-- test case ID
-- safe result label
-- sanitized status
-- sanitized response summary
-- expected vs observed behavior
-- screenshot with secrets removed
-- controlled Testnet / Sandbox context
-- public-safe pass/fail count
-- limitation note
-- next action
+This validates expected policy behavior in a public-safe static simulation.
 
----
+It does not use a new serverless API function.
 
-## Minimum V13 Evidence Required Before Passed Claim
+It does not call real Pi payment endpoints.
 
-V13 cannot be called passed unless public-safe evidence exists for:
+It does not test real database durability.
 
-- duplicate approve behavior
-- duplicate complete behavior
-- duplicate receipt/evidence behavior
-- paymentId replay behavior
-- txid replay behavior if applicable
-- paymentId / invoice mismatch behavior
-- Pi API timeout behavior
-- Pi API ambiguous response behavior
-- durable state failure behavior
-- public verify unknown pair behavior
-- public verify mismatched pair behavior
-- access unlock regression behavior
-- safe error scan behavior
+It does not mean overall V13 backend hardening has passed.
 
 ---
 
-## V13 Evidence Status
+## Agent-Readable Boundary
 
-Current status:
+Agent-readable trust preview is open as static preview only.
 
-V13 Evidence Log is open.
+Current boundary:
 
-No V13 pass claim is made yet.
+- No MCP endpoint
+- No tool endpoint
+- No agent execution
+- No autonomous payment
+- No autonomous access unlock
+- No receipt creation by agent
+- No evidence creation by agent
 
-No production readiness claim is made.
+Agent-readable does not mean agent-executable.
 
-No formal audit claim is made.
+MCP/tool endpoints come only after real backend hardening.
+
+---
+
+## Privacy-Aware Boundary
+
+SafeGate is privacy-aware today, not a privacy protocol.
+
+Current boundary:
+
+- Minimum public-safe evidence
+- No passphrase collection
+- No private key collection
+- No raw secrets in public evidence
+- No sensitive customer data in public verify
+- Limited receipt/evidence/public verify output
+- No SilentSwap-like private transaction claim
+- No hidden blockchain transaction claim
+
+Future framing:
+
+SilentSwap can protect payment privacy.
+
+SafeGate can verify what happened after the private payment.
+
+---
+
+## Pass Gate Before Claiming V13 Passed
+
+SafeGate must not claim overall V13 passed until real backend evidence exists for:
+
+- duplicate callback behavior
+- replay resistance
+- payment / invoice mismatch
+- timeout and ambiguous verification
+- durable write failure
+- public verify safety
+- safe error output
+- access unlock guard
+- fee-required finalization
+- fee-verified finalization
+- public-safe evidence output
 
 ---
 
 ## Current Safe Statement
 
-SafeGate V13 Controlled Hardening Scope is open.
+V13 public surface validation has passed.
 
-V13 Test Matrix is open.
+V13 backend policy simulation has passed.
 
-V13 Evidence Log is open.
+Agent-readable trust preview is open.
 
-V13 is not complete.
+SafeGate is privacy-aware today, not a privacy protocol.
 
-V13 has not passed evidence validation yet.
+Real backend hardening evidence has not passed yet.
 
-SafeGate remains not production-ready and not formally audited.
+SafeGate is not production-ready.
+
+SafeGate is not formally audited.
+
+SafeGate is not claiming official Pi partnership.
