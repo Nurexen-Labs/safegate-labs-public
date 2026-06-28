@@ -32,10 +32,12 @@ V13 has not passed evidence validation yet.
 | V13 Controlled Hardening Scope | OPEN |
 | V13 Implementation | NOT COMPLETE |
 | V13 Evidence Validation | NOT PASSED YET |
+| Fee Architecture Decision | DOCUMENTED |
 | Production Readiness | NOT CLAIMED |
 | Formal Third-Party Audit | NOT CLAIMED |
 | Pi Mainnet Settlement | NOT CLAIMED |
 | Official Pi Partnership | NOT CLAIMED |
+| Custodial Payment Processing | NOT CLAIMED |
 
 ---
 
@@ -43,19 +45,24 @@ V13 has not passed evidence validation yet.
 
 SafeGate is a Pi-first, not Pi-only, post-payment trust layer.
 
-It is designed to inspect and document what happens after a payment event:
+It is designed to verify and document what happens after a payment event:
 
+- invoice creation
+- payment intent
+- backend payment verification
 - payment state
-- backend verification state
 - receipt state
 - evidence state
 - access state
 - public verification state
-- trust-state direction
 - controlled pilot evidence
 - backend hardening evidence
 
-SafeGate is not a custodial payment processor.
+SafeGate is not a payment processor.
+
+SafeGate is not a custodial wallet.
+
+SafeGate does not act as escrow.
 
 SafeGate does not ask for passphrases, private keys, wallet secrets, or sensitive user data.
 
@@ -77,7 +84,9 @@ Current demonstrated evidence includes:
 - unknown public verify pair not returning active verified trust
 - selected responses not showing obvious secret/internal leak terms
 
-V13 is now open to harden the highest-risk backend trust areas, but V13 is not complete and has not passed evidence validation yet.
+V13 is now open to harden the highest-risk backend trust areas.
+
+V13 is not complete and has not passed evidence validation yet.
 
 ---
 
@@ -104,6 +113,9 @@ It focuses on:
 V13 should reduce real backend trust risk before broader pilot execution.
 
 V13 does not mean production readiness.
+
+---
+
 ## Fee Architecture Decision
 
 SafeGate may use a transparent 100 + 1 verification fee model.
@@ -115,6 +127,7 @@ Where native split is not supported, including Pi if multi-recipient split is un
 SafeGate does not finalize verified receipt, evidence, access unlock, or public verify until the required service payment and SafeGate verification fee are confirmed.
 
 SafeGate does not use postpaid merchant debt as the primary fee model.
+
 See: ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md
 
 ---
@@ -133,9 +146,10 @@ See: ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md
 | 8 | ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 controlled hardening evidence log |
 | 9 | ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint map template |
 | 10 | ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
-| 11 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
-| 12 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
-| 13 | ./LINKS.md | Full public links index |
+| 11 | ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision |
+| 12 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
+| 13 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
+| 14 | ./LINKS.md | Full public links index |
 
 ---
 
@@ -162,6 +176,8 @@ Recommended review focus:
 - abuse resistance
 - privacy / minimum disclosure
 - controlled pilot stop conditions
+- fee settlement confirmation
+- split / non-split payment handling
 
 ---
 
@@ -176,13 +192,14 @@ Recommended review focus:
 7. V13 Evidence Log
 8. V13 Endpoint Map Template
 9. V13 Validation Runner Spec
-10. V10.1 Review Feedback Open
-11. Review Feedback Intake
-12. Pilot Review Index
-13. Pilot Readiness
-14. V11 Security Index
-15. V12 Trust-State / Privacy / Web3
-16. Public repository documents
+10. Fee Architecture Decision
+11. V10.1 Review Feedback Open
+12. Review Feedback Intake
+13. Pilot Review Index
+14. Pilot Readiness
+15. V11 Security Index
+16. V12 Trust-State / Privacy / Web3
+17. Public repository documents
 
 ---
 
@@ -196,6 +213,7 @@ Recommended review focus:
 | ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 public-safe evidence log |
 | ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint mapping template |
 | ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
+| ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: 100 + 1 verification fee, split/non-split handling, and no postpaid merchant debt as primary model |
 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Public-safe technical review feedback intake |
 | ./SAFEGATE_V10_SUBMISSION_READY.md | V10 submission-ready status |
@@ -205,14 +223,13 @@ Recommended review focus:
 | ./SAFEGATE_V11_HARDENING_TEST_PLAN.md | V11 hardening test plan |
 | ./SAFEGATE_V11_HARDENING_BACKLOG.md | V11 hardening backlog |
 | ./SAFEGATE_V9_1_PUBLIC_REVIEW_SYNC_COMPLETE.md | V9.1 public review sync completion |
-| ./SAFEGATE_CURRENT_REVIEW_PACKAGE.md | Current review package |
 | ./SAFEGATE_SIMPLE_REVIEWER_BRIEF.md | Simple reviewer brief |
 | ./HACKATHON_FINAL_SUBMISSION_PACK.md | Final hackathon submission pack |
 | ./ARCHITECTURE.md | Post-payment trust architecture |
 | ./SECURITY_BOUNDARIES.md | Security and claim boundaries |
 | ./SAFEGATE_CONTROLLED_PILOT_EXECUTION_CHECKLIST.md | Controlled pilot execution checklist |
 | ./SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md | V12 trust-state / privacy / Web3 plan |
-| ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: 100 + 1 verification fee, split/non-split handling, and no postpaid merchant debt as primary model |
+
 ---
 
 ## Live Review Pages
@@ -243,9 +260,12 @@ SafeGate is not currently claiming:
 - official Pi partnership
 - completed commercial pilot
 - custodial payment processing
+- escrow
 - complete privacy protocol
 - all duplicate / replay risks solved
 - all failure modes solved
+- native Pi split if not supported
+- automatic deduction where split does not exist
 - V13 complete
 - V13 passed
 
@@ -263,6 +283,18 @@ V13 is not complete.
 
 V13 has not passed evidence validation yet.
 
+Fee Architecture Decision is documented.
+
 SafeGate is ready for serious technical review and controlled pilot planning.
 
 SafeGate is not production-ready and not formally audited.
+
+---
+
+## Final Positioning
+
+SafeGate does not process payments.
+
+SafeGate verifies what happened after payment.
+
+Payment is the trigger. Trust is the product.
