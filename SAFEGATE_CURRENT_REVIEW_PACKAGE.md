@@ -22,6 +22,8 @@ V13 is not complete.
 
 V13 has not passed evidence validation yet.
 
+Fee Architecture Decision is documented.
+
 | Area | Status |
 |---|---|
 | Controlled Pi Testnet Payment Spine | PASSED |
@@ -34,10 +36,13 @@ V13 has not passed evidence validation yet.
 | V13 Controlled Hardening Scope | OPEN |
 | V13 Implementation | NOT COMPLETE |
 | V13 Evidence Validation | NOT PASSED YET |
+| Fee Architecture Decision | DOCUMENTED |
 | Production Readiness | NOT CLAIMED |
 | Formal Third-Party Audit | NOT CLAIMED |
 | Pi Mainnet Settlement | NOT CLAIMED |
 | Official Pi Partnership | NOT CLAIMED |
+| Custodial Payment Processing | NOT CLAIMED |
+| Escrow | NOT CLAIMED |
 
 ---
 
@@ -47,19 +52,22 @@ SafeGate is a Pi-first, not Pi-only, post-payment trust layer.
 
 It is designed to verify and document what happens after a payment event:
 
+- invoice creation
+- payment intent
+- backend payment verification
 - payment state
-- backend verification state
 - receipt state
 - evidence state
 - access state
 - public verification state
-- trust-state direction
 - controlled pilot evidence
 - backend hardening evidence
 
 SafeGate does not process payments.
 
 SafeGate does not custody user funds.
+
+SafeGate does not act as escrow.
 
 SafeGate does not ask for passphrases, private keys, wallet secrets, or sensitive user data.
 
@@ -115,6 +123,42 @@ V13 does not mean formal audit passed.
 
 ---
 
+## Fee Architecture Decision
+
+SafeGate may use a transparent 100 + 1 verification fee model.
+
+Where native non-custodial split is supported, the fee can be routed automatically.
+
+Where native split is not supported, including Pi if multi-recipient split is unavailable, SafeGate uses a separate verified fee payment.
+
+SafeGate does not finalize verified receipt, evidence, access unlock, or public verify until the required service payment and SafeGate verification fee are confirmed.
+
+SafeGate does not use postpaid merchant debt as the primary fee model.
+
+See: ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md
+
+---
+
+## Pi Developer Feedback
+
+SafeGate submitted an official developer feature request to Pi Network Support Portal for native multi-recipient / fee-split payment support.
+
+Reference:
+
+PINETWORK-5808688
+
+Purpose:
+
+- support buyer-visible 100 + 1 flows
+- allow merchant, platform, verification, marketplace, and service fee splits
+- reduce need for duplicate payment steps where native split is possible
+- avoid custody, escrow, and delayed merchant receivable models
+- improve serious P2P, B2B, merchant, marketplace, and app utility flows
+
+This was submitted as ecosystem-level developer feedback, not as a partnership request or official claim.
+
+---
+
 ## Current Review Priority
 
 Recommended review order:
@@ -128,13 +172,14 @@ Recommended review order:
 7. V13 Controlled Hardening Evidence Log
 8. V13 Endpoint Map Template
 9. V13 Validation Runner Spec
-10. V10.1 Review Feedback Open
-11. Review Feedback Intake
-12. Pilot Review Index
-13. Pilot Readiness
-14. V11 Security Index
-15. V12 Trust-State / Privacy / Web3
-16. Public repository documents
+10. Fee Architecture Decision
+11. V10.1 Review Feedback Open
+12. Review Feedback Intake
+13. Pilot Review Index
+14. Pilot Readiness
+15. V11 Security Index
+16. V12 Trust-State / Privacy / Web3
+17. Public repository documents
 
 ---
 
@@ -161,6 +206,8 @@ Recommended review focus:
 - abuse resistance
 - privacy / minimum disclosure
 - controlled pilot stop conditions
+- fee settlement confirmation
+- split / non-split payment handling
 
 ---
 
@@ -178,10 +225,11 @@ Recommended review focus:
 | 8 | ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 public-safe evidence log |
 | 9 | ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint mapping template |
 | 10 | ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
-| 11 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
-| 12 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
-| 13 | ./LINKS.md | Full public links index |
-| 14 | ./README.md | Public repository overview |
+| 11 | ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision |
+| 12 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
+| 13 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
+| 14 | ./LINKS.md | Full public links index |
+| 15 | ./README.md | Public repository overview |
 
 ---
 
@@ -189,8 +237,10 @@ Recommended review focus:
 
 | Document | Purpose |
 |---|---|
-| ./LINKS.md | Full public links index |
 | ./README.md | Public repository overview |
+| ./LINKS.md | Full public links index |
+| ./SAFEGATE_CURRENT_REVIEW_PACKAGE.md | One-file current SafeGate review package |
+| ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: 100 + 1 verification fee, split/non-split handling, and no postpaid merchant debt as primary model |
 | ./SAFEGATE_V13_CONTROLLED_HARDENING_SCOPE.md | V13 controlled backend hardening scope |
 | ./SAFEGATE_V13_CONTROLLED_HARDENING_TEST_MATRIX.md | V13 controlled hardening test matrix |
 | ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 public-safe evidence log |
@@ -224,6 +274,7 @@ Recommended review focus:
 | V9.1 Public Review Sync Complete | https://www.safegatelabs.xyz/v9-1-public-review-sync-complete.html |
 | V10 Submission Ready | https://www.safegatelabs.xyz/v10-submission-ready.html |
 | V10-V12 Roadmap | https://www.safegatelabs.xyz/v10-v12-roadmap.html |
+| V13 Controlled Hardening Scope | https://www.safegatelabs.xyz/v13-controlled-hardening-scope.html |
 | Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html |
 | Pilot Readiness | https://www.safegatelabs.xyz/pilot-readiness.html |
 | V11 Security Index | https://www.safegatelabs.xyz/v11-security-index.html |
@@ -250,6 +301,8 @@ A reviewer can evaluate SafeGate through these questions:
 13. Does durable state failure avoid false trust?
 14. Does public verify avoid leaking secrets?
 15. Are limitations documented clearly?
+16. Is fee settlement confirmed before finalized trust?
+17. Does split / non-split handling avoid custody and delayed merchant debt?
 
 ---
 
@@ -264,9 +317,12 @@ SafeGate is not currently claiming:
 - official Pi partnership
 - completed commercial pilot
 - custodial payment processing
+- escrow
 - complete privacy protocol
 - all duplicate / replay risks solved
 - all failure modes solved
+- native Pi split if not supported
+- automatic deduction where split does not exist
 - V13 complete
 - V13 passed
 
@@ -284,6 +340,7 @@ A technical reviewer may respond with:
 | Required fix before pilot | TBD |
 | Security concern | TBD |
 | Architecture concern | TBD |
+| Fee architecture concern | TBD |
 | Evidence concern | TBD |
 | Pilot readiness concern | TBD |
 | Overall review | TBD |
@@ -301,6 +358,8 @@ V13 Controlled Hardening Scope is open.
 V13 is not complete.
 
 V13 has not passed evidence validation yet.
+
+Fee Architecture Decision is documented.
 
 SafeGate is ready for serious technical review and controlled pilot planning.
 
