@@ -1,371 +1,445 @@
 # SafeGate V13 Controlled Hardening Scope
 
-## Status
+## Current Status
 
-SafeGate V13 is now opened as a controlled backend hardening scope.
+SafeGate V13 is open as a controlled hardening phase.
 
-V13 is not complete.
+SafeGate verifies what happened after payment.
 
-V13 is not passed.
+Payment is the trigger. Trust is the product.
 
-V13 is not production readiness.
-
-V13 is not a formal audit.
-
-V13 is not a marketing version.
+AI will automate payments. SafeGate will automate trust.
 
 ---
 
-## Why V13 Is Opened
+## V13 Purpose
 
-V13 is opened because a concrete implementation target has been selected:
+V13 exists to define and harden the backend trust boundary before SafeGate moves toward broader pilot use.
 
-Controlled backend hardening against the highest-risk post-payment trust failures.
+The focus is not marketing expansion.
 
-This follows:
-
-- V10 Submission Ready
-- V10.1 Review Feedback Open
-- V11 Hardening Backlog
-- V11 Hardening Test Plan
-- V11 Implementation Sprint Scope
-- V11 Developer Handoff
+The focus is safe post-payment trust behavior under failure, mismatch, replay, timeout, incomplete-state, fee-required, and future automation-pressure conditions.
 
 ---
 
-## Current Position
+## Current V13 Public Status
 
-| Area | Status |
-|---|---|
-| Controlled Pi Testnet Payment Spine | PASSED |
-| V9.1 Safe Negative Backend Validation | PASSED |
-| V9.1 Public Review Sync | COMPLETE |
-| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
-| V10.1 Review Feedback | OPEN |
-| V11 Hardening Backlog | OPEN |
-| V11 Hardening Test Plan | OPEN |
-| V11 Implementation Sprint Scope | OPEN |
-| V13 Controlled Hardening Scope | OPEN |
-| V13 Implementation | NOT COMPLETE |
-| V13 Evidence | NOT YET PASSED |
-| Production Readiness | NOT CLAIMED |
-| Formal Third-Party Audit | NOT CLAIMED |
+- V13 Controlled Hardening Scope: Open
+- V13 Public Surface Validation: Passed
+- V13 Backend Policy Simulation: Passed
+- Agent-Readable Trust Preview: Open
+- Fee Architecture Decision: Documented
+- Real Backend Hardening Evidence: Not passed yet
+- Real Pi Payment Endpoint Validation: Not tested here
+- Real Database Durability Validation: Not tested here
+- Production Readiness: Not claimed
+- Formal Third-Party Audit: Not claimed
+- Official Pi Partnership: Not claimed
 
 ---
 
-## V13 One-Line Definition
+## Live V13 Links
 
-V13 is the controlled backend hardening sprint for SafeGate’s post-payment trust architecture.
+Main Review Hub:
+
+https://www.safegatelabs.xyz
+
+V13 Controlled Hardening Scope:
+
+https://www.safegatelabs.xyz/v13-controlled-hardening-scope.html
+
+V13 Public Surface Validation:
+
+https://www.safegatelabs.xyz/v13-public-surface-validation.html
+
+V13 Backend Policy Simulation:
+
+https://www.safegatelabs.xyz/v13-backend-policy-simulation.html
+
+Agent-Readable Trust Preview:
+
+https://www.safegatelabs.xyz/agent-readable-trust-preview.html
+
+Fee Architecture Decision:
+
+https://www.safegatelabs.xyz/fee-architecture-decision.html
+
+Pilot Review Index:
+
+https://www.safegatelabs.xyz/pilot-review-index.html
+
+Pilot Readiness:
+
+https://www.safegatelabs.xyz/pilot-readiness.html
 
 ---
 
-## Core Rule
+## What Has Passed
 
-No receipt, no evidence, and no access unlock before backend-verified payment state.
+### V13 Public Surface Validation
 
-Frontend callback alone must never unlock access.
+SafeGate public pages and claim-boundary language passed 12/12 public-surface checks.
 
-Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
+This means the public review surface is available and consistent.
+
+This is not real backend hardening evidence.
+
+This is not a formal audit.
+
+This is not production readiness.
+
+### V13 Backend Policy Simulation
+
+SafeGate V13 Backend Policy Simulation passed 12/12 client-side policy checks.
+
+The simulation covers expected fail-secure policy behavior for:
+
+- access locked before verification
+- receipt and evidence denied before payment verification
+- duplicate callback idempotency
+- replay blocking
+- payment / invoice mismatch blocking
+- timeout or ambiguous verification fail-secure behavior
+- durable write failure fail-secure behavior
+- unknown public verify pair safety
+- safe public error output
+- fee-required finalization blocking before fee verification
+- fee-verified finalization path
+- boundary claims remaining false
+
+Important boundary:
+
+This is a static HTML client-side policy simulation.
+
+It does not use a new serverless API function.
+
+It does not call real Pi payment endpoints.
+
+It does not test real database durability.
+
+It does not mean overall V13 backend hardening has passed.
 
 ---
 
-## V13 Primary Goal
+## V13 Real Backend Hardening Frontier
 
-Reduce real backend trust risk before any broader pilot execution.
+Real backend hardening evidence is still required.
 
-V13 focuses on the highest-risk cases:
+V13 must still prove backend-level behavior for:
 
 - duplicate callbacks
-- duplicate approve
-- duplicate complete
-- duplicate receipt creation
-- duplicate evidence creation
-- paymentId replay
-- txid replay
-- paymentId / invoice mismatch
-- Pi API timeout
-- Pi API ambiguous response
-- durable state failure
-- incomplete receipt / evidence state
-- public verify unknown or mismatched pair
-- safe error handling
-- access unlock regression
-
----
-
-## V13 Included Scope
-
-### 1. Idempotency Guard
-
-Target:
-
-Repeated backend calls must not create conflicting payment, receipt, evidence, or access states.
-
-Expected behavior:
-
-- duplicate approve returns safe deterministic response
-- duplicate complete returns safe deterministic response
-- duplicate receipt/evidence creation does not create conflicting records
-- access state remains consistent
-- public verify remains consistent
-
-Status:
-
-OPEN
-
----
-
-### 2. Replay Protection
-
-Target:
-
-A paymentId or txid must not be reusable against another invoice or trust record.
-
-Expected behavior:
-
-- reused paymentId fails secure
-- reused txid fails secure when txid is used
-- payment from another invoice cannot unlock access
-- no receipt/evidence is created for replay attempt
-- public verify does not show active verified trust for replay attempt
-
-Status:
-
-OPEN
-
----
-
-### 3. Payment / Invoice Mismatch Handling
-
-Target:
-
-A valid-looking payment must still match the correct invoice and payment context.
-
-Expected behavior:
-
-- wrong invoiceId fails secure
-- wrong paymentId fails secure
-- wrong payment context fails secure
-- wrong amount fails secure when amount check is available
-- no access unlock for mismatch
-- no receipt/evidence for mismatch
-
-Status:
-
-OPEN
-
----
-
-### 4. Pi API Timeout / Ambiguous Response Fail-Secure
-
-Target:
-
-Pi API timeout, backend timeout, malformed response, missing response fields, or ambiguous verification must never be treated as verified.
-
-Expected behavior:
-
-- access remains locked
-- no receipt is created
-- no evidence is created
-- safe error is returned
-- no raw Pi API response is exposed publicly
-
-Status:
-
-OPEN
-
----
-
-### 5. Durable State Failure Fail-Secure
-
-Target:
-
-Database write/read failure or incomplete durable state must not create false trust.
-
-Expected behavior:
-
-- partial write does not unlock access
-- receipt without evidence does not show normal active verified trust
-- evidence without receipt does not show normal active verified trust
-- public verify fails safe on incomplete state
-- safe error is returned
-
-Status:
-
-OPEN
-
----
-
-### 6. Public Verify Unknown / Mismatch Safety
-
-Target:
-
-Unknown, missing, stale, mismatched, or incomplete public verify records must not return active verified trust.
-
-Expected behavior:
-
-- unknown pair returns safe not verified / not found / unavailable state
-- mismatched pair does not show active verified trust
-- incomplete pair does not show active verified trust
-- no private identifiers or secrets are exposed
-
-Status:
-
-OPEN
-
----
-
-### 7. Safe Error Handling
-
-Target:
-
-Public errors must not expose internal implementation details.
-
-Public output must not expose:
-
-- service role
-- secret key
-- private key
-- passphrase
-- environment variable
-- stack trace
-- raw database error
-- raw Pi API response
-- sensitive customer data
-
-Status:
-
-OPEN
-
----
-
-### 8. Access Unlock Regression
-
-Target:
-
-Access must only unlock through the legal backend-verified path.
-
-Expected behavior:
-
-- invoice created state remains locked
-- payment pending state remains locked
-- timeout state remains locked
-- ambiguous state remains locked
-- mismatch state remains locked
-- replay state remains locked
-- incomplete receipt/evidence state remains locked
-- verified receipt/evidence state may unlock only through legal backend path
-
-Status:
-
-OPEN
-
----
-
-## V13 Explicitly Excluded
-
-V13 does not include:
-
-- production launch
-- Pi Mainnet settlement claim
-- official Pi partnership claim
-- formal third-party audit claim
-- security certification claim
-- complete privacy protocol
-- complete AI-agent readiness
-- all-chain adapter implementation
-- commercial pilot completion claim
-- tamper-proof infrastructure claim
-
----
-
-## V13 Evidence Requirement
-
-V13 cannot be called passed until public-safe evidence exists for:
-
-- duplicate approve behavior
-- duplicate complete behavior
-- duplicate receipt/evidence behavior
-- paymentId replay behavior
-- txid replay behavior if applicable
-- paymentId / invoice mismatch behavior
-- Pi API timeout behavior
-- Pi API ambiguous response behavior
+- idempotency
+- replay resistance
+- payment / invoice mismatch handling
+- timeout and ambiguous verification handling
 - durable state failure behavior
-- public verify unknown pair behavior
-- public verify mismatched pair behavior
-- access unlock regression behavior
-- safe error scan behavior
+- public verify unknown or mismatched pair safety
+- safe error output
+- access unlock regression checks
+- fee settlement confirmation
 
 ---
 
-## V13 Minimum Test Output
+## V13 Pass Gate
 
-A V13 evidence pack should include:
+SafeGate should not claim V13 passed until backend-level evidence exists for the following gates.
 
-- test case name
-- expected safe behavior
-- observed behavior
-- result label
-- public-safe output summary
-- remaining limitation if any
+### 1. Duplicate Callback Gate
 
-Allowed result labels:
+Backend must show duplicate callbacks are idempotent.
 
-- PASS
-- FAIL
-- BLOCKED
-- NEEDS REVIEW
-- NOT IMPLEMENTED
+Expected behavior:
+
+- first valid callback may be accepted
+- duplicate callback must not create a second finalization
+- duplicate callback must not create duplicate receipt or evidence records
+- duplicate callback must not double-unlock access
+- duplicate callback must not double-count fee settlement
+
+### 2. Replay Resistance Gate
+
+Backend must block reuse of payment or transaction identity across invoices.
+
+Expected behavior:
+
+- one payment identity must not verify multiple invoices
+- one transaction identity must not verify multiple invoices
+- replay attempts must return safe false / blocked response
+- replay must not create receipt, evidence, access unlock, or public verified outcome
+
+### 3. Payment / Invoice Mismatch Gate
+
+Backend must block mismatched payment and invoice states.
+
+Expected behavior:
+
+- payment invoice id must match SafeGate invoice id
+- amount and fee-required state must match expected state
+- mismatch must fail secure
+- mismatch must not unlock access
+- mismatch must not create receipt or evidence
+
+### 4. Timeout / Ambiguous Verification Gate
+
+Backend must fail secure when verification is timed out, unavailable, ambiguous, or incomplete.
+
+Expected behavior:
+
+- ambiguous state is not verified state
+- timeout is not verified state
+- API failure is not verified state
+- access remains locked
+- receipt and evidence are not created
+
+### 5. Durable State Failure Gate
+
+Backend must fail secure if durable receipt/evidence storage fails.
+
+Expected behavior:
+
+- payment verification alone is not enough to unlock access
+- durable receipt/evidence write must succeed before final trust outcome
+- write failure must keep access locked
+- public verify must not return active trust for missing durable records
+
+### 6. Public Verify Safety Gate
+
+Public verify must return safe false for unknown, missing, or mismatched receipt/evidence pairs.
+
+Expected behavior:
+
+- unknown receipt id returns not verified
+- unknown evidence id returns not verified
+- mismatched receipt/evidence pair returns not verified
+- public verify must not expose sensitive data
+- public verify must not expose backend internals
+
+### 7. Safe Error Output Gate
+
+Backend error output must remain public-safe.
+
+Expected behavior:
+
+- no stack traces
+- no service role keys
+- no database connection strings
+- no raw Supabase internals
+- no raw Pi API secrets
+- no passphrases
+- no private keys
+- no sensitive customer data
+
+### 8. Access Unlock Guard Gate
+
+Access must remain locked until verified final state.
+
+Expected behavior:
+
+- no frontend-only unlock
+- no unlock from callback alone
+- no unlock from incomplete payment state
+- no unlock before durable receipt/evidence where required
+- no unlock before required fee verification
+
+### 9. Fee Settlement Gate
+
+Fee-required flows must not finalize without verified fee state.
+
+Expected behavior:
+
+- payment verification alone is not enough where fee is required
+- required fee state must be verified before final SafeGate trust outcome
+- no verified receipt/evidence/access/public verify where required fee is missing
+- no postpaid merchant debt as the primary fee model
 
 ---
 
-## Public-Safe Evidence Rules
+## Fee-Linked Hardening Rule
 
-Do not expose:
+SafeGate may use a transparent 100 + 1 verification fee model.
 
-- raw paymentId
-- raw txid
-- wallet address
-- recipient address
-- access token
-- service role key
-- private key
-- passphrase
-- raw Pi API response
-- raw database error
-- stack trace
-- environment variables
-- sensitive customer data
+Where native non-custodial split is supported:
 
----
+- buyer pays 101
+- merchant receives 100
+- SafeGate receives 1
 
-## V13 Exit Criteria
+Where native split is not supported:
 
-V13 can only be considered complete if:
+- buyer pays the merchant amount
+- buyer separately pays the SafeGate verification fee
+- SafeGate finalizes verified trust only after required payment and fee states are confirmed
 
-1. Included hardening items have clear observed behavior.
-2. Duplicate behavior is deterministic.
-3. Replay attempts fail secure.
-4. Mismatch attempts fail secure.
-5. Timeout and ambiguous responses fail secure.
-6. Durable state failure does not create false trust.
-7. Public verify unknown/mismatched pair does not show active verified trust.
-8. Access unlock guard still holds.
-9. Safe error scan passes.
-10. Remaining limitations are documented.
-11. No production/audit/partnership claim is added.
+SafeGate does not use postpaid merchant debt as the primary fee model.
+
+SafeGate does not custody funds.
+
+SafeGate does not act as escrow.
+
+No fee confirmation means no finalized SafeGate trust outcome where the fee applies.
 
 ---
 
-## V13 Current Safe Statement
+## Agent-Readable Trust Boundary
 
-SafeGate V13 Controlled Hardening Scope is open.
+SafeGate is preparing for a future where trust states are readable by apps and AI agents.
 
-V13 is not complete.
+Current status:
 
-V13 has not passed evidence validation yet.
+- static preview only
+- no MCP endpoint
+- no tool endpoint
+- no agent execution
+- no autonomous payment permission
+- no autonomous access unlock permission
+- no receipt creation by agent
+- no evidence creation by agent
 
-SafeGate remains V10 Submission Ready from a public review-positioning perspective.
+Agent-readable does not mean agent-executable.
 
-The next work is backend hardening implementation and public-safe V13 evidence collection.
+Agent-readable does not mean autonomous payment.
+
+Agent-readable does not mean autonomous access unlock.
+
+Agent-readable does not mean production API.
+
+Future controlled sequence:
+
+1. Finish safe payment / trust spine
+2. Strengthen hash and tamper-evident receipt proof
+3. Prepare pilot merchant pack
+4. Expand agent-readable trust schema
+5. Add controlled read-only MCP/tool endpoints only after hardening
+
+Safe agent principles:
+
+- read before act
+- verify before trust
+- fail closed on ambiguity
+- never unlock before final state
+- never expose secrets
+- never treat simulation as real settlement
+- never expose MCP/tools before hardening
+
+---
+
+## Privacy-Aware Boundary
+
+SafeGate is privacy-aware today, not a privacy protocol.
+
+Current SafeGate privacy boundary:
+
+- minimum public-safe evidence
+- no passphrase collection
+- no private key collection
+- no raw secrets in public evidence
+- no sensitive customer data in public verify
+- limited receipt/evidence/public verify output
+- no SilentSwap-like private transaction claim
+
+Future privacy direction:
+
+SafeGate may become privacy-preserving through future adapter integrations.
+
+Correct future framing:
+
+SilentSwap can protect payment privacy.
+
+SafeGate can verify what happened after the private payment.
+
+Current boundary:
+
+- no SilentSwap integration claim today
+- no private transaction claim today
+- no hidden blockchain transaction claim today
+- no mixer claim
+- no privacy protocol claim
+- no private payment network claim
+
+---
+
+## Deployment Boundary
+
+The current live deployment uses the Vercel Hobby plan and has reached the 12 serverless function limit.
+
+Because of this, V13 Backend Policy Simulation and Agent-Readable Trust Preview are delivered as static HTML public-safe pages.
+
+No new serverless function was added for these previews.
+
+This protects the live production deployment from serverless-function-limit failures.
+
+---
+
+## What SafeGate Is Not Claiming
+
+SafeGate does not claim:
+
+- production readiness
+- formal third-party audit
+- official Pi partnership
+- Pi Mainnet settlement
+- custodial payment processing
+- escrow service
+- private key collection
+- passphrase collection
+- SilentSwap integration today
+- private transactions today
+- hidden blockchain transactions today
+- MCP endpoint availability
+- tool endpoint availability
+- autonomous agent execution
+- completed commercial pilot
+- completed V13 backend hardening
+- overall V13 passed status
+
+---
+
+## V13 Evidence Log Rule
+
+V13 evidence must remain public-safe.
+
+Evidence may include:
+
+- pass/fail screenshots
+- controlled test output
+- public-safe JSON
+- expected vs observed behavior
+- browser/device context
+- endpoint category
+- limitation notes
+
+Evidence must not include:
+
+- passphrases
+- private keys
+- service role keys
+- wallet secrets
+- raw database credentials
+- raw Pi API secrets
+- sensitive merchant data
+- sensitive user data
+- raw backend internals
+
+---
+
+## Current Safe Statement
+
+SafeGate V13 is open for controlled hardening review.
+
+SafeGate public surface validation has passed.
+
+SafeGate backend policy simulation has passed.
+
+SafeGate agent-readable trust preview is open as a static preview only.
+
+SafeGate is privacy-aware today, not a privacy protocol.
+
+Real backend hardening evidence has not passed yet.
+
+SafeGate is not production-ready.
+
+SafeGate is not formally audited.
+
+SafeGate is not claiming official Pi partnership.
+
+Architecture is destiny.
