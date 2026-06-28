@@ -2,565 +2,204 @@
 
 ## Purpose
 
-This document provides a public-safe endpoint mapping template for SafeGate V13 controlled backend hardening.
+This document maps SafeGate endpoint categories for V13 controlled hardening review.
 
-V13 is open.
+SafeGate verifies what happened after payment.
 
-V13 is not complete.
+Payment is the trigger. Trust is the product.
 
-V13 has not passed evidence validation yet.
-
-This template should be filled before implementation changes are made.
+AI will automate payments. SafeGate will automate trust.
 
 ---
 
-## Current Position
+## Current Deployment Boundary
 
-| Area | Status |
-|---|---|
-| V10 Submission Ready | READY FOR SERIOUS TECHNICAL REVIEW |
-| V10.1 Review Feedback | OPEN |
-| V11 Hardening Backlog | OPEN |
-| V11 Hardening Test Plan | OPEN |
-| V13 Controlled Hardening Scope | OPEN |
-| V13 Test Matrix | OPEN |
-| V13 Evidence Log | OPEN |
-| V13 Endpoint Map Template | OPEN |
-| V13 Complete | NOT CLAIMED |
-| V13 Passed | NOT CLAIMED |
-| Production Readiness | NOT CLAIMED |
-| Formal Third-Party Audit | NOT CLAIMED |
+The current live deployment uses the Vercel Hobby plan and has reached the 12 serverless function limit.
+
+Because of this:
+
+- no new V13 serverless API function should be added on the current Hobby deployment
+- V13 Backend Policy Simulation is delivered as static HTML
+- Agent-Readable Trust Preview is delivered as static HTML
+- real backend hardening evidence requires either existing endpoint reuse, endpoint consolidation, or a dedicated backend environment
 
 ---
 
-## Core Rule
+## Current Endpoint / Page Categories
 
-No receipt, no evidence, and no access unlock before backend-verified payment state.
-
-Frontend callback alone must never unlock access.
-
-Unknown, missing, ambiguous, duplicate, replayed, mismatched, expired, failed, stale, or unavailable states should fail secure.
-
----
-
-## Endpoint Map Table
-
-| Endpoint | Method | Purpose | Inputs | Expected Safe Output | Risk Area | Current Status | V13 Action |
-|---|---|---|---|---|---|---|---|
-| TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-
----
-
-## Suggested Endpoint Categories
-
-Use the sections below to map actual SafeGate endpoints.
+| Category | Current Form | Status | Boundary |
+|---|---|---|---|
+| Main Review Hub | Static HTML | Live | Public review only |
+| Pilot Review Index | Static HTML | Live | Public review only |
+| Pilot Readiness | Static HTML | Live | Controlled pilot planning |
+| V9 Payment Spine Evidence | Static HTML | Live | Controlled evidence |
+| V9.1 Backend Behavior Validation | Existing validation page | Live | Selected safe negative validation |
+| V13 Controlled Hardening Scope | Static HTML | Live | Scope open |
+| V13 Public Surface Validation | Static HTML + client fetch checks | Passed | Public surface only |
+| V13 Backend Policy Simulation | Static HTML client-side simulation | Passed | Not real backend API |
+| Fee Architecture Decision | Static HTML | Live | No custody / no escrow |
+| Agent-Readable Trust Preview | Static HTML | Live | No MCP/tool/agent execution |
+| Public Repository Docs | Markdown | Live | Public-safe review materials |
 
 ---
 
-## 1. Invoice Creation Endpoint
+## Existing API Boundary
 
-### Endpoint
+The current live repository already contains existing `api/*.js` functions.
 
-TBD
+New V13 serverless functions should not be added on the current Hobby deployment unless one of the following happens:
 
-### Method
-
-TBD
-
-### Purpose
-
-Create invoice or payment-intent-like record.
-
-### Expected Inputs
-
-- invoiceId
-- merchantId
-- amount
-- currency / Pi context
-- metadata if applicable
-
-### Expected Safe Output
-
-- invoice created
-- access locked
-- no receipt
-- no evidence
-- no verified payment state yet
-
-### Risk Areas
-
-- duplicate invoice creation
-- malformed input
-- missing input
-- fake merchant context
-- public error leakage
-- database write failure
-
-### V13 Required Checks
-
-- duplicate creation behavior
-- missing input behavior
-- invalid input behavior
-- database write failure behavior
-- access remains locked
-- no receipt/evidence created at invoice stage
-
-### Current Status
-
-TBD
-
-### V13 Action
-
-TBD
+1. an existing unused function is removed
+2. endpoints are consolidated
+3. the deployment is moved to a dedicated backend environment
+4. the Vercel plan changes
+5. a separate test deployment is created for backend hardening evidence
 
 ---
 
-## 2. Payment Approval Endpoint
+## V13 Real Backend Evidence Endpoint Categories
 
-### Endpoint
+Future backend evidence should map to these categories:
 
-TBD
-
-### Method
-
-TBD
-
-### Purpose
-
-Handle payment approval stage when applicable.
-
-### Expected Inputs
-
-- invoiceId
-- paymentId
-- user / Pi context if applicable
-- auth context if applicable
-
-### Expected Safe Output
-
-- approval accepted only if valid
-- no access unlock from frontend callback alone
-- no final receipt/evidence before backend verification
-
-### Risk Areas
-
-- duplicate approve
-- fake paymentId
-- paymentId mismatch
-- missing invoiceId
-- missing paymentId
-- raw API error leakage
-
-### V13 Required Checks
-
-- duplicate approve
-- missing invoiceId
-- missing paymentId
-- paymentId / invoice mismatch
-- no receipt/evidence before verified state
-- no access unlock before verified state
-
-### Current Status
-
-TBD
-
-### V13 Action
-
-TBD
+| ID | Endpoint Category | Required Behavior | Evidence Needed |
+|---|---|---|---|
+| ENDPOINT-001 | Invoice Create | Creates invoice/payment intent safely. | Request/response evidence |
+| ENDPOINT-002 | Payment Verify | Verifies payment through backend-controlled logic. | Verified / not verified evidence |
+| ENDPOINT-003 | Payment Approve | Handles approval boundary safely. | Controlled approval evidence |
+| ENDPOINT-004 | Payment Complete | Handles completion boundary safely. | Controlled completion evidence |
+| ENDPOINT-005 | Receipt Create | Creates receipt only after verified state. | Deny-before-verify and allow-after-verify evidence |
+| ENDPOINT-006 | Evidence Create | Creates evidence only after verified state. | Deny-before-verify and allow-after-verify evidence |
+| ENDPOINT-007 | Access Unlock | Unlocks only after verified final state. | Locked-before-final / unlocked-after-final evidence |
+| ENDPOINT-008 | Public Verify | Returns safe false for unknown or mismatched pairs. | Unknown/mismatch/confirmed evidence |
+| ENDPOINT-009 | Fee Verify | Confirms required fee state before finalization. | Missing-fee blocked / fee-verified evidence |
+| ENDPOINT-010 | Duplicate Callback Guard | Duplicate callback is idempotent. | No double-finalization evidence |
+| ENDPOINT-011 | Replay Guard | Reused payment/tx identity is blocked. | Replay blocked evidence |
+| ENDPOINT-012 | Mismatch Guard | Payment/invoice mismatch fails secure. | Mismatch blocked evidence |
+| ENDPOINT-013 | Timeout Guard | Timeout/ambiguous verification fails secure. | Access locked evidence |
+| ENDPOINT-014 | Durable Failure Guard | Durable write failure keeps access locked. | Write failure blocked evidence |
+| ENDPOINT-015 | Safe Error Output | No secrets, stack traces, or internals exposed. | Public-safe error evidence |
 
 ---
 
-## 3. Payment Completion Endpoint
+## Agent-Readable Endpoint Boundary
 
-### Endpoint
+Current status:
 
-TBD
+- Agent-Readable Trust Preview is static only
+- no MCP endpoint
+- no tool endpoint
+- no agent execution
+- no autonomous payment
+- no autonomous access unlock
+- no agent-created receipt
+- no agent-created evidence
 
-### Method
+Future endpoint categories may include read-only trust-state endpoints, but only after real backend hardening.
 
-TBD
+Possible future read-only categories:
 
-### Purpose
+| Future Category | Purpose | Boundary |
+|---|---|---|
+| Trust State Read | Let app/agent read safe trust state. | Read-only |
+| Receipt Proof Read | Let app/agent read public-safe receipt proof. | No secrets |
+| Evidence State Read | Let app/agent read evidence status. | Public-safe only |
+| Access State Read | Let app/agent read locked/unlocked state. | No unlock authority |
+| Public Verify Read | Let app/agent read public verify result. | Safe false on unknown/mismatch |
+| Limitation Read | Let app/agent read known limitations. | No execution |
 
-Handle payment completion / verification stage when applicable.
+No future agent-readable endpoint should allow:
 
-### Expected Inputs
-
-- invoiceId
-- paymentId
-- txid if applicable
-- backend verification context
-
-### Expected Safe Output
-
-- payment verified only after backend verification
-- safe failure for timeout / ambiguous response
-- no raw Pi API response exposed publicly
-
-### Risk Areas
-
-- duplicate complete
-- paymentId replay
-- txid replay
-- timeout treated as verified
-- ambiguous response treated as verified
-- malformed API response
-- database write failure
-
-### V13 Required Checks
-
-- duplicate complete
-- paymentId replay
-- txid replay if applicable
-- timeout handling
-- ambiguous response handling
-- database write failure handling
-- safe error output
-
-### Current Status
-
-TBD
-
-### V13 Action
-
-TBD
+- autonomous payment execution
+- autonomous access unlock
+- receipt creation
+- evidence creation
+- fee finalization
+- custody behavior
+- escrow behavior
+- private key/passphrase request
+- raw secret exposure
 
 ---
 
-## 4. Receipt Creation Endpoint
+## Privacy-Aware Endpoint Boundary
 
-### Endpoint
+SafeGate is privacy-aware today, not a privacy protocol.
 
-TBD
+Current endpoint boundary:
 
-### Method
-
-TBD
-
-### Purpose
-
-Create receipt only after verified payment state.
-
-### Expected Inputs
-
-- invoiceId
-- paymentId
-- verified payment state
-- merchant context if applicable
-
-### Expected Safe Output
-
-- receipt created only after verified payment state
-- no duplicate conflicting receipt
-- no receipt for mismatch / replay / timeout / ambiguous state
-
-### Risk Areas
-
-- receipt before verified payment
-- duplicate receipt
-- receipt for replayed payment
-- receipt for mismatched invoice
-- receipt write failure
-- secret leakage
-
-### V13 Required Checks
-
-- duplicate receipt creation
-- receipt before verified payment rejected
-- receipt for mismatch rejected
-- receipt for replay rejected
-- receipt write failure fails secure
-
-### Current Status
-
-TBD
-
-### V13 Action
-
-TBD
-
----
-
-## 5. Evidence Creation Endpoint
-
-### Endpoint
-
-TBD
-
-### Method
-
-TBD
-
-### Purpose
-
-Create evidence record only after verified payment state and required receipt state.
-
-### Expected Inputs
-
-- invoiceId
-- receiptId
-- payment verification context
-- public-safe evidence context
-
-### Expected Safe Output
-
-- evidence created only through legal verified path
-- no duplicate conflicting evidence
-- no evidence for mismatch / replay / timeout / ambiguous state
-
-### Risk Areas
-
-- evidence before verified payment
-- duplicate evidence
-- evidence without receipt
-- evidence write failure
-- public unsafe evidence data
-
-### V13 Required Checks
-
-- duplicate evidence creation
-- evidence before verified payment rejected
-- evidence without receipt handled safely
-- evidence write failure fails secure
-- no sensitive data in evidence output
-
-### Current Status
-
-TBD
-
-### V13 Action
-
-TBD
-
----
-
-## 6. Public Verify Endpoint
-
-### Endpoint
-
-TBD
-
-### Method
-
-TBD
-
-### Purpose
-
-Allow public-safe verification of receipt/evidence/trust state.
-
-### Expected Inputs
-
-- receiptId
-- evidenceId
-- public verify token if applicable
-
-### Expected Safe Output
-
-- verified status
-- publicSafe status
-- minimumDisclosure status
-- safe payment/access/receipt/evidence state labels
-- no raw paymentId
-- no raw txid
-- no secret data
-
-### Risk Areas
-
-- unknown pair returns active verified trust
-- mismatched pair returns active verified trust
-- missing input leakage
-- raw identifier exposure
-- stale trust state
-- incomplete receipt/evidence state
-
-### V13 Required Checks
-
-- unknown pair safe rejection
-- mismatched pair safe rejection
-- missing receiptId safe rejection
-- missing evidenceId safe rejection
-- incomplete receipt/evidence safe state
-- safe error scan
-
-### Current Status
-
-TBD
-
-### V13 Action
-
-TBD
-
----
-
-## 7. Access Unlock Endpoint / Logic
-
-### Endpoint Or Logic Location
-
-TBD
-
-### Method
-
-TBD
-
-### Purpose
-
-Unlock access only after backend-verified payment state and required receipt/evidence state.
-
-### Expected Inputs
-
-- invoiceId
-- payment state
-- receipt state
-- evidence state
-- access state
-
-### Expected Safe Output
-
-- access locked for invoice-created state
-- access locked for pending state
-- access locked for timeout state
-- access locked for ambiguous state
-- access locked for mismatch state
-- access locked for replay rejected state
-- access unlocked only through legal backend-verified path
-
-### Risk Areas
-
-- frontend callback unlock
-- pending state unlock
-- timeout state unlock
-- mismatch state unlock
-- incomplete receipt/evidence unlock
-- duplicate unlock conflict
-
-### V13 Required Checks
-
-- invoice created remains locked
-- pending remains locked
-- timeout remains locked
-- ambiguous remains locked
-- mismatch remains locked
-- replay rejected remains locked
-- incomplete receipt/evidence remains locked
-- verified receipt/evidence legal path may unlock
-
-### Current Status
-
-TBD
-
-### V13 Action
-
-TBD
-
----
-
-## 8. Validation Runner / Diagnostic Page
-
-### Endpoint Or Page
-
-TBD
-
-### Purpose
-
-Run public-safe validation checks without exposing secrets.
-
-### Expected Safe Output
-
-- test count
-- pass/fail count
-- public-safe result labels
+- minimum public-safe evidence
+- no passphrase collection
+- no private key collection
 - no raw secrets
-- no raw internal errors
+- no sensitive customer data in public verify
+- limited receipt/evidence/public verify output
+- no SilentSwap-like private transaction claim
+- no hidden blockchain transaction claim
 
-### Risk Areas
+Future privacy-preserving adapter categories may exist later, but not in current V13.
 
-- test output exposes secret
-- test output exposes raw API response
-- test output exposes database error
-- false pass from incomplete tests
-- misleading production-ready language
+Correct future framing:
 
-### V13 Required Checks
+SilentSwap can protect payment privacy.
 
-- safe error scan
-- no secret leakage
-- no production-ready claim
-- no formal audit claim
-- clear limitations
+SafeGate can verify what happened after the private payment.
 
-### Current Status
+Current boundary:
 
-TBD
-
-### V13 Action
-
-TBD
+- no SilentSwap integration claim today
+- no private transaction claim today
+- no mixer claim
+- no privacy protocol claim
+- no private payment network claim
 
 ---
 
-## Safe Error Scan Terms
+## Endpoint Evidence Safety Rules
 
-Public outputs should be checked for:
+Allowed public evidence:
 
-- service role
-- secret key
-- private key
-- passphrase
-- environment variable
-- stack trace
-- raw database error
-- raw Pi API response
-- sensitive customer data
-- access token
-- wallet secret
+- endpoint category
+- public-safe response status
+- pass/fail result
+- expected vs observed behavior
+- public-safe JSON
+- timestamps where safe
+- limitation notes
 
----
+Not allowed in public evidence:
 
-## Endpoint Mapping Output Required
-
-Before implementation, produce a filled endpoint map with:
-
-- endpoint path
-- HTTP method
-- purpose
-- required inputs
-- optional inputs
-- expected safe output
-- current known behavior
-- unknown behavior
-- V13 risk category
-- V13 planned action
+- passphrases
+- private keys
+- service role keys
+- Pi app secrets
+- Vercel environment secrets
+- database credentials
+- wallet secrets
+- raw backend internals
+- raw payment secrets
+- sensitive merchant data
+- sensitive user data
+- raw stack traces
+- raw database errors
 
 ---
 
-## Public-Safe Boundary
+## Current Safe Statement
 
-Do not publish:
+V13 Public Surface Validation has passed.
 
-- raw paymentId
-- raw txid
-- wallet address
-- recipient address
-- access token
-- service role key
-- private key
-- passphrase
-- raw Pi API response
-- raw database error
-- stack trace
-- environment variables
-- sensitive customer data
+V13 Backend Policy Simulation has passed.
 
----
+Agent-Readable Trust Preview is open as a static preview only.
 
-## V13 Current Safe Statement
+SafeGate is privacy-aware today, not a privacy protocol.
 
-SafeGate V13 Controlled Hardening Scope is open.
+Real backend hardening evidence has not passed yet.
 
-V13 Endpoint Map Template is open.
+No new V13 serverless API function should be added on the current Hobby deployment until endpoint capacity or backend environment is resolved.
 
-V13 is not complete.
+SafeGate is not production-ready.
 
-V13 has not passed evidence validation yet.
+SafeGate is not formally audited.
 
-SafeGate remains not production-ready and not formally audited.
+SafeGate is not claiming official Pi partnership.
