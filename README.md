@@ -1,4 +1,4 @@
-# SafeGate Labs
+# SafeGate Public Links
 
 SafeGate verifies what happened after payment.
 
@@ -9,16 +9,6 @@ Payment is the trigger. Trust is the product.
 ---
 
 ## Current Public Status
-
-SafeGate is currently V10 Submission Ready from a public review-positioning perspective.
-
-V10.1 Review Feedback is open.
-
-V13 Controlled Hardening Scope is open.
-
-V13 is not complete.
-
-V13 has not passed evidence validation yet.
 
 | Area | Status |
 |---|---|
@@ -34,67 +24,142 @@ V13 has not passed evidence validation yet.
 | V13 Evidence Validation | NOT PASSED YET |
 | Fee Architecture Decision | DOCUMENTED |
 | Production Readiness | NOT CLAIMED |
-| Formal Third-Party Audit | NOT CLAIMED |
 | Pi Mainnet Settlement | NOT CLAIMED |
 | Official Pi Partnership | NOT CLAIMED |
+| Formal Third-Party Audit | NOT CLAIMED |
+| Security Certification | NOT CLAIMED |
 | Custodial Payment Processing | NOT CLAIMED |
+| Escrow | NOT CLAIMED |
 
 ---
 
-## What SafeGate Is
+## Start Here
 
-SafeGate is a Pi-first, not Pi-only, post-payment trust layer.
-
-It is designed to verify and document what happens after a payment event:
-
-- invoice creation
-- payment intent
-- backend payment verification
-- payment state
-- receipt state
-- evidence state
-- access state
-- public verification state
-- controlled pilot evidence
-- backend hardening evidence
-
-SafeGate is not a payment processor.
-
-SafeGate is not a custodial wallet.
-
-SafeGate does not act as escrow.
-
-SafeGate does not ask for passphrases, private keys, wallet secrets, or sensitive user data.
+| Order | Link | Purpose |
+|---|---|---|
+| 1 | https://www.safegatelabs.xyz | Main live SafeGate review hub |
+| 2 | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html | Controlled Pi Testnet payment-spine evidence |
+| 3 | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html | Live V9.1 safe negative backend validation |
+| 4 | https://www.safegatelabs.xyz/v10-submission-ready.html | V10 submission-ready review position |
+| 5 | https://www.safegatelabs.xyz/v10-v12-roadmap.html | V10 to V12 roadmap |
+| 6 | ./SAFEGATE_V13_CONTROLLED_HARDENING_SCOPE.md | V13 controlled hardening scope |
+| 7 | ./SAFEGATE_V13_CONTROLLED_HARDENING_TEST_MATRIX.md | V13 controlled hardening test matrix |
+| 8 | ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 controlled hardening evidence log |
+| 9 | ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint map template |
+| 10 | ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
+| 11 | ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision |
+| 12 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
+| 13 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
+| 14 | https://www.safegatelabs.xyz/pilot-review-index.html | Pilot review navigation |
+| 15 | https://www.safegatelabs.xyz/pilot-readiness.html | Controlled pilot planning readiness |
+| 16 | ./README.md | Public repository overview |
 
 ---
 
-## Strongest Current Safe Claim
+## Current Review Priority
 
-SafeGate has passed a controlled Pi Testnet payment-spine flow and selected V9.1 safe negative backend validation checks.
+The recommended review order is:
 
-Current demonstrated evidence includes:
-
-- controlled Pi Testnet payment-spine flow
-- backend-verified payment-state direction
-- receipt and evidence after verified state
-- access unlock after backend-verified receipt
-- invoice creation keeping access locked
-- receipt/evidence rejected before verified payment
-- missing inputs rejected
-- unknown public verify pair not returning active verified trust
-- selected responses not showing obvious secret/internal leak terms
-
-V13 is now open to harden the highest-risk backend trust areas.
-
-V13 is not complete and has not passed evidence validation yet.
+1. V9 Payment Spine Evidence
+2. V9.1 Backend Behavior Validation
+3. V10 Submission Ready
+4. V10-V12 Roadmap
+5. V13 Controlled Hardening Scope
+6. V13 Controlled Hardening Test Matrix
+7. V13 Evidence Log
+8. V13 Endpoint Map Template
+9. V13 Validation Runner Spec
+10. Fee Architecture Decision
+11. V10.1 Review Feedback Open
+12. Review Feedback Intake
+13. Pilot Review Index
+14. Pilot Readiness
+15. V11 Security Index
+16. V12 Trust-State / Privacy / Web3 Architecture
+17. Public repository documents
 
 ---
 
-## V13 Controlled Hardening Scope
+## Live Review Pages
 
-V13 is a controlled backend hardening scope.
+| Page | URL |
+|---|---|
+| Main Hub | https://www.safegatelabs.xyz |
+| V9 Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html |
+| V9.1 Backend Behavior Validation | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html |
+| V9.1 Public Review Sync Complete | https://www.safegatelabs.xyz/v9-1-public-review-sync-complete.html |
+| V10 Submission Ready | https://www.safegatelabs.xyz/v10-submission-ready.html |
+| V10-V12 Roadmap | https://www.safegatelabs.xyz/v10-v12-roadmap.html |
+| V13 Controlled Hardening Scope | https://www.safegatelabs.xyz/v13-controlled-hardening-scope.html |
+| Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html |
+| Pilot Readiness | https://www.safegatelabs.xyz/pilot-readiness.html |
+| Pilot Evidence Intake | https://www.safegatelabs.xyz/pilot-evidence-intake.html |
+| V11 Security Index | https://www.safegatelabs.xyz/v11-security-index.html |
+| V12 Trust-State / Privacy / Web3 | https://www.safegatelabs.xyz/v12-trust-state-privacy-web3.html |
+| V12 Final Freeze Note | https://www.safegatelabs.xyz/v12-final-freeze-note.html |
 
-It focuses on:
+---
+
+## Public Repository Documents
+
+| Document | Purpose |
+|---|---|
+| ./README.md | Public repository overview |
+| ./LINKS.md | Full public links index |
+| ./SAFEGATE_CURRENT_REVIEW_PACKAGE.md | One-file current SafeGate review package |
+| ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: 100 + 1 verification fee, split/non-split handling, and no postpaid merchant debt as primary model |
+| ./SAFEGATE_V13_CONTROLLED_HARDENING_SCOPE.md | Opens V13 as controlled backend hardening scope |
+| ./SAFEGATE_V13_CONTROLLED_HARDENING_TEST_MATRIX.md | V13 test matrix for controlled hardening |
+| ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 public-safe evidence log |
+| ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint mapping template |
+| ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
+| ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | Opens the V10.1 review feedback phase |
+| ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Collects public-safe technical review feedback |
+| ./SAFEGATE_V11_DEVELOPER_HANDOFF.md | V11 developer handoff for hardening sprint |
+| ./SAFEGATE_V11_IMPLEMENTATION_SPRINT_SCOPE.md | V11 implementation sprint scope |
+| ./SAFEGATE_V11_HARDENING_TEST_PLAN.md | V11 hardening test plan |
+| ./SAFEGATE_V11_HARDENING_BACKLOG.md | V11 hardening backlog |
+| ./SAFEGATE_V10_SUBMISSION_READY.md | V10 submission-ready status |
+| ./SAFEGATE_V10_V12_ROADMAP.md | V10 to V12 roadmap |
+| ./SAFEGATE_V9_1_PUBLIC_REVIEW_SYNC_COMPLETE.md | V9.1 public review sync completion |
+| ./SAFEGATE_SIMPLE_REVIEWER_BRIEF.md | Short reviewer summary |
+| ./HACKATHON_FINAL_SUBMISSION_PACK.md | Hackathon / reviewer package |
+| ./SAFEGATE_V9_1_SAFE_NEGATIVE_BACKEND_VALIDATION_PASSED.md | Public-safe V9.1 backend validation pass note |
+| ./SAFEGATE_CONTROLLED_PI_TESTNET_PAYMENT_SPINE_PASSED.md | Public-safe controlled Pi Testnet payment-spine pass note |
+| ./SAFEGATE_PUBLIC_SAFE_PAYMENT_SPINE_EVIDENCE_PACK.md | Public-safe payment-spine evidence pack |
+| ./SAFEGATE_EXTERNAL_TECHNICAL_REVIEW_NOTE.md | External technical review note |
+| ./SAFEGATE_CONTROLLED_PILOT_EXECUTION_CHECKLIST.md | Controlled pilot execution checklist |
+| ./SAFEGATE_PILOT_READINESS.md | Pilot readiness note |
+| ./SAFEGATE_PILOT_EVIDENCE_TEMPLATE.md | Public-safe pilot evidence template |
+| ./PILOT_EVIDENCE.md | Pilot evidence notes |
+| ./ARCHITECTURE.md | Post-payment trust architecture |
+| ./SECURITY_BOUNDARIES.md | Security and claim boundaries |
+| ./SAFEGATE_V11_SECURITY_HARDENING_PLAN.md | V11 backend security hardening plan |
+| ./SAFEGATE_V11_FINAL_CLOSE_NOTE.md | V11 final close note |
+| ./SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md | V12 trust-state / privacy / Web3 plan |
+| ./SAFEGATE_V12_FINAL_CLOSE_NOTE.md | V12 final close note |
+| ./SAFEGATE_AI_REVIEW_RISK_CONSENSUS_V9.md | AI-assisted V9 risk consensus |
+| ./SAFEGATE_V9_1_BACKEND_HARDENING_PLAN.md | V9.1 backend + integrity hardening plan |
+| ./SAFEGATE_BACKEND_BEHAVIOR_EVIDENCE_MATRIX.md | Backend behavior evidence matrix |
+| ./SAFEGATE_RECEIPT_INTEGRITY_PLAN.md | Receipt/evidence integrity planning document |
+| ./SAFEGATE_PI_VERIFICATION_DEPTH_NOTE.md | Pi verification depth clarification note |
+| ./SAFEGATE_PUBLIC_VERIFY_FRESHNESS_POLICY.md | Public verify freshness and stale-data policy |
+| ./SAFEGATE_FORMAL_STATE_MACHINE_TABLE.md | Formal state machine planning table |
+| ./SAFEGATE_MERCHANT_EXPLANATION.md | Merchant-facing explanation |
+| ./ROADMAP.md | Roadmap notes |
+| ./NOTICE.md | Public notice and boundaries |
+
+---
+
+## V13 Controlled Hardening Phase
+
+SafeGate V13 Controlled Hardening Scope is open.
+
+V13 is not complete.
+
+V13 has not passed evidence validation yet.
+
+V13 exists to harden the highest-risk backend trust areas:
 
 - duplicate callbacks
 - idempotency
@@ -109,10 +174,6 @@ It focuses on:
 - public verify unknown or mismatched pair
 - safe error handling
 - access unlock regression
-
-V13 should reduce real backend trust risk before broader pilot execution.
-
-V13 does not mean production readiness.
 
 ---
 
@@ -132,32 +193,11 @@ See: ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md
 
 ---
 
-## Start Here
-
-| Order | Link | Purpose |
-|---|---|---|
-| 1 | https://www.safegatelabs.xyz | Main live SafeGate review hub |
-| 2 | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html | Controlled Pi Testnet payment-spine evidence |
-| 3 | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html | V9.1 safe negative backend validation |
-| 4 | https://www.safegatelabs.xyz/v10-submission-ready.html | V10 submission-ready review position |
-| 5 | https://www.safegatelabs.xyz/v10-v12-roadmap.html | V10 to V12 roadmap |
-| 6 | ./SAFEGATE_V13_CONTROLLED_HARDENING_SCOPE.md | V13 controlled hardening scope |
-| 7 | ./SAFEGATE_V13_CONTROLLED_HARDENING_TEST_MATRIX.md | V13 controlled hardening test matrix |
-| 8 | ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 controlled hardening evidence log |
-| 9 | ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint map template |
-| 10 | ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
-| 11 | ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision |
-| 12 | ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
-| 13 | ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Technical review feedback intake |
-| 14 | ./LINKS.md | Full public links index |
-
----
-
 ## Main Review Question
 
 Where would this architecture break first if it moved from controlled Pi Testnet evidence to a small real pilot environment?
 
-Recommended review focus:
+Review focus:
 
 - duplicate callback behavior
 - idempotency
@@ -181,75 +221,27 @@ Recommended review focus:
 
 ---
 
-## Current Review Priority
+## Pi Developer Feedback
 
-1. V9 Payment Spine Evidence
-2. V9.1 Backend Behavior Validation
-3. V10 Submission Ready
-4. V10-V12 Roadmap
-5. V13 Controlled Hardening Scope
-6. V13 Controlled Hardening Test Matrix
-7. V13 Evidence Log
-8. V13 Endpoint Map Template
-9. V13 Validation Runner Spec
-10. Fee Architecture Decision
-11. V10.1 Review Feedback Open
-12. Review Feedback Intake
-13. Pilot Review Index
-14. Pilot Readiness
-15. V11 Security Index
-16. V12 Trust-State / Privacy / Web3
-17. Public repository documents
+SafeGate submitted an official developer feature request to Pi Network Support Portal for native multi-recipient / fee-split payment support.
+
+Reference:
+
+PINETWORK-5808688
+
+Purpose:
+
+- support buyer-visible 100 + 1 flows
+- allow merchant, platform, verification, marketplace, and service fee splits
+- reduce need for duplicate payment steps where native split is possible
+- avoid custody, escrow, and delayed merchant receivable models
+- improve serious P2P, B2B, merchant, marketplace, and app utility flows
+
+This was submitted as ecosystem-level developer feedback, not as a partnership request or official claim.
 
 ---
 
-## Key Public Documents
-
-| Document | Purpose |
-|---|---|
-| ./LINKS.md | Full public links index |
-| ./SAFEGATE_V13_CONTROLLED_HARDENING_SCOPE.md | V13 controlled backend hardening scope |
-| ./SAFEGATE_V13_CONTROLLED_HARDENING_TEST_MATRIX.md | V13 controlled hardening test matrix |
-| ./SAFEGATE_V13_CONTROLLED_HARDENING_EVIDENCE_LOG.md | V13 public-safe evidence log |
-| ./SAFEGATE_V13_ENDPOINT_MAP_TEMPLATE.md | V13 endpoint mapping template |
-| ./SAFEGATE_V13_VALIDATION_RUNNER_SPEC.md | V13 validation runner specification |
-| ./SAFEGATE_FEE_ARCHITECTURE_DECISION.md | Fee architecture decision: 100 + 1 verification fee, split/non-split handling, and no postpaid merchant debt as primary model |
-| ./SAFEGATE_V10_1_REVIEW_FEEDBACK_OPEN.md | V10.1 review feedback phase |
-| ./SAFEGATE_REVIEW_FEEDBACK_INTAKE.md | Public-safe technical review feedback intake |
-| ./SAFEGATE_V10_SUBMISSION_READY.md | V10 submission-ready status |
-| ./SAFEGATE_V10_V12_ROADMAP.md | V10 to V12 roadmap |
-| ./SAFEGATE_V11_DEVELOPER_HANDOFF.md | V11 developer handoff |
-| ./SAFEGATE_V11_IMPLEMENTATION_SPRINT_SCOPE.md | V11 implementation sprint scope |
-| ./SAFEGATE_V11_HARDENING_TEST_PLAN.md | V11 hardening test plan |
-| ./SAFEGATE_V11_HARDENING_BACKLOG.md | V11 hardening backlog |
-| ./SAFEGATE_V9_1_PUBLIC_REVIEW_SYNC_COMPLETE.md | V9.1 public review sync completion |
-| ./SAFEGATE_SIMPLE_REVIEWER_BRIEF.md | Simple reviewer brief |
-| ./HACKATHON_FINAL_SUBMISSION_PACK.md | Final hackathon submission pack |
-| ./ARCHITECTURE.md | Post-payment trust architecture |
-| ./SECURITY_BOUNDARIES.md | Security and claim boundaries |
-| ./SAFEGATE_CONTROLLED_PILOT_EXECUTION_CHECKLIST.md | Controlled pilot execution checklist |
-| ./SAFEGATE_V12_TRUST_STATE_PRIVACY_WEB3_PLAN.md | V12 trust-state / privacy / Web3 plan |
-
----
-
-## Live Review Pages
-
-| Page | URL |
-|---|---|
-| Main Hub | https://www.safegatelabs.xyz |
-| V9 Payment Spine Evidence | https://www.safegatelabs.xyz/v9-pi-payment-spine-evidence.html |
-| V9.1 Backend Behavior Validation | https://www.safegatelabs.xyz/v9-1-backend-behavior-validation.html |
-| V9.1 Public Review Sync Complete | https://www.safegatelabs.xyz/v9-1-public-review-sync-complete.html |
-| V10 Submission Ready | https://www.safegatelabs.xyz/v10-submission-ready.html |
-| V10-V12 Roadmap | https://www.safegatelabs.xyz/v10-v12-roadmap.html |
-| Pilot Review Index | https://www.safegatelabs.xyz/pilot-review-index.html |
-| Pilot Readiness | https://www.safegatelabs.xyz/pilot-readiness.html |
-| V11 Security Index | https://www.safegatelabs.xyz/v11-security-index.html |
-| V12 Trust-State / Privacy / Web3 | https://www.safegatelabs.xyz/v12-trust-state-privacy-web3.html |
-
----
-
-## Boundaries
+## What SafeGate Is Not Claiming
 
 SafeGate is not currently claiming:
 
@@ -271,27 +263,17 @@ SafeGate is not currently claiming:
 
 ---
 
-## Current Position
+## Final Positioning
 
-SafeGate is V10 Submission Ready from a public review-positioning perspective.
+SafeGate is V10 Submission Ready.
 
 V10.1 Review Feedback is open.
 
 V13 Controlled Hardening Scope is open.
 
-V13 is not complete.
-
-V13 has not passed evidence validation yet.
+V13 is not complete and has not passed evidence validation yet.
 
 Fee Architecture Decision is documented.
-
-SafeGate is ready for serious technical review and controlled pilot planning.
-
-SafeGate is not production-ready and not formally audited.
-
----
-
-## Final Positioning
 
 SafeGate does not process payments.
 
