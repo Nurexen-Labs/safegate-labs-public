@@ -1,405 +1,462 @@
-# SafeGate
+# SafeGate — Historical Public Review Archive
 
-SafeGate is a Pi-first, not Pi-only, post-payment trust architecture by Nurexen Labs.
+> **Historical repository**
+>
+> This repository preserves an earlier phase of SafeGate development, including Pi/Testnet-oriented payment verification, V9–V13 trust architecture, hardening plans, public review materials, and early agent-readable trust work.
+>
+> It is **not the current implementation source of truth** for SafeGate.
 
-SafeGate verifies what happened after payment.
+## Current SafeGate
 
-Payment is the trigger. Trust is the product.
+SafeGate has evolved from a Pi-first post-payment trust architecture into a broader, agent-first, payment-rail-agnostic and chain-agnostic commerce assurance layer.
 
-AI will automate payments. SafeGate will automate trust.
+Current positioning:
+
+**Payment proves value moved. SafeGate proves what happened next — and makes the strength of that proof explicit.**
+
+SafeGate is designed for:
+
+- autonomous agent commerce
+- paid APIs
+- MCP tools
+- digital services
+- merchant and platform verification
+- post-payment evidence
+- portable commerce proof
+
+Current active technical repository:
+
+https://github.com/Nurexen-Labs/safegate-xagent-commerce-outcome
+
+Current public JavaScript SDK:
+
+    npm install @nurexenlabs/safegate-sdk
+
+Current SDK release:
+
+https://github.com/Nurexen-Labs/safegate-xagent-commerce-outcome/releases/tag/sdk-v0.3.0
+
+Website:
+
+https://safegatelabs.xyz
 
 ---
 
-## What SafeGate Is
+## Why This Repository Is Preserved
 
-SafeGate is a post-payment trust layer for controlled payment verification, receipt proof, evidence records, access state, public verification, merchant trust records, and future agent-readable trust states.
+SafeGate was not built in one step.
 
-SafeGate is designed to answer one core question:
+This repository documents an earlier development period in which the project explored and hardened core ideas that remain relevant today:
 
-Did the promised post-payment outcome actually happen?
+- post-payment verification
+- receipt and evidence creation
+- fail-secure behavior
+- idempotency
+- replay resistance
+- payment/request mismatch handling
+- controlled access state
+- public verification
+- fee-finalization boundaries
+- merchant trust records
+- agent-readable trust states
+- privacy-aware evidence boundaries
+
+These materials are preserved because they show the architectural evolution of SafeGate.
+
+They should be read as **historical engineering records**, not as the current API, SDK, MCP, deployment, or product specification.
+
+---
+
+## Historical Development Snapshot
+
+The material in this repository reflects the earlier SafeGate architecture through the V9–V13 period.
+
+Historical milestones documented here include:
+
+- V9 Payment Spine
+- V9.1 Backend Behavior Validation
+- V11 hardening backlog
+- V11 hardening test planning
+- V11 implementation sprint scope
+- V13 Controlled Hardening Scope
+- V13 Public Surface Validation
+- V13 Backend Policy Simulation
+- V13 validation runner specification
+- pilot evidence and review materials
+- fee architecture work
+- early agent-readable trust direction
+- privacy-aware trust direction
+
+The repository's last historical `main` snapshot before this README cleanup dates from June 2026.
+
+---
+
+## Historical SafeGate Question
+
+The original architecture centered on a simple question:
+
+**Did the promised post-payment outcome actually happen?**
+
+That question remains part of SafeGate today.
+
+What changed is the scope.
+
+Earlier work concentrated heavily on Pi/Testnet payment flows, merchant trust, receipts, evidence, and controlled fulfillment.
+
+The current SafeGate architecture generalizes that idea across payment rails, chains, APIs, agents, MCP tools, and digital services.
+
+---
+
+## Historical Core Flow
+
+Earlier SafeGate work explored a flow broadly shaped like:
+
+    payment intent
+          |
+          v
+    backend payment verification
+          |
+          v
+    receipt / evidence creation
+          |
+          v
+    access or fulfillment state
+          |
+          v
+    public verification
+          |
+          v
+    merchant / trust record
+
+This work contributed to the later SafeGate architecture.
+
+The current product has evolved toward:
+
+    payment evidence
+          |
+          v
+    request binding
+          |
+          v
+    durable single-consume / replay safety
+          |
+          v
+    actual outcome observation or attestation
+          |
+          v
+    evidence
+          |
+          v
+    assurance level
+          |
+          v
+    portable CommerceProof
+
+For the current implementation, use the active technical repository rather than this archive.
+
+---
+
+## Historical Pi / Testnet Phase
+
+SafeGate's earlier architecture was strongly influenced by Pi Network and Pi Testnet commerce.
+
+Historical work included:
+
+- Pi-oriented payment flow design
+- backend verification boundaries
+- payment-state gating
+- receipt and evidence concepts
+- access locked until verified state
+- public-safe verification
+- controlled pilot planning
+
+Those records are preserved here.
+
+However:
+
+**This repository's historical “Pi-first” language must not be interpreted as SafeGate's current product positioning.**
+
+Current SafeGate is payment-rail agnostic and chain agnostic.
+
+Pi remains part of SafeGate's broader development history and potential adapter landscape, but it is not the exclusive product identity represented by the current implementation.
+
+---
+
+## Historical V9 Payment Spine
+
+V9 established an early controlled payment-verification direction.
+
+Its focus included:
+
+- payment state verification
+- backend-controlled trust boundaries
+- receipt/evidence direction
+- access locked before verification
+- public-safe review flows
+
+At the time, V9 was explicitly not presented as:
+
+- Pi Mainnet settlement
+- production readiness
+- a formal audit
+
+Those historical claim boundaries remain part of the archived record.
+
+---
+
+## Historical V9.1 Backend Behavior Validation
+
+V9.1 explored negative and fail-secure behavior.
+
+The architectural principle was:
+
+**If verification is incomplete, ambiguous, mismatched, or unknown, SafeGate should not create a verified trust outcome.**
+
+That principle remains conceptually important in the current SafeGate architecture.
+
+---
+
+## Historical V11 Hardening Work
+
+This repository also contains V11 hardening materials covering areas such as:
+
+- replay handling
+- duplicate behavior
+- mismatch scenarios
+- failure handling
+- controlled implementation scope
+- test planning
+
+Relevant historical files are preserved in the repository root.
+
+They are retained as development evidence rather than current runtime documentation.
+
+---
+
+## Historical V13 Controlled Hardening
+
+V13 focused on areas including:
+
+- duplicate callback behavior
+- idempotency
+- replay resistance
+- payment/invoice mismatch handling
+- timeout and ambiguous verification
+- durable state failure
+- public verify safety
+- safe error output
+- access unlock regression
+- fee settlement confirmation
+
+Historical V13 public-surface and policy-simulation work is preserved here.
+
+Important:
+
+The original V13 statements described the state of the project at that time.
+
+They must not be used to infer the current status of SafeGate's later Base, agent, MCP, SDK, middleware, or commerce-proof work.
+
+---
+
+## Historical Agent-Readable Trust Direction
+
+At the time this archive was created, agent-readable SafeGate functionality was still described as future work.
+
+That statement is now historical.
+
+Current SafeGate work includes:
+
+- an MCP / Agent Tool
+- public verification contracts
+- a public JavaScript SDK
+- agent-oriented commerce verification
+- explicit assurance semantics
+
+Current MCP and SDK behavior is documented in:
+
+https://github.com/Nurexen-Labs/safegate-xagent-commerce-outcome
+
+Do not use this archive's old statements such as “no MCP endpoint” or “no agent execution” as current product claims.
+
+---
+
+## Historical Privacy Direction
+
+Earlier SafeGate work described the product as privacy-aware rather than as a privacy protocol.
+
+That distinction remains useful.
+
+SafeGate itself is not intended to be:
+
+- a mixer
+- a private payment network
+- a custody system
+- an escrow system
+
+Privacy-preserving payment rails can exist underneath SafeGate.
+
+SafeGate's role is to provide commerce verification and evidence above or around those rails.
+
+---
+
+## Historical Fee Architecture
+
+The archive contains early fee-model exploration, including concepts such as transparent verification fees and payment-state-dependent finalization.
+
+Those materials are architectural history.
+
+They do **not** define the current commercial model or current SDK/API pricing.
+
+---
+
+## Current Assurance Model
+
+The active SafeGate implementation now distinguishes evidence strength explicitly.
+
+### CLAIMED
+
+The provider or source supplied the outcome assertion.
+
+The evidence may be authenticated, but SafeGate has not independently observed or validated the underlying fulfillment.
+
+### OBSERVED
+
+SafeGate observed execution evidence such as a paid request, execution, response, or equivalent runtime evidence.
+
+### VALIDATED
+
+An independent mechanism verified the outcome.
+
+Possible mechanisms include:
+
+- independent re-execution
+- trusted execution environment evidence
+- zero-knowledge evidence
+- independent validators
+
+### THIRD_PARTY_ATTESTED
+
+A separately identified external party contributed evidence under its own trust mechanism.
+
+Important rule:
+
+**Payment verification alone does not prove fulfillment.**
+
+The current SafeGate implementation must not silently promote provider claims into independent validation.
+
+---
+
+## Current Product Surfaces
+
+For current implementation details, use the active repository.
+
+Current productization includes:
+
+- Public Verify API
+- Observed Middleware Core
+- MCP / Agent Tool
+- public JavaScript SDK
+- Developer Quickstart
+- Base Mainnet USDC verification adapter
+
+Public SDK:
+
+    @nurexenlabs/safegate-sdk@0.3.0
+
+Install:
+
+    npm install @nurexenlabs/safegate-sdk
 
 ---
 
 ## What SafeGate Is Not
 
-SafeGate is not a payment processor.
+Across both the historical and current architecture, SafeGate is not intended to be:
 
-SafeGate does not custody buyer or merchant funds.
+- a wallet
+- a payment processor
+- a custodian
+- an escrow service
+- a replacement for payment rails
+- a system that requires users to expose private keys or seed phrases
 
-SafeGate does not act as escrow.
-
-SafeGate does not ask for passphrases or private keys.
-
-SafeGate does not claim production readiness.
-
-SafeGate does not claim a formal third-party audit.
-
-SafeGate does not claim official Pi partnership.
-
-SafeGate does not claim Pi Mainnet settlement.
-
-SafeGate does not currently provide SilentSwap-like private transactions.
-
-SafeGate does not currently expose MCP or tool endpoints.
-
-SafeGate does not currently enable autonomous AI-agent execution.
+SafeGate's role is commerce assurance and evidence.
 
 ---
 
-## Current Public Status
+## Repository Purpose
 
-- V9 Payment Spine: Passed
-- V9.1 Backend Behavior Validation: Passed
-- V13 Public Surface Validation: Passed
-- V13 Backend Policy Simulation: Passed
-- Agent-Readable Trust Preview: Open
-- Fee Architecture Decision: Documented
-- V13 Controlled Hardening Scope: Open
-- Controlled Pilot Planning: Open
-- Real Backend Hardening Evidence: Not passed yet
-- Production Readiness: Not claimed
-- Formal Third-Party Audit: Not claimed
-- Official Pi Partnership: Not claimed
+This repository is retained as a public-safe historical engineering archive.
 
----
+It may contain:
 
-## Live Review Hub
+- architecture documents
+- validation plans
+- hardening backlogs
+- pilot evidence
+- hackathon materials
+- historical product positioning
+- fee architecture discussions
+- public review artifacts
+- claim-boundary documentation
 
-Main review hub:
+It must not contain:
 
-https://www.safegatelabs.xyz
-
-Pilot Review Index:
-
-https://www.safegatelabs.xyz/pilot-review-index.html
-
-Pilot Readiness:
-
-https://www.safegatelabs.xyz/pilot-readiness.html
-
-V13 Controlled Hardening Scope:
-
-https://www.safegatelabs.xyz/v13-controlled-hardening-scope.html
-
-Fee Architecture Decision:
-
-https://www.safegatelabs.xyz/fee-architecture-decision.html
-
-V13 Public Surface Validation:
-
-https://www.safegatelabs.xyz/v13-public-surface-validation.html
-
-V13 Backend Policy Simulation:
-
-https://www.safegatelabs.xyz/v13-backend-policy-simulation.html
-
-Agent-Readable Trust Preview:
-
-https://www.safegatelabs.xyz/agent-readable-trust-preview.html
-
----
-
-## Core SafeGate Flow
-
-SafeGate’s trust flow is built around the following sequence:
-
-1. Invoice or payment intent is created.
-2. Payment state is verified through backend-controlled logic.
-3. Receipt proof is created only after verified payment state.
-4. Evidence record is created only after verified payment state.
-5. Access remains locked until verified final state.
-6. Public verify returns safe false for unknown or mismatched receipt/evidence pairs.
-7. Merchant trust records can be built from verified outcomes.
-8. Fee-required flows must not finalize without verified fee state.
-
----
-
-## V9 Payment Spine
-
-SafeGate V9 established a controlled Pi Testnet payment-spine direction.
-
-The V9 focus included:
-
-- Pi-first payment flow direction
-- backend verification boundary
-- receipt/evidence direction
-- access locked until verified state
-- public-safe review flow
-
-V9 is not a Pi Mainnet settlement claim.
-
-V9 is not production readiness.
-
----
-
-## V9.1 Backend Behavior Validation
-
-SafeGate V9.1 added selected safe negative backend validation evidence.
-
-The purpose was to show that SafeGate should not treat incomplete, unknown, mismatched, or invalid states as verified trust.
-
-This supports the fail-secure principle:
-
-If verification is incomplete, ambiguous, mismatched, or unknown, SafeGate should not unlock access or create a verified trust outcome.
-
----
-
-## V13 Controlled Hardening Scope
-
-V13 is the controlled hardening phase.
-
-V13 focuses on:
-
-- duplicate callback behavior
-- idempotency
-- replay resistance
-- payment / invoice mismatch handling
-- timeout and ambiguous verification behavior
-- durable state failure behavior
-- public verify unknown or mismatched pair safety
-- safe error output
-- access unlock regression checks
-- fee settlement confirmation
-
-Current V13 status:
-
-- V13 scope is open
-- V13 public surface validation passed
-- V13 backend policy simulation passed
-- real backend hardening evidence has not passed yet
-- real Pi payment endpoint validation is not tested here
-- real database durability validation is not tested here
-
----
-
-## V13 Public Surface Validation
-
-SafeGate V13 Public Surface Validation passed 12/12 public-surface checks.
-
-This means live public pages and claim-boundary language are available and consistent.
-
-This is not real backend hardening evidence.
-
-This is not a formal audit.
-
-This is not production readiness.
-
----
-
-## V13 Backend Policy Simulation
-
-SafeGate V13 Backend Policy Simulation passed 12/12 client-side policy checks.
-
-This simulation covers expected fail-secure behavior for:
-
-- access locked before verification
-- receipt/evidence denied before payment verification
-- duplicate callback idempotency
-- replay blocking
-- payment/invoice mismatch blocking
-- timeout/ambiguous verification fail-secure behavior
-- durable write failure fail-secure behavior
-- unknown public verify pair safety
-- safe public error output
-- fee-required finalization blocking before fee verification
-- fee-verified finalization path
-- boundary claims remaining false
-
-Important boundary:
-
-This is a static HTML client-side policy simulation.
-
-It does not use a new serverless API function.
-
-It does not call real Pi payment endpoints.
-
-It does not test real database durability.
-
-It does not mean overall V13 backend hardening has passed.
-
----
-
-## Fee Architecture
-
-SafeGate may use a transparent 100 + 1 verification fee model.
-
-Where native non-custodial split is supported:
-
-- buyer pays 101
-- merchant receives 100
-- SafeGate receives 1
-
-Where native split is not supported:
-
-- buyer pays the merchant amount
-- buyer separately pays the SafeGate verification fee
-- SafeGate finalizes verified trust only after required payment and fee states are confirmed
-
-SafeGate does not use postpaid merchant debt as the primary fee model.
-
-SafeGate does not custody funds.
-
-SafeGate does not act as escrow.
-
-No fee confirmation means no finalized SafeGate trust outcome where the fee applies.
-
----
-
-## Agent-Readable Trust Direction
-
-SafeGate is preparing for a future where trust states are readable not only by humans, but also by apps and AI agents.
-
-The current agent-readable direction is intentionally conservative.
-
-Current status:
-
-- static preview only
-- no MCP endpoint
-- no tool endpoint
-- no agent execution
-- no autonomous payment permission
-- no autonomous access unlock permission
-- no receipt creation by agent
-- no evidence creation by agent
-
-Future sequence:
-
-1. Finish safe payment / trust spine
-2. Strengthen hash and tamper-evident receipt proof
-3. Prepare pilot merchant pack
-4. Expand agent-readable trust schema
-5. Add controlled read-only MCP/tool endpoints only after hardening
-
-Safe agent principles:
-
-- read before act
-- verify before trust
-- fail closed on ambiguity
-- never unlock before final state
-- never expose secrets
-- never treat simulation as real settlement
-- never expose MCP/tools before hardening
-
----
-
-## Privacy-Aware Direction
-
-SafeGate is privacy-aware today, not a privacy protocol.
-
-Current SafeGate privacy boundary:
-
-- minimum public-safe evidence
-- no passphrase collection
-- no private key collection
-- no raw secrets in public evidence
-- no sensitive customer data in public verify
-- limited receipt/evidence/public verify output
-- no SilentSwap-like private transaction claim
-
-Future privacy direction:
-
-SafeGate may become privacy-preserving through future adapter integrations.
-
-A future Privacy-Preserving Trust Adapter could allow SafeGate to verify post-payment trust outcomes after a privacy-preserving payment layer.
-
-Correct future framing:
-
-SilentSwap can protect payment privacy.
-
-SafeGate can verify what happened after the private payment.
-
-Current boundary:
-
-SafeGate does not claim SilentSwap integration today.
-
-SafeGate does not claim private transactions today.
-
-SafeGate does not claim that blockchain transactions are hidden.
-
-SafeGate does not act as a mixer, privacy protocol, or private payment network.
-
----
-
-## Deployment Boundary
-
-The current live deployment uses the Vercel Hobby plan and has reached the 12 serverless function limit.
-
-Because of this, V13 Backend Policy Simulation and Agent-Readable Trust Preview are delivered as static HTML public-safe pages.
-
-No new serverless function was added for these previews.
-
-This protects the live production deployment from serverless-function-limit failures.
-
----
-
-## Public Repository Purpose
-
-This public repository is for public-safe review materials.
-
-It may include:
-
-- positioning
-- public review package
-- architecture summaries
-- fee architecture decision
-- V13 hardening scope
-- pilot evidence materials
-- claim boundaries
-- public review links
-
-This public repository must not include:
-
-- Supabase service role keys
-- Pi app secrets
-- Vercel environment secrets
-- database credentials
-- private API secrets
-- wallet secrets
-- passphrases
 - private keys
-- sensitive merchant data
+- seed phrases
+- wallet secrets
+- API secrets
+- database credentials
+- Vercel environment secrets
+- Supabase service-role keys
+- Pi app secrets
+- private merchant data
 - sensitive user data
-- raw backend secrets
-- raw payment secrets
 
 ---
 
-## Main Review Question
+## Important Reading Rule
 
-Where would this architecture break first if it moved from controlled Pi Testnet evidence to a small real pilot environment?
+When information in this repository conflicts with the active SafeGate technical repository, the active repository is the current source of truth.
 
-Key review areas:
+Current technical source of truth:
 
-- duplicate callback behavior
-- replay resistance
-- invoice / payment mismatch
-- timeout / ambiguous verification
-- durable receipt and evidence failure
-- public verify safety
-- fee-required finalization
-- safe error output
-- access unlock guard
-- future agent-readable trust-state consumers
-- future privacy-preserving trust adapter boundaries
+https://github.com/Nurexen-Labs/safegate-xagent-commerce-outcome
+
+Current public SDK:
+
+https://www.npmjs.com/package/@nurexenlabs/safegate-sdk
+
+Current website:
+
+https://safegatelabs.xyz
 
 ---
 
-## Current Safe Statement
+## Historical Value
 
-SafeGate is ready for serious technical review and controlled pilot planning.
+This archive exists because engineering history matters.
 
-SafeGate is not production-ready.
+The progression from:
 
-SafeGate is not formally audited.
+    Pi/Testnet payment trust
+          ->
+    post-payment evidence
+          ->
+    replay and failure hardening
+          ->
+    agent-readable trust
+          ->
+    rail-agnostic commerce assurance
+          ->
+    Public Verify + Middleware + MCP + SDK
 
-SafeGate is not claiming official Pi partnership.
+shows how SafeGate's current architecture emerged.
 
-SafeGate’s public surface validation and backend policy simulation have passed as public-safe checks.
+The older work is not discarded.
 
-SafeGate’s agent-readable trust preview is open as a static preview only.
+It is preserved here with the correct historical context.
 
-SafeGate is privacy-aware today, not a privacy protocol.
+---
 
-Real backend hardening evidence remains the next frontier.
-
-Architecture is destiny.
+**SafeGate — assurance infrastructure for programmable commerce.**
